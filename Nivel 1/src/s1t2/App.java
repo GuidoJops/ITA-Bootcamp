@@ -10,8 +10,6 @@ Escribe el código necesario para generar y capturar una excepción de tipo ArrayI
  */
 
 import java.util.*;
-//import java.util.Scanner;
-
 public class App {
 
 	public static void main(String[] args) {
@@ -51,7 +49,7 @@ public class App {
 					}
 					break;
 				default:
-					System.out.println("Recuerda escoger números del 0 al 3");
+					System.out.println("Recuerda escoger números del 0 al 4");
 			}
 		}
 
@@ -73,7 +71,7 @@ public class App {
 				 num = Integer.parseInt(sc.nextLine());
 	             numOk=true;
 	        }catch (Exception e) {
-	            System.out.println("Recuerda ingresar un número entero");
+	            System.out.println("Recuerda ingresar un número entero...");
 	        }
 			
 		}		
