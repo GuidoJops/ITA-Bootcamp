@@ -11,7 +11,7 @@ public class Venta {
 		precioTotalVentas = 0;
 	}
 	
-	public static void calculaTotal() throws VentaVaciaException {			//lanza expeccion VentaBuidaException 
+	public static void calculaTotal() throws VentaVaciaException {
 		int acum=0;
 		
 		if (listaProductos.size()!=0) {

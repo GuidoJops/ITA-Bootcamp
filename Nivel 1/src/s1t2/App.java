@@ -9,7 +9,8 @@ La excepción personalizada VentaBuidaException debe ser hija de la clase Excepti
 Escribe el código necesario para generar y capturar una excepción de tipo ArrayIndexOutOfBoundsException.
  */
 
-import java.util.Scanner;
+import java.util.*;
+//import java.util.Scanner;
 
 public class App {
 
@@ -49,13 +50,6 @@ public class App {
 						System.out.println("Exception ArrayIndexOutOfBoundsException CAPTURADA");
 					}
 					break;
-					
-//				case 4:
-//					verEquipo();
-//					break;
-//				case 5:
-//					verCoches();
-//					break;
 				default:
 					System.out.println("Recuerda escoger números del 0 al 3");
 			}
@@ -69,10 +63,21 @@ public class App {
 	}
 	
 
-	static int ingresaInt(String str) {			
-		Scanner input = new Scanner(System.in);
+	static int ingresaInt(String str){
+		boolean numOk = false;
+		int num=-1;
+		Scanner sc = new Scanner(System.in);
 		System.out.println(str);
-		return input.nextInt();	
+		while (!numOk) {
+			 try{
+				 num = Integer.parseInt(sc.nextLine());
+	             numOk=true;
+	        }catch (Exception e) {
+	            System.out.println("Recuerda ingresar un número entero");
+	        }
+			
+		}		
+		return num;	
 	}
 	
 	static String ingresaStr(String str) {		
