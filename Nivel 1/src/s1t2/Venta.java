@@ -11,6 +11,10 @@ public class Venta {
 		precioTotalVentas = 0;
 	}
 	
+	public static ArrayList<Producto> getListaProdcutos() {
+		return listaProductos;
+	}
+	
 	public static void calculaTotal() throws VentaVaciaException {
 		int acum=0;
 		
@@ -46,6 +50,16 @@ public class Venta {
 			System.out.println("No hay ningún producto en la lista");
 		}
 		
+	}
+	
+//Si se ingresa una posición mayor al tamaño de la lista salta la Excepcion
+	public static void lugarEnLaLista(int pos) throws ArrayIndexOutOfBoundsException{
+		if (listaProductos.size()!=0) {
+			System.out.println("El Producto que se encuentra en esa posición es: " +listaProductos.get(pos).getNombre());
+			
+		} else {
+			throw new ArrayIndexOutOfBoundsException("No hay ningún elemento en esa posición de la lista");
+		}
 	}
 
 	

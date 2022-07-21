@@ -23,7 +23,7 @@ public class App {
 		int opcion = 1;
 		while(opcion!=0) {			
 			opcion = ingresaInt("\n--Escoge el número que corresponda--\n1.- Agregar Producto\n2.- Ver Productos"
-								+ "\n3.- Calcular total de Ventas\n4.- Generar Excepción\n\n0.- Salir del programa");
+								+ "\n3.- Calcular total de Ventas\n4.- Consultar elemento en la lista según posición\n\n0.- Salir del programa");
 			switch(opcion) {
 				case 0:
 					System.out.println("Saliendo del programa...");
@@ -43,9 +43,9 @@ public class App {
 					break;
 				case 4:
 					try {
-						generoException();
+						Venta.lugarEnLaLista(ingresaInt("Dime la posición del elemento que quieres visualizar..."));
 					} catch (Exception e) {
-						System.out.println("Exception ArrayIndexOutOfBoundsException CAPTURADA");
+						System.out.println(e.getMessage());
 					}
 					break;
 				default:
@@ -55,11 +55,6 @@ public class App {
 
 		
 	}
-
-	static void generoException() throws ArrayIndexOutOfBoundsException{
-		throw new ArrayIndexOutOfBoundsException();
-	}
-	
 
 	static int ingresaInt(String str){
 		boolean numOk = false;
