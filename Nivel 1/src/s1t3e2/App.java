@@ -2,8 +2,6 @@ package s1t3e2;
 
 import java.util.*;
 
-import s1t2.Venta;
-
 public class App {
 
 	public static void main(String[] args) {
