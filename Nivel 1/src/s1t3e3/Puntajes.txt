@@ -1,0 +1,3 @@
+Carlos---> 0
+Juan---> 1
+Maria---> 1
