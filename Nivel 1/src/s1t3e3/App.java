@@ -8,16 +8,9 @@
  */
 package s1t3e3;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+
 
 public class App {
 	static int numberCountries=0, index=-1;
@@ -28,26 +21,15 @@ public class App {
 	public static void main(String[] args) {
 		int score;
 		String user = ingresaStr("Dime tu nombre");		
+		
 		leeFichero();
-		
-		
-		//GENERO LISTA DE NUMEROS RANDOM (pasar a funcion??)
-		for (int i = 0; i < numberCountries; i++) {
-			randomNumbers.add(i);
-		}
-		Collections.shuffle(randomNumbers);
-		
-		
-		
-			
+		generaListaNumeros();
 		score = evaluaCantAciertos(numberCountries);
+		System.out.println("\n"+user + " has conseguido: "+ score + " puntos.");
 		escribeFichero(user, score);
 		
-		
-	
 		System.out.println("\nFIN DEL PROGRAMA");
 	}
-	
 	
 	//LEE FICHEROS Y AGREGA CONTENIDO A HASHMAP
 	static void leeFichero() {
@@ -78,19 +60,35 @@ public class App {
 		}
 	}
 	
+	static int evaluaCantAciertos(int numberCountries) {
+			int score = 0;
+			
+			for(int i=10; i>0;i--) {
+				Object key = countries.keySet().toArray()[generaNumRandom()];
+				Object value = countries.get(key).toUpperCase();
+//				System.out.println(value); 			//Respuesta correcta
+				String str = ingresaStr("Acierta la Captial de "+ key+"...");
+
+				
+				if (compruebaAcierto(value, str)) {
+					score++;
+				}
+			}
+		
+			return score;
+			
+		}
+
 	static void escribeFichero(String usr, int score) {
 		try {
-			String line;
-			FileWriter wr=new FileWriter("src/s1t3e3/Puntajes.txt", true); //No se sobrescribe el fichero
+			FileWriter wr=new FileWriter("src/s1t3e3/Puntajes.txt", true); //No se sobreescribe el fichero
 			BufferedWriter bw = new BufferedWriter(wr);
 			
-			bw.write(usr + "---> "+ score+"\n");
-			
-			System.out.println(usr + " ha conseguido: "+ score + " puntos.");
+			bw.write(usr + "---> "+ score+" puntos\n");
 			
 			System.out.println("\nSe ha cargado el puntaje en el fichero externo");
 			
-			bw.close();	//Cierro Buffer
+			bw.close();		//Cierro Buffer
 			
 		} catch (IOException e) {
 			
@@ -98,41 +96,30 @@ public class App {
 		}
 	}
 	
-	static String ingresaStr(String str) {		
-		Scanner input = new Scanner(System.in);
-		System.out.println(str);
-		return input.nextLine();
-	}
-
-	static int evaluaCantAciertos(int numberCountries) {
-		int score = 0;
-		
-		for(int i=10; i>0;i--) {
-			Object key = countries.keySet().toArray()[numRandom()];
-			Object value = countries.get(key).toUpperCase();
-			String str = ingresaStr("Acierta la Captial de "+ key+"...");
-//			System.out.println(value); 			//Respuesta correcta
-			
-			if (compruebaAcierto(value, str)) {
-				score++;
-			}
-			
-		}
-	
-		return score;
-		
-	}
-	
 	static boolean compruebaAcierto(Object val, String str) {
 		return (val.equals(str.toUpperCase().replace(" ", "_")));
 	}
 
-	static int numRandom() {
-		index++;
-//		System.out.println(randomNumbers.get(index));
-		return randomNumbers.get(index);
+	static void generaListaNumeros() {
+		for (int i = 0; i < numberCountries; i++) {
+			randomNumbers.add(i);
+		}
+		Collections.shuffle(randomNumbers);
 		
-		
+	}
+
+	static int generaNumRandom() {
+			index++;
+	//		System.out.println(randomNumbers.get(index));
+			return randomNumbers.get(index);
+			
+			
+		}
+
+	static String ingresaStr(String str) {		
+		Scanner input = new Scanner(System.in);
+		System.out.println(str);
+		return input.nextLine();
 	}
 
 }

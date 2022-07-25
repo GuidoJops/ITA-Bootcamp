@@ -12,7 +12,8 @@ import java.util.*;
 public class App {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ArrayList <Mes> mesesArray = new ArrayList();
+		
 		Mes one = new Mes("Enero");
 		Mes two = new Mes("Febrero");
 		Mes three = new Mes("Marzo");
@@ -26,7 +27,7 @@ public class App {
 		Mes eleven = new Mes("Noviembre");
 		Mes twelve = new Mes("Diciembre");
 		
-		ArrayList <Mes> mesesArray = new ArrayList();
+	//AGREGO TODOS LOS MESES A LA LISTA MENOS AGOSTO
 		mesesArray.add(one);
 		mesesArray.add(two);
 		mesesArray.add(three);
@@ -46,6 +47,8 @@ public class App {
 		}
 		
 		System.out.println("\n--ArrayList CON Agosto--\n");
+		
+	//AGREGO AGOSTO EN LA POSICION QUE TOCA
 		mesesArray.add(7,eight);
 		
 		for (Mes mes : mesesArray) {
@@ -57,12 +60,13 @@ public class App {
 		
 	//CONVIERTO ARRAYLIST A HASHSET UTILIZANDO CONSTRUCTOR
 		HashSet<Mes> mesesHash = new HashSet(mesesArray);
-	//AGREGO ELEMENTOS YA EXISTENTES Y COMPRUEBO QUE NO SE DUPLICAN
+		
+	//AGREGO ELEMENTOS YA EXISTENTES
 		mesesHash.add(three);
 		mesesHash.add(four);
 		mesesHash.add(five);
-		
-		
+
+	//COMPRUEBO QUE NO SE DUPLICAN
 		for (Mes mes : mesesHash) {
 			System.out.println(mes.getNombre());
 		}
@@ -77,8 +81,8 @@ public class App {
 		while(it.hasNext()) {
 			System.out.println(it.next().getNombre());
 		}
-	
 		
+		System.out.println("\nFIN DEL PROGRAMA");
 
 	}
 
