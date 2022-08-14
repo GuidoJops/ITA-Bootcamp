@@ -6,7 +6,7 @@ public class Percusion extends Instrumento{
 		super(nombre, precio);
 	}
 	
-	//@Override
+	@Override
 	public String tocar() {
 		return "Se esta tocando un instrumento de percusion";
 	}
