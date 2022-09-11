@@ -142,7 +142,7 @@ db.clientes.insertMany([{
     cod_postal: "08020",
     telefono: "663 983 439",
     email: "pedro@gmail.com",
-    fecha_reg: "2021-05-18",
+    fecha_reg: new ISODate("2022-05-18T14:10:30Z"),
     compras: [{vendedor: "Juan", gafas_id:1}]    
 },
 {
@@ -152,7 +152,7 @@ db.clientes.insertMany([{
     cod_postal: "08030",
     telefono: "634 983 645",
     email: "ale@gmail.com",
-    fecha_reg: "2022-03-11",
+    fecha_reg: new ISODate("2022-07-20T12:46:38Z"),
     recomendado_cliente_id: 1,
     compras: [{vendedor: "Pablo", gafas_id:2}]    
 },
@@ -162,7 +162,7 @@ db.clientes.insertMany([{
     apellido:"Sanchez",
     cod_postal: "07020",
     telefono: "666 987 289",
-    fecha_reg: "2020-12-11",
+    fecha_reg: new ISODate("2022-11-14T20:50:22Z"),
     recomendado_cliente_id: 1,
     compras: [{vendedor: "Juan", gafas_id:3},
               {vendedor: "María", gafa_id:5}]    
@@ -173,7 +173,7 @@ db.clientes.insertMany([{
     apellido:"De La Torre",
     cod_postal: "08030",
     telefono: "623 423 275",
-    fecha_reg: "2022-08-24",
+    fecha_reg: new ISODate("2021-12-22T12:23:45Z"),
     recomendado_cliente_id: 2,
     compras: [{vendedor: "Pablo", gafas_id:1},
               {vendedor: "María", gafa_id:4}]    
