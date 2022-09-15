@@ -1,4 +1,3 @@
-use optica //CREA  BD OPTICA
 // AGREGA EMPLEADOS
 db.empleados.insertMany([{
         _id:1,
@@ -32,7 +31,7 @@ db.proveedores.insertMany([{
                     piso:"6", 
                     puerta:"B", 
                     ciudad: "Bilbao", 
-                    cod_postal:"0390", 
+                    codPostal:"0390", 
                     pais: "España"
              }
     },
@@ -46,7 +45,7 @@ db.proveedores.insertMany([{
                     numero: 43, 
                     piso:"2", 
                     ciudad: "Barcelona", 
-                    cod_postal:"0830", 
+                    codPostal:"0830", 
                     pais: "España"
              }
     },
@@ -62,37 +61,37 @@ db.proveedores.insertMany([{
                     piso:"4",
                     puerta: "3",
                     ciudad: "Madrid", 
-                    cod_postal:"07034", 
+                    codPostal:"07034", 
                     pais: "España"
              }
 }])
 // AGREGA MARCAS
 db.marcas.insertMany([{
     _id:"RAYBAN",
-    proveedor_id: 2  
+    proveedorId: 2  
 },
 {
     _id:"OAKLEY",
-    proveedor_id: 2  
+    proveedorId: 2  
 },
 {
     _id:"POLAROID",
-    proveedor_id: 3  
+    proveedorId: 3  
 },
 {
     _id:"TOUS",
-    proveedor_id: 2  
+    proveedorId: 2  
 },
 {
     _id:"NIKE",
-    proveedor_id: 1  
+    proveedorId: 1  
 }])
 // AGREGA GAFAS
 db.gafas.insertMany([{
         _id:1,
-        marca_id: "RAYBAN",
-        graduacion_izq: 0.5,
-        graduacion_der: 1,
+        marcaId: "RAYBAN",
+        graduacionIzq: 0.5,
+        graduacionDer: 1,
         montura: "Metálica",
         color:[{montura: "verde", cristal: "amarillo"}],
         precio: 190
@@ -100,36 +99,36 @@ db.gafas.insertMany([{
     },
     {
         _id:2,
-        marca_id: "OAKLEY",
-        graduacion_izq: 1,
-        graduacion_der: 1,
+        marcaId: "OAKLEY",
+        graduacionIzq: 1,
+        graduacionDer: 1,
         montura: "Flotante",
         color:[{montura: "rojo", cristal: "gris"}],
         precio: 140   
     },
     {
         _id:3,
-        marca_id: "POLAROID",
-        graduacion_izq: 0,
-        graduacion_der: 0,
+        marcaId: "POLAROID",
+        graduacionIzq: 0,
+        graduacionDer: 0,
         montura: "Pasta",
         color:[{montura: "blanco", cristal: "azul"}],
         precio: 99   
     },
     {
         _id:4,
-        marca_id: "TOUS",
-        graduacion_izq: 1.25,
-        graduacion_der: 0,
+        marcaId: "TOUS",
+        graduacionIzq: 1.25,
+        graduacionDer: 0,
         montura: "Flotante",
         color:[{montura: "crema", cristal: "rosa"}],
         precio: 70  
     },
     {
         _id:5,
-        marca_id: "NIKE",
-        graduacion_izq: 1.25,
-        graduacion_der: 1.5,
+        marcaIid: "NIKE",
+        graduacionIzq: 1.25,
+        graduacionDer: 1.5,
         montura: "Flotante",
         color:[{montura: "rojo", cristal: "gris"}],
         precio: 170  
@@ -139,43 +138,43 @@ db.clientes.insertMany([{
     _id:1,
     nombre:"Pedro",
     apellido:"Martinez",
-    cod_postal: "08020",
+    codPostal: "08020",
     telefono: "663 983 439",
     email: "pedro@gmail.com",
-    fecha_reg: new ISODate("2022-05-18T14:10:30Z"),
-    compras: [{vendedor: "Juan", gafas_id:1}]    
+    fechaReg: new ISODate("2022-05-18T14:10:30Z"),
+    compras: [{vendedor: "Juan", gafasId:1}]    
 },
 {
     _id:2,
     nombre:"Alejandra",
     apellido:"Nuñez",
-    cod_postal: "08030",
+    codPostal: "08030",
     telefono: "634 983 645",
     email: "ale@gmail.com",
-    fecha_reg: new ISODate("2022-07-20T12:46:38Z"),
-    recomendado_cliente_id: 1,
-    compras: [{vendedor: "Pablo", gafas_id:2}]    
+    fechaReg: new ISODate("2022-07-20T12:46:38Z"),
+    recomendadoClienteId: 1,
+    compras: [{vendedor: "Pablo", gafasId:2}]    
 },
 {
     _id:3,
     nombre:"Carlos",
     apellido:"Sanchez",
-    cod_postal: "07020",
+    codPostal: "07020",
     telefono: "666 987 289",
-    fecha_reg: new ISODate("2022-11-14T20:50:22Z"),
-    recomendado_cliente_id: 1,
-    compras: [{vendedor: "Juan", gafas_id:3},
-              {vendedor: "María", gafa_id:5}]    
+    fechaReg: new ISODate("2022-11-14T20:50:22Z"),
+    recomendadoClienteId: 1,
+    compras: [{vendedor: "Juan", gafasId:3},
+              {vendedor: "María", gafasId:5}]    
 },
 {
     _id:4,
     nombre:"Irene",
     apellido:"De La Torre",
-    cod_postal: "08030",
+    codPostal: "08030",
     telefono: "623 423 275",
-    fecha_reg: new ISODate("2021-12-22T12:23:45Z"),
-    recomendado_cliente_id: 2,
-    compras: [{vendedor: "Pablo", gafas_id:1},
-              {vendedor: "María", gafa_id:4}]    
+    fechaReg: new ISODate("2021-12-22T12:23:45Z"),
+    recomendadoClienteId: 2,
+    compras: [{vendedor: "Pablo", gafasId:1},
+              {vendedor: "María", gafasId:4}]    
 
 }])
