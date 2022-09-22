@@ -8,8 +8,8 @@ public class App {
 		new Agencia(bolsa,"Agencia Uno");
 		new Agencia(bolsa,"Agencia Dos");
 		new Agencia(bolsa,"Agencia Tres");
-
-				
+		
+		// false = baja		true = sube
 		System.out.println("Baja");	
 		bolsa.setEstado(false);
 	    System.out.println("Sube");	
