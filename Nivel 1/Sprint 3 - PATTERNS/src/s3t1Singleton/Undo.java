@@ -34,7 +34,6 @@ public class Undo {
 	
 	public void delete() {
 		if(memory.size() !=0) {
-		
 			memory.remove(memory.size()-1);
 		} else {
 			System.out.println("La memoria esta vacia\n");
