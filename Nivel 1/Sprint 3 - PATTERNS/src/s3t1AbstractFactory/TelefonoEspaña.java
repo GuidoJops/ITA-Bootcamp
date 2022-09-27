@@ -12,8 +12,8 @@ public class TelefonoEspaña implements ITelefono {
 	}
 
 	@Override
-	public void agregar() {
-		System.out.println("Telefono de España agregado");
+	public void getTelefono() {
+		System.out.println("TELEFONO ESPAÑA: +"+prefijo +" "+numero);
 
 	}
 

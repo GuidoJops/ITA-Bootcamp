@@ -11,8 +11,8 @@ public class TelefonoArgentina implements ITelefono {
 	}
 
 	@Override
-	public void agregar() {
-		System.out.println("Telefono de Argentina agregado");
+	public void getTelefono() {
+		System.out.println("TELEFONO ARGENTINA: +"+prefijo +" "+numero);
 
 	}
 

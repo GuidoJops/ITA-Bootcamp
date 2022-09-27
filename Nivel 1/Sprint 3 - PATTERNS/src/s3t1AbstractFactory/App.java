@@ -3,16 +3,21 @@ package s3t1AbstractFactory;
 public class App {
 
 	public static void main(String[] args) {
-		//Fabrica Telefono
-		FabricaAbstracta fabTel = ProductorFabrica.getFabrica("Telefono");
-		ITelefono tel1 = fabTel.getpaisTelefono("Argentina");
-		ITelefono tel2 = fabTel.getpaisTelefono("España");
-		tel1.agregar();
-		tel2.agregar();
+	
+		FabricaAbstracta fabAr = FabricaProductor.getFabrica("argentina");
+		ITelefono telAr = fabAr.createTelefono();	
+		IDireccion dirAr = fabAr.createDireccion();
+		telAr.getTelefono();
+		dirAr.getDireccion();
 		
-		FabricaAbstracta fabDir = ProductorFabrica.getFabrica("Direccion");
-		IDireccion dir1 = fabDir.getpaisDireccion("Argentina");
-		dir1.agregar();
+		System.out.println("---");
+		
+		FabricaAbstracta fabEs = FabricaProductor.getFabrica("españa");
+		ITelefono telEs = fabEs.createTelefono();	
+		IDireccion dirEs = fabEs.createDireccion();
+		telEs.getTelefono();
+		dirEs.getDireccion();
+		
 		
 
 	}

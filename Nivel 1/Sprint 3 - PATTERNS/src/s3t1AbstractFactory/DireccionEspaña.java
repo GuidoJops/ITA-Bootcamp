@@ -9,14 +9,13 @@ public class DireccionEspaña implements IDireccion {
 	
 	public DireccionEspaña() {
 		this.calle = "Calle Santo tomas";
-		this.numero = 23;
+		this.numero = 643;
 		this.codigoPostal = "08030";
 	}
 
 	@Override
-	public void agregar() {
-		System.out.println("Direccion de España agregada");
-		
+	public void getDireccion() {
+		System.out.println("DIRECCION ESPAÑA: " + calle +","+ " Nº " +numero+ ", cp: "+ codigoPostal );
 	}
 
 }

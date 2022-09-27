@@ -14,8 +14,8 @@ public class DireccionArgentina implements IDireccion {
 	}
 
 	@Override
-	public void agregar() {
-		System.out.println("Direccion de Argentina agregada");
+	public void getDireccion() {
+		System.out.println("DIRECCION ARGENTINA: " + calle +","+ " Nº " +numero+ ", cp: "+ codigoPostal );
 		
 	}
 
