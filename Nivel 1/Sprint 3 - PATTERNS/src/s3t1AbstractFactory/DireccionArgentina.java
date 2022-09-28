@@ -2,20 +2,21 @@ package s3t1AbstractFactory;
 
 public class DireccionArgentina implements IDireccion {
 	
-	private String calle;
+	private String calle, codigoPostal, ciudad;
+	private final String PAIS;
 	private int numero;
-	private String codigoPostal;
-//	private pais;
 	
-	public DireccionArgentina() {
-		this.calle = "Calle Libertador";
-		this.numero = 223;
-		this.codigoPostal = "1428";
+	public DireccionArgentina(String calle, int numero, String codigoPostal, String ciudad) {
+		this.calle = calle;
+		this.numero = numero;
+		this.codigoPostal = codigoPostal;
+		this.ciudad = ciudad;
+		PAIS = "ARGENTINA";
+		
 	}
-
-	@Override
-	public void getDireccion() {
-		System.out.println("DIRECCION ARGENTINA: " + calle +","+ " Nº " +numero+ ", cp: "+ codigoPostal );
+	
+	public String getDireccion() {
+		return  calle +","+ " Nº" +numero+ ", cp-"+ codigoPostal + ", Ciudad-"+ ciudad+ ", Pais-"+ PAIS;
 		
 	}
 

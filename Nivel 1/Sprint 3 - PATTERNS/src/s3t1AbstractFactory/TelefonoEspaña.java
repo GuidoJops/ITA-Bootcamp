@@ -2,19 +2,19 @@ package s3t1AbstractFactory;
 
 public class TelefonoEspaña implements ITelefono {
 	
-	private int prefijo;
+	private final int PREFIJO;
 	private int numero;
 	
-	public TelefonoEspaña() {
-		this.prefijo = 34;
-		this.numero = 637492019;
-		
+	public TelefonoEspaña(int numero) {
+		this.PREFIJO = 34;
+		this.numero = numero;
 	}
-
+	
 	@Override
-	public void getTelefono() {
-		System.out.println("TELEFONO ESPAÑA: +"+prefijo +" "+numero);
+	public String getTelefono() {
+		return "+"+PREFIJO +"-"+numero;
 
 	}
+
 
 }
