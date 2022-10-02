@@ -1,0 +1,15 @@
+--Pasos para  ejecutar programa Java desde Consola--
+
+1- Asegurarse de tener instalado correctamente el JDK.
+ Se puede chequear escribiendo en la consola "java -version". El comando indica la versión de java instalada
+
+2-Dirigirse a la ruta donde se encuentra el programa Java que queremos ejecutar.
+ con el comando "cd" + "nombre de directorio" accedemos a los diferentes directorios.
+ con el comando "cd .." nos moveremos un directorio hacia atras.
+
+3-Compilar el programa Java con el comando "javac". Ej: "javac ej1.java".
+ Al compilar el programa se genera un archivo .class.
+
+4-Una vez tenemos el archivo .class, ejecutamos el comando "java" seguido de el nombre de archivo a ejecutar.
+ Ej: "java ej1"
+ En mi caso tuve que poner el nombre del archivo y la extensión para que funcione: "java ej1.java"
