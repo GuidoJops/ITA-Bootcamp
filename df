@@ -1,0 +1,234 @@
+[33mcommit ff439f22294b892791e3951577a03ae505376133[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Tue Sep 27 12:40:38 2022 +0200
+
+    S3FabricaAbstracta
+
+[33mcommit 40c47191e16667b536b3c2127474eb7e8471c949[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Tue Sep 27 12:04:57 2022 +0200
+
+    borrador S3FabricaAbstracta
+
+[33mcommit f448a995577d10cbe8650aff329b44316264af31[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Mon Sep 26 21:32:45 2022 +0200
+
+    S3-Command
+
+[33mcommit 379d14cd8ba68ca17c055d199aba5ce86f9d7420[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Sep 22 20:22:25 2022 +0200
+
+    S3T2
+
+[33mcommit e6feb4f6c73ccb103c514494ab31cc4646b7c7a3[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Sep 22 20:20:13 2022 +0200
+
+    S3T2
+
+[33mcommit a90b9060f8373e24ab603e1b3f5db24cd9dacf0c[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Sep 22 17:44:50 2022 +0200
+
+    S3T2
+
+[33mcommit 445ee750ac4c12bca0d4786cda6f7f1004b30fd3[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Sep 22 11:54:14 2022 +0200
+
+    S3T1
+
+[33mcommit 6dce0d2af399e9d6c86480e505f924ccedccee2a[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Sep 22 11:52:06 2022 +0200
+
+    S3T1
+
+[33mcommit 122b2d762a39e88d3da17a56f08c516148e1c4b4[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Sep 15 14:10:04 2022 +0200
+
+    S2
+
+[33mcommit 79391c9faf76dea9a3aa64309ad5fc9ac19e8b5e[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Tue Sep 13 20:39:56 2022 +0200
+
+    QueriesMongo
+
+[33mcommit 7895a0fe0bb4b95b341b4639ae7cef12fe512b20[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Mon Sep 12 14:07:32 2022 +0200
+
+    Queries Mongo
+
+[33mcommit 84c93d45af1fc83e22cabe784bf8fbb52afe92d0[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sun Sep 11 15:41:37 2022 +0200
+
+    ....
+
+[33mcommit f70cab95aaa510615fab8cfb79d2989a6ef698b2[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sun Sep 11 15:33:45 2022 +0200
+
+    ..
+
+[33mcommit d9ae14e9dfb648bbf3c345aaa44a7135959db6c8[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sat Sep 10 01:01:00 2022 +0200
+
+    T3
+
+[33mcommit 4e322bc1b9a1cc2233bba280026e8ca43db6f80f[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Sep 7 11:24:51 2022 +0200
+
+    T2
+
+[33mcommit 85788534dd6073ccc5b13535dc8e8dfeb41058dd[m
+Merge: 5f0cabd 5bc27a3
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sat Sep 3 11:34:44 2022 +0200
+
+    Merge branch 'main' of https://github.com/GuidoJops/ITA-Java
+
+[33mcommit 5f0cabdec45496fab36f616f1a312585cd1bd2aa[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sat Sep 3 11:32:58 2022 +0200
+
+    Resubo S1 y S2
+
+[33mcommit 5bc27a3547691e7790038e983fe04ed244439d97[m
+Author: Guido J <73190964+GuidoJops@users.noreply.github.com>
+Date:   Sat Sep 3 11:23:43 2022 +0200
+
+    Delete borrar.txt
+
+[33mcommit ea648917b2c5bab07c2da577476e856092cd4aed[m
+Author: Guido J <73190964+GuidoJops@users.noreply.github.com>
+Date:   Sat Sep 3 09:27:14 2022 +0200
+
+    Create borrar.txt
+
+[33mcommit b221f0fd30dd4f5780f6632ad8361c04e976507a[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Mon Aug 15 00:50:07 2022 +0200
+
+    S1T8E8 fix
+
+[33mcommit ddf6cd58146406899e322a40553f1c620f11765d[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sun Aug 14 22:26:07 2022 +0200
+
+    S1T6-T7-T8
+
+[33mcommit 6858d742832e52f735ca4a712cea738cd63730c2[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Aug 4 14:23:58 2022 +0200
+
+    S1T5-v1
+
+[33mcommit e501830d090902b54b61174a8d62c3ba5571a6bc[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Jul 27 12:02:14 2022 +0200
+
+    Files S1T4E2 - v1
+
+[33mcommit 71097bd9d0e1c671819b040f8d4b31af10f42262[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Jul 27 12:00:02 2022 +0200
+
+    Files S1T4 - v1 (2 ejemplos de e2)
+
+[33mcommit 8774448b562864c8980bb06a3da84fcdb4a45155[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Mon Jul 25 03:30:26 2022 +0200
+
+    Files S1T3 - v1
+
+[33mcommit e0e9aa57b8e84b985c53355e0a3542dd48ee8f81[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Mon Jul 25 03:27:44 2022 +0200
+
+    Files S1T3 - v1
+
+[33mcommit 9a4d2808d8f06f96c128e4e56e83d7adbcc9af49[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sun Jul 24 13:30:12 2022 +0200
+
+    v2
+
+[33mcommit 3128f0f064069d416e497ab3b0fccc49d17da850[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sun Jul 24 11:36:09 2022 +0200
+
+    v1
+
+[33mcommit 56b60e758538d47d46a369d3e08fc334463f77b1[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sun Jul 24 02:02:02 2022 +0200
+
+    .
+
+[33mcommit 273a8e0cde28fb5849298cb9364c5b2c3fc3d55e[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sat Jul 23 11:42:20 2022 +0200
+
+    ...
+
+[33mcommit 23f019e5c90675499097403ad4c4f4eb909fbf08[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Sat Jul 23 11:40:36 2022 +0200
+
+    ..
+
+[33mcommit f61f787b8af1e6682d0689e946c90b04747ee7ee[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Fri Jul 22 02:05:31 2022 +0200
+
+    1era Version
+
+[33mcommit 2e7ff949984d9febc128f9801c31ee560d323dbd[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Jul 21 22:30:11 2022 +0200
+
+    Agrego Comentario @Override
+
+[33mcommit 2c245a0ed13934cc2e35d9aca8e99e9bd5b72e39[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Thu Jul 21 22:20:41 2022 +0200
+
+    Agrego metodo a Clase VENTA para generar Exception ArrayOutOf...
+
+[33mcommit e8d5c82cbd425b795a68be37b56724c4317b3335[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Jul 20 13:20:08 2022 +0200
+
+    Igual al anterior
+
+[33mcommit b5f71557d84e14523eb4304941de0d8e166c2d98[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Jul 20 12:59:23 2022 +0200
+
+    Arreglo detalles
+
+[33mcommit 39e0bc6d1d3bdedf81d7d4b4df0a7661557adc4c[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Jul 20 12:50:15 2022 +0200
+
+    Agrego TryCatch a metodo ingreaInt()
+
+[33mcommit 7657a8da624eb2174d8827f2c5e8a83fab1e09cc[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Wed Jul 20 02:42:35 2022 +0200
+
+    S1T2_v1
+
+[33mcommit 071df35572171530ff3d216eed593c9622b319a9[m
+Author: GuidoJ <guidojanota@gmail.com>
+Date:   Mon Jul 18 02:41:41 2022 +0200
+
+    Uploading files S1T1
