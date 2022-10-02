@@ -1,5 +1,5 @@
 /*
- *- Ejercicio 6
+ *- Ejercicio 6-
 Crea una lista con números y cadenas de texto y ordena la lista con las cadenas de más corta a más larga.
 
 - Ejercicio 7
