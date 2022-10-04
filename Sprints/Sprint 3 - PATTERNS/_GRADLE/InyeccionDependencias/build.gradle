@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+}
+jar {
+    manifest {
+        attributes('Main-Class': 's3t2InyeccionDependencias.App')
+    }
+}

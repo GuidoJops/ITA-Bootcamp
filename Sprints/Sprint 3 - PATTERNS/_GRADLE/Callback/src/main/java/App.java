@@ -1,4 +1,4 @@
-package s3t2callback;
+package s3t2Callback;
 
 public class App {
 

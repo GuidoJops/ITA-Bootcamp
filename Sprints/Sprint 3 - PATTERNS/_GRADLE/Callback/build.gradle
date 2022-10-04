@@ -4,6 +4,6 @@ plugins {
 
 jar {
     manifest {
-        attributes('Main-Class': 's3t2callback.App')
+        attributes('Main-Class': 's3t2Callback.App')
     }
 }
