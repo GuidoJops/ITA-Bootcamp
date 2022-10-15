@@ -12,24 +12,56 @@ public class App {
 		Producto p1 = new Arbol("arbol1", 23.2, 1.2);
 		Producto p2 = new Arbol("arbol2", 109, 3.2);
 		Producto p3 = new Arbol("arbol3", 500, 8.2);
-		Cliente cl1 = new Cliente("Juan", "233123G");
-		System.out.println(	p1.getNombre());
+		Floristeria f1 = new Floristeria("Pepa");
+		Stock st1 = f1.getStock();
+		System.out.println(st1.getValorStock());
+//		st1.agregaProducto(p1, 1);
+//		st1.agregaProducto(p2, 1);
+//		System.out.println(st1.getExistencias());
+//		System.out.println(st1.getValorStock());
+//		
+//		st1.retiraProducto(p2, 1);
+//		System.out.println(st1.getExistencias());
+//		System.out.println(st1.getValorStock());
 		
-		List<Producto> test = new ArrayList();
-		test.add(p1);
-		test.add(p2);
+		st1.modificaStock(p1, 2, 1);
+		System.out.println(st1.getExistencias());
+		System.out.println(st1.getValorStock());
 		
-		List<Producto> test2 = new ArrayList();
-		test2.add(p1);
-		test2.add(p2);
-		test2.add(p3);
+		System.out.println("-------------");
 		
-		
-		Ticket tk1 = new Ticket(cl1,test);
-		Ticket tk2 = new Ticket(cl1,test2);
+		st1.modificaStock(p1, 2, 1);
+		System.out.println(st1.getExistencias());
+		System.out.println(st1.getValorStock());
+		System.out.println("-------------");
+		st1.modificaStock(p1, 2, 5);
+		System.out.println(st1.getExistencias());
+		System.out.println(st1.getValorStock());
 
-		System.out.println(tk1.getTotalCompra());
-		System.out.println(tk2.getTotalCompra());
+		
+		
+		
+//		Cliente cl1 = new Cliente("Juan", "233123G");
+//		System.out.println(	p1.getNombre());
+//		
+//		List<Producto> test = new ArrayList();
+//		test.add(p1);
+//		test.add(p2);
+//		
+//		List<Producto> test2 = new ArrayList();
+//		test2.add(p1);
+//		test2.add(p2);
+//		test2.add(p3);
+//		
+//		
+//		Ticket tk1 = new Ticket(cl1,test);
+//		Ticket tk2 = new Ticket(cl1,test2);
+//
+//		System.out.println(tk1.getTotalCompra());
+//		System.out.println(tk2.getTotalCompra());
+//		p1.getClass();
+//		System.out.println(p1.getClass().getName());
+//		System.out.println(p1.getClass().getSimpleName());
 		
 		//-----FIN PRUEBAS------
 

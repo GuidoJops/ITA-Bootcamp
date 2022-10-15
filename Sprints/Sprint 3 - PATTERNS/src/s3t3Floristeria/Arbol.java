@@ -20,12 +20,8 @@ public class Arbol extends Producto {
 
 	@Override
 	public String getNombre() {
-		return "Planta: Árbol\n"+ "Nombre: " +nombre;
+		return "Planta: Árbol\n"+ "Nombre: " +getNombre();
 	}
 
-	@Override
-	public double getPrecio() {
-		return precio;
-	}
 
 }

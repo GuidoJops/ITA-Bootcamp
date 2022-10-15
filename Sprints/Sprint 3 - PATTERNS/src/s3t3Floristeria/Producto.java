@@ -1,8 +1,8 @@
 package s3t3Floristeria;
 
 public abstract class Producto {
-	String nombre;
-	double precio;
+	private String nombre;
+	private double precio;
 	
 	
 	public Producto(String nombre, double precio) {
@@ -12,7 +12,9 @@ public abstract class Producto {
 
 	public abstract String getNombre();
 	
-	public abstract double getPrecio();
+	public double getPrecio() {
+		return precio;
+	}
 
 
 }
