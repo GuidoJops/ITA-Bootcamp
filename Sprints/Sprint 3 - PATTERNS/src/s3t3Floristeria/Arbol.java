@@ -17,10 +17,12 @@ public class Arbol extends Producto {
 		this.altura = altura;
 	}
 
-
+	
 	@Override
-	public String getNombre() {
-		return "Planta: Árbol\n"+ "Nombre: " +getNombre();
+	public String getInfo() {
+		return "\nTipo: Árbol\n"
+				+ "Nombre: " + nombre
+				+"\nPrecio: " + precio;
 	}
 
 

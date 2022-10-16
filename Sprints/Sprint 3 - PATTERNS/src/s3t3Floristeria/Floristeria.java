@@ -27,7 +27,7 @@ public class Floristeria {
 		this.nombre = nombre;
 	}
 
-	public List<Producto> getProductos() {
+	private List<Producto> getProductos() {
 		return productos;
 	}
 
@@ -51,6 +51,46 @@ public class Floristeria {
 		this.compras = compras;
 	}
 
+	public void agregaRetiraProducto(Producto p, int cant, boolean agrega) {
+		int indexProducto = compruebaExistencia (p);
+		
+		if (indexProducto >= 0 && !agrega) {
+			// RETIRA
+			productos.remove(indexProducto);
+			stock.modificaStock(p, cant, agrega);
 
+		}else if (agrega) {
+			//AGREGA
+			productos.add(p);
+			stock.modificaStock(p, cant, agrega);
+
+		} else {
+			System.out.println("No es posible eliminar un producto que no existe en la Base de datos");		}
+		
+
+	}
+	
+	
+	public void listaProductos() {
+		if (productos.size()>0) {
+			getProductos().stream().forEach(x-> System.out.println(x.getInfo()));
+		} else {
+			System.out.println("Actualmente no hay productos en el sistema");
+		}		
+	}
+	
+	public int compruebaExistencia(Producto p) {
+		boolean existe = false;
+		int contador= 0, indexProducto=-1;
+		
+		while (contador < productos.size() && !existe) {
+			if (productos.get(contador).getNombre().equalsIgnoreCase(p.getNombre())){
+				indexProducto = contador;
+				existe = true;
+			}
+			contador ++;
+		}	
+		return indexProducto;
+	}
 	
 }
