@@ -1,17 +1,15 @@
 package s3t3Floristeria;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Ticket {
-	private static int count = 0;
-	private final int ID;
+public class Ticket implements Serializable {
 	private Cliente cliente;
 	private List<Producto> compra;
 	private double totalCompra;
 	
 	
 	public Ticket (Cliente cliente, List<Producto> compra) {
-		ID = ++count;
 		this.cliente = cliente;
 		this.compra = compra;
 		totalCompra = compra.stream().mapToDouble(Producto::getPrecio).sum();
@@ -34,12 +32,4 @@ public class Ticket {
 		return totalCompra;
 	}
 
-	public int getID() {
-		return ID;
-	}
-	
-	
-	
-	
-	
 }

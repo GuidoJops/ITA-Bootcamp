@@ -1,9 +1,19 @@
 package s3t3Floristeria;
 
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.CREATE;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Stock {
+public class Stock implements Serializable {
 	private Map<String, Integer> existencias;
 	private double valorStock;
 
@@ -39,7 +49,7 @@ public class Stock {
 	
 
 	
-	public void modificaStock(Producto p, int cant, boolean agrega) {
+	public void modificaStock(String nombreFloristeria, Producto p, int cant, boolean agrega) {
 		
 		switch (p.getClass().getSimpleName()) {
 		
@@ -53,7 +63,9 @@ public class Stock {
 					existencias.put("ARBOL", valor - cant);
 				}	
 				System.out.println("Se ha modificado el Stock de ARBOL");
+				escribeFichero(nombreFloristeria, existencias);
 				actualizaValorStock(p,cant, agrega);
+				
 				break;
 				
 			case "Flor":
@@ -76,5 +88,19 @@ public class Stock {
 			valorStock -= (p.getPrecio()*cant);	
 		}
 			
+	}
+	
+	public void escribeFichero(String nombreFloristeria, Map<String, Integer> existencias) {
+		
+		//ITERAR MAP PARA ESCRIBIR ARCHIVO
+		String ruta = "src/s3t3Floristeria/bd/Stock-" + nombreFloristeria.toLowerCase() + ".txt";
+		byte data[] = str.getBytes();
+		Path p = Paths.get(ruta);
+
+	try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(p, CREATE))) {
+			out.write(data, 0, data.length);
+		} catch (IOException e) {
+			System.out.println("Ups..Algo ha fallado al intentar escribir el fichero.");
+		}
 	}
 }

@@ -1,6 +1,8 @@
 package s3t3Floristeria;
 
-public abstract class Producto {
+import java.io.Serializable;
+
+public abstract class Producto implements Serializable {
 	protected String nombre;
 	protected double precio;
 	
