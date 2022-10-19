@@ -1,8 +1,6 @@
 package s3t3Floristeria;
 
-import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
-
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -43,11 +41,10 @@ public class Stock implements Serializable {
 	}
 
 
-//	public void setValorStock(double valorStock) {
-//		this.valorStock = valorStock;
-//	}
+	public void setValorStock(double valorStock) {
+		this.valorStock = valorStock;
+	}
 	
-
 	
 	public void modificaStock(String nombreFloristeria, Producto p, int cant, boolean agrega) {
 		
@@ -63,7 +60,7 @@ public class Stock implements Serializable {
 					existencias.put("ARBOL", valor - cant);
 				}	
 				System.out.println("Se ha modificado el Stock de ARBOL");
-				escribeFichero(nombreFloristeria, existencias);
+				escribeFichero(nombreFloristeria, MapToString(existencias));
 				actualizaValorStock(p,cant, agrega);
 				
 				break;
@@ -79,8 +76,7 @@ public class Stock implements Serializable {
 		}
 		
 	}
-	
-	
+		
 	public void actualizaValorStock(Producto p, int cant, boolean agrega) {
 		if (agrega) {
 			valorStock += (p.getPrecio()*cant);	
@@ -90,17 +86,23 @@ public class Stock implements Serializable {
 			
 	}
 	
-	public void escribeFichero(String nombreFloristeria, Map<String, Integer> existencias) {
-		
-		//ITERAR MAP PARA ESCRIBIR ARCHIVO
+	public void escribeFichero(String nombreFloristeria, String str) {
 		String ruta = "src/s3t3Floristeria/bd/Stock-" + nombreFloristeria.toLowerCase() + ".txt";
-		byte data[] = str.getBytes();
 		Path p = Paths.get(ruta);
-
-	try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(p, CREATE))) {
-			out.write(data, 0, data.length);
+		byte databyte[] = str.getBytes();
+		
+		try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(p, CREATE))) {
+			out.write(databyte, 0, databyte.length);
 		} catch (IOException e) {
 			System.out.println("Ups..Algo ha fallado al intentar escribir el fichero.");
 		}
+	}
+	
+	public String MapToString(Map<String, Integer> existencias) {
+		String data ="";
+		for (Map.Entry<String, Integer> entry : existencias.entrySet()) { 
+			 data += entry.getKey() + ": " + entry.getValue() +"\n\n";
+		 }
+		return data;
 	}
 }
