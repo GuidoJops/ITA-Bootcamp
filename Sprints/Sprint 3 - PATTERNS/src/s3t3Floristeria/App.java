@@ -110,9 +110,6 @@ public class App {
 					System.out.println("Volviendo al Menú Inicial...");
 					opcion = 0;
 					break;
-//				case 9:
-//					System.out.println("\nPara seleccionar/crear otra Floristeria regresa al Menú Anterior seleccionando la opción '0'".toUpperCase());
-//					break;
 			}
 		
 		}
