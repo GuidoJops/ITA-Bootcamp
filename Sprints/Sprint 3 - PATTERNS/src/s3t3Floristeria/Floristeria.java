@@ -51,10 +51,10 @@ public class Floristeria implements Serializable {
 		this.ventas = ventas;
 	}
 
-	public void agregaProducto(Producto p, int cant, boolean agrega) {
-		//AGREGA
+	public void agregaProducto(Producto p, boolean agrega) {
 		productos.add(p);
-		stock.modificaStock(nombre, p, cant, agrega);
+//		stock.modificaStock(nombre, p, cant, agrega);
+		stock.modificaStock2(this);
 	}
 	
 	public void retiraProducto() {
@@ -73,9 +73,10 @@ public class Floristeria implements Serializable {
 			}else {
 				Producto producto = productos.get(indexProducto);
 				productos.remove(indexProducto);
-				stock.modificaStock(nombre, producto, 1, false);
+				stock.modificaStock2(this);
+//				stock.modificaStock(nombre, producto, 1, false);
 				bucle = false;
-				System.out.println("Producto eliminado");
+				System.out.println(producto.getClass().getSimpleName()+ " "+ producto.getNombre()+ " eliminado");
 				
 			}
 

@@ -35,6 +35,8 @@ public class App {
 		
 		menuInicial();
 //		guardaListaFloristeria(file, tiendas);
+		double valorStock = tiendas.get(0).getStock().calculaValorDeStock(tiendas.get(0));
+		System.out.println(valorStock);
 		System.out.println("\nFIN DEL PROGRAMA");
 		
 	}
@@ -113,7 +115,7 @@ public class App {
 					break;
 				case 1:
 					
-					f.agregaProducto(defineProducto(), ingresaNum("¿Qué cantidad deseas Agregar?"), true);
+					f.agregaProducto(defineProducto(), true);
 //					agregaRetiraProducto(f, opcion);
 					break;
 				case 2:
