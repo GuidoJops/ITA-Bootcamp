@@ -27,7 +27,7 @@ public class Floristeria implements Serializable {
 		this.nombre = nombre;
 	}
 
-	private List<Producto> getProductos() {
+	public List<Producto> getProductos() {
 		return productos;
 	}
 
@@ -51,23 +51,35 @@ public class Floristeria implements Serializable {
 		this.ventas = ventas;
 	}
 
-	public void agregaRetiraProducto(Producto p, int cant, boolean agrega) {
-		int indexProducto = compruebaExistencia (p);
+	public void agregaProducto(Producto p, int cant, boolean agrega) {
+		//AGREGA
+		productos.add(p);
+		stock.modificaStock(nombre, p, cant, agrega);
+	}
+	
+	public void retiraProducto() {
+		boolean bucle = true;
+		int indexProducto;
+		System.out.println("\n-----------------------------------------");
+		System.out.println("Productos disponibles en Floristeria " + getNombre().toUpperCase());
+		System.out.println("-----------------------------------------\n");
+		listaProductos();
 		
-		if (indexProducto >= 0 && !agrega) {
-			// RETIRA
-			productos.remove(indexProducto);
-			stock.modificaStock(nombre, p, cant, agrega);
+		while(bucle){
+			String eliminar = App.ingresaStr("\nDime el nombre del producto que quieres eliminar...");
+			indexProducto = compruebaExistencia(eliminar);
+			if (indexProducto == -1) {
+				System.out.println("El nombre ingresado no coincide con ningún producto");
+			}else {
+				Producto producto = productos.get(indexProducto);
+				productos.remove(indexProducto);
+				stock.modificaStock(nombre, producto, 1, false);
+				bucle = false;
+				System.out.println("Producto eliminado");
+				
+			}
 
-		}else if (agrega) {
-			//AGREGA
-			productos.add(p);
-			stock.modificaStock(nombre, p, cant, agrega);
-
-		} else {
-			System.out.println("No es posible eliminar un producto que no existe en la Base de datos");		}
-		
-
+		}
 	}
 		
 	public void listaProductos() {
@@ -78,12 +90,12 @@ public class Floristeria implements Serializable {
 		}		
 	}
 	
-	public int compruebaExistencia(Producto p) {
+	public int compruebaExistencia(String nombre) {
 		boolean existe = false;
 		int contador= 0, indexProducto=-1;
 		
 		while (contador < productos.size() && !existe) {
-			if (productos.get(contador).getNombre().equalsIgnoreCase(p.getNombre())){
+			if (productos.get(contador).getNombre().equalsIgnoreCase(nombre)){
 				indexProducto = contador;
 				existe = true;
 			}

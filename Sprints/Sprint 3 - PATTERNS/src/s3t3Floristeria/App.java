@@ -8,10 +8,11 @@ import java.util.Scanner;
 import java.io.*;
 public class App {
 		static File file = new File("src/s3t3Floristeria/bd/DatosFloristerias.bin");
-		static List<Floristeria> tiendas = recuperaListaFloristeria(file);
+//		static List<Floristeria> tiendas = recuperaListaFloristeria(file);
+		static List<Floristeria> tiendas = new ArrayList();
 	
 	public static void main(String[] args) {
-	
+		
 		/*
 		 0-Muestra Floristerias disponibles y da la opcion de crear una nueva - Selecciona una
 		 OPCIONES DENTRO DE FLORISTERIA
@@ -25,8 +26,15 @@ public class App {
 		 8- Ver Ganancias de la Floristeria  
 		 
 		 */
+		
+		//BORRAR
+//		tiendas.add(new Floristeria("JUAN"));
+//		tiendas.add(new Floristeria("pepe"));
+//		tiendas.add(new Floristeria("EOLANDO"));
+		//---
+		
 		menuInicial();
-			
+//		guardaListaFloristeria(file, tiendas);
 		System.out.println("\nFIN DEL PROGRAMA");
 		
 	}
@@ -35,13 +43,6 @@ public class App {
 
 		Floristeria f = null;
 		int opcion= 1;
-		
-		//BORRAR
-		tiendas.add(new Floristeria("JUAN"));
-		tiendas.add(new Floristeria("pepe"));
-		tiendas.add(new Floristeria("EOLANDO"));
-
-		//---
 		if (tiendas.size() > 0) {
 			while(opcion!=0) {
 				System.out.println("\nActualmente hay " + tiendas.size() + " Foristerias en el sistema.\n¿Qué deseas hacer?\n");
@@ -59,7 +60,7 @@ public class App {
 						System.out.println("----------------------------------\n");
 						tiendas.stream().forEach(x -> System.out.println("-Floristeria " + x.getNombre()));
 						System.out.println("\n----------------------------------");
-						f = tiendas.get(buscaFloristeria(ingresaStr("Dime el nombre de la Floristeria"), tiendas));
+						f = tiendas.get(buscaFloristeria(ingresaStr("Dime el nombre de la Floristeria")));
 						System.out.println("\n----------------------------------");
 						System.out.println("Floristeria " + f.getNombre() + " seleccionada");
 						System.out.println("----------------------------------\n");
@@ -110,10 +111,74 @@ public class App {
 					System.out.println("Volviendo al Menú Inicial...");
 					opcion = 0;
 					break;
+				case 1:
+					
+					f.agregaProducto(defineProducto(), ingresaNum("¿Qué cantidad deseas Agregar?"), true);
+//					agregaRetiraProducto(f, opcion);
+					break;
+				case 2:
+					f.retiraProducto();
+					break;
+				
+				default:
+					System.out.println("INGRESA UN NÚMERO VÁLIDO");
 			}
 		
 		}
 	
+	}
+	
+//	public void RetiraProducto(Floristeria f) {
+//		boolean bucle = true;
+//		int indexProducto;
+//		System.out.println("\n-----------------------------------------");
+//		System.out.println("Productos disponibles en Floristeria " + f.getNombre().toUpperCase());
+//		System.out.println("-----------------------------------------\n");
+//		f.listaProductos();
+//		
+//		while(bucle){
+//			String eliminar = ingresaStr("Dime el nombre del producto que quieres eliminar...");
+//			indexProducto = f.compruebaExistencia(eliminar);
+//			if (indexProducto == -1) {
+//				System.out.println("El nombre ingresado no coincide con ningún producto");
+//			}else {
+//				f.getProductos().remove(indexProducto);
+//				bucle = false;
+//				
+//			}
+//
+//		}
+//	}
+	
+	public static Producto defineProducto() {
+		boolean bucle = true;
+		Producto p = null;
+		String nombre="";
+		int precio=0;
+		int opcion=0;
+		while(bucle) {
+			System.out.println("\nQue producto deseas Agregar?\n");
+			System.out.println("1- Arbol");
+			System.out.println("2- Flor");
+			System.out.println("3- Decoración\n");
+//			System.out.println("0- Volver al Menú Anterior\n");
+			
+			opcion = ingresaNum("Ingresa una opcion para continuar...");
+			switch (opcion) {
+				case 1:
+					nombre = ingresaStr("Dime el nombre del Árbol");
+					precio = ingresaNum("Dime el precio del Árbol");
+					double altura = ingresaNum("Dime la altura del Árbol");
+					p = new Arbol(nombre, precio, altura);
+					bucle = false;
+					break;
+				default:
+					System.out.println("INGRESA UN NÚMERO VÁLIDO");
+			
+			}
+		}
+		return p;
+		
 	}
 	
 	public static Floristeria creaFLoristeria() {
@@ -122,7 +187,7 @@ public class App {
 		return f;
 	}
 
-	public static int buscaFloristeria(String nombre, List<Floristeria> tiendas) {
+	public static int buscaFloristeria(String nombre) {
 		boolean encontrada = false;
 		int contador = 0, index = -1;
 		
@@ -135,13 +200,14 @@ public class App {
 		}	
 		return index;
 	}
+	
 
-	public static void guardaListaFloristeria(File file, List<Floristeria> lista){
+	public static void guardaListaFloristeria(File file){
 
 		try {
 			FileOutputStream ficheroSalida = new FileOutputStream(file);
 			ObjectOutputStream objetoSalida = new ObjectOutputStream(ficheroSalida);
-			objetoSalida.writeObject(lista);
+			objetoSalida.writeObject(tiendas);
 			objetoSalida.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero no exite");
@@ -152,19 +218,18 @@ public class App {
 	}
 
 	public static List<Floristeria> recuperaListaFloristeria(File file) {
-		List<Floristeria> lista = new ArrayList<>();
-
+		
 		try {
 			FileInputStream fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			lista = (List<Floristeria>) ois.readObject();
+			tiendas = (List<Floristeria>) ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Actualmente no hay FLoristerias ingresadas en el sistema.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return lista;
+		return tiendas;
 	}
 		
 	static String ingresaStr(String str) {		
