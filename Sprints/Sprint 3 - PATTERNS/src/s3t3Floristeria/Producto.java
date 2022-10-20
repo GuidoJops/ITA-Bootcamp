@@ -11,12 +11,12 @@ public abstract class Producto implements Serializable {
 		this.nombre = nombre;
 		this.precio = precio;
 	}
+	
+	public abstract String getInfo();
 
 	public String getNombre() {
 		return nombre;
 	}
-	
-	public abstract String getInfo();
 	
 	public double getPrecio() {
 		return precio;

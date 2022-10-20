@@ -27,5 +27,10 @@ public class Cliente implements Serializable{
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+	
+	@Override
+	public String toString() {
+		return "Nombre: "+nombre +"\nDni :"+ dni;
+	}
 
 }

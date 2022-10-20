@@ -51,22 +51,22 @@ public class Floristeria implements Serializable {
 		this.ventas = ventas;
 	}
 
-	public void agregaProducto(Producto p, boolean agrega) {
+	public void agregaProducto(Producto p) {
 		productos.add(p);
 //		stock.modificaStock(nombre, p, cant, agrega);
 		stock.modificaStock2(this);
 	}
 	
-	public void retiraProducto() {
+	public void retiraProducto(String eliminar) {
 		boolean bucle = true;
 		int indexProducto;
-		System.out.println("\n-----------------------------------------");
-		System.out.println("Productos disponibles en Floristeria " + getNombre().toUpperCase());
-		System.out.println("-----------------------------------------\n");
-		listaProductos();
+//		System.out.println("\n-----------------------------------------");
+//		System.out.println("Productos disponibles en Floristeria " + getNombre().toUpperCase());
+//		System.out.println("-----------------------------------------\n");
+//		listaProductos();
 		
 		while(bucle){
-			String eliminar = App.ingresaStr("\nDime el nombre del producto que quieres eliminar...");
+//			String eliminar = App.ingresaStr("\nDime el nombre del producto que quieres eliminar...");
 			indexProducto = compruebaExistencia(eliminar);
 			if (indexProducto == -1) {
 				System.out.println("El nombre ingresado no coincide con ningún producto");
@@ -76,7 +76,7 @@ public class Floristeria implements Serializable {
 				stock.modificaStock2(this);
 //				stock.modificaStock(nombre, producto, 1, false);
 				bucle = false;
-				System.out.println(producto.getClass().getSimpleName()+ " "+ producto.getNombre()+ " eliminado");
+//				System.out.println(producto.getClass().getSimpleName()+ " "+ producto.getNombre()+ " eliminado");
 				
 			}
 
@@ -85,7 +85,12 @@ public class Floristeria implements Serializable {
 		
 	public void listaProductos() {
 		if (productos.size()>0) {
-			getProductos().stream().forEach(x-> System.out.println(x.getInfo()));
+			System.out.println("\n-----------------------------------------");
+			System.out.println("Productos disponibles en Floristeria " + nombre.toUpperCase());
+			System.out.println("-----------------------------------------\n");
+			
+			productos.stream().forEach(x-> System.out.println(x.getInfo()));
+			
 		} else {
 			System.out.println("Actualmente no hay productos en el sistema");
 		}		
@@ -109,4 +114,41 @@ public class Floristeria implements Serializable {
 		ventas.add(co);
 	}
 	
+	public void listaClientes() {
+		if (ventas.size()>0) {
+			System.out.println("\n-----------------------------------------");
+			System.out.println("Clientes de Floristeria " + nombre.toUpperCase());
+			System.out.println("-----------------------------------------\n");
+			
+			
+			//FILTRAR CLIENTES DUPLICADOS
+//			ventas.stream().forEach(x-> System.out.println(x.getCliente()));
+			ventas.stream().distinct().forEach(x-> System.out.println(x.getCliente()));
+			
+		} else {
+			System.out.println("Actualmente no hay Clientes en el sistema");
+		}		
+	}
+	
+	public int buscaCliente(String  dni) {
+		boolean encontrada = false;
+		int contador = 0, index = -1;
+		
+		while (contador < ventas.size() && !encontrada) {
+			if (ventas.get(contador).getCliente().getDni().equalsIgnoreCase(dni)){
+				index = contador;
+				encontrada = true;
+			}
+			contador ++;
+		}	
+		return index;
+	}
+
+	public void actualizaVentas(Ticket t) {
+		ventas.add(t);
+	}
+	
+	public void listaVentas() {
+		ventas.stream().forEach(x->System.out.println(x.toString()));
+	}
 }

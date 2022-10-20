@@ -28,15 +28,17 @@ public class App {
 		 */
 		
 		//BORRAR
-//		tiendas.add(new Floristeria("JUAN"));
+		tiendas.add(new Floristeria("JUAN"));
 //		tiendas.add(new Floristeria("pepe"));
 //		tiendas.add(new Floristeria("EOLANDO"));
 		//---
 		
 		menuInicial();
 //		guardaListaFloristeria(file, tiendas);
-		double valorStock = tiendas.get(0).getStock().calculaValorDeStock(tiendas.get(0));
-		System.out.println(valorStock);
+		List<Producto> compra = tiendas.get(0).getVentas().get(0).getCompra();
+		double totalCompra = tiendas.get(0).getVentas().get(0).getTotalCompra();
+		System.out.println("Compra: " + compra);
+		System.out.println("Total: " + totalCompra);
 		System.out.println("\nFIN DEL PROGRAMA");
 		
 	}
@@ -57,11 +59,13 @@ public class App {
 						System.out.println("Saliendo del programa...");
 						break;
 					case 1:
+						//METODO LISTAR FLORISTERIAS
 						System.out.println("\n----------------------------------");
 						System.out.println("FLORISTERIAS EN SISTEMA");
 						System.out.println("----------------------------------\n");
 						tiendas.stream().forEach(x -> System.out.println("-Floristeria " + x.getNombre()));
 						System.out.println("\n----------------------------------");
+						//--------
 						f = tiendas.get(buscaFloristeria(ingresaStr("Dime el nombre de la Floristeria")));
 						System.out.println("\n----------------------------------");
 						System.out.println("Floristeria " + f.getNombre() + " seleccionada");
@@ -115,11 +119,29 @@ public class App {
 					break;
 				case 1:
 					
-					f.agregaProducto(defineProducto(), true);
+					f.agregaProducto(defineProducto());
 //					agregaRetiraProducto(f, opcion);
 					break;
 				case 2:
-					f.retiraProducto();
+					f.listaProductos();
+//					f.retiraProducto();
+					f.retiraProducto(ingresaStr("Dime el nombre del producto que quieres eliminar"));
+					break;
+				case 3:
+					f.listaProductos();
+					break;
+				case 4:
+					System.out.println(f.getStock().getExistencias());
+					break;
+				case 5:
+					System.out.println("Valor total de stock de Floristeria " + f.getNombre().toUpperCase());
+					System.out.println(f.getStock().calculaValorDeStock(f)+"€");
+					break;
+				case 6:
+					generaTicket(f);
+					break;
+				case 7:
+					f.listaVentas();
 					break;
 				
 				default:
@@ -130,27 +152,104 @@ public class App {
 	
 	}
 	
-//	public void RetiraProducto(Floristeria f) {
-//		boolean bucle = true;
-//		int indexProducto;
-//		System.out.println("\n-----------------------------------------");
-//		System.out.println("Productos disponibles en Floristeria " + f.getNombre().toUpperCase());
-//		System.out.println("-----------------------------------------\n");
-//		f.listaProductos();
-//		
-//		while(bucle){
-//			String eliminar = ingresaStr("Dime el nombre del producto que quieres eliminar...");
-//			indexProducto = f.compruebaExistencia(eliminar);
-//			if (indexProducto == -1) {
-//				System.out.println("El nombre ingresado no coincide con ningún producto");
-//			}else {
-//				f.getProductos().remove(indexProducto);
-//				bucle = false;
-//				
-//			}
-//
-//		}
-//	}
+	public static void generaTicket(Floristeria f) {
+		Cliente c = generaCliente(f);
+		List<Producto> p = generaListaCompra(f);
+		f.actualizaVentas(new Ticket(c,p));
+		System.out.println("Compra registrada correctamente");
+	
+		
+	}
+	
+	public static List<Producto> generaListaCompra(Floristeria f) {
+		boolean bucle = true;
+		int indexProducto;
+		List<Producto> p = new ArrayList();
+		f.listaProductos();
+		System.out.println("\nIngresa el nombre de los productos que quieres agregar a la lista de compra\nCuando acabes ingresa 'FIN'");
+		while(bucle){
+			String nombre = ingresaStr("...");
+			if(nombre.equalsIgnoreCase("fin")) {
+				bucle = false;
+			} else {
+				indexProducto = f.compruebaExistencia(nombre);
+				if (indexProducto == -1) {
+					System.out.println("El nombre ingresado no coincide con ningún producto");
+				}else {
+					Producto producto = f.getProductos().get(indexProducto);
+					p.add(producto);
+					f.retiraProducto(nombre);
+					System.out.println(producto.getClass().getSimpleName()+ " "+ producto.getNombre()+ " agregado a la lista de compra");
+					
+				}
+
+			}
+			
+		}
+		return p;
+	}
+	
+	public static Cliente generaCliente(Floristeria f) {
+		int opcion=1, indexTicket;
+		Cliente c=null;
+		String nombre="", dni="";
+		
+		if (f.getVentas().size() > 0) {
+			while(opcion!=0) {
+				f.listaClientes();
+				System.out.println("\nActualmente hay " + f.getVentas().size() + " Clientes en el sistema.\n¿Qué deseas hacer?\n");
+				System.out.println("1- Seleccionar un Ciente existente");
+				System.out.println("2- Crear un Nuevo Cliente\n");
+//				System.out.println("0- Salir del Programa\n");
+				opcion = ingresaNum("Ingresa una opcion para continuar...");
+				switch (opcion) {
+//					case 0:
+//						System.out.println("Saliendo del programa...");
+//						break;
+					case 1:
+						dni = ingresaStr("Dime el DNI del Cliente");
+						indexTicket = f.buscaCliente(dni);
+						
+						if (indexTicket > -1) {
+							c = f.getVentas().get(indexTicket).getCliente();
+							System.out.println("Cliente "+ c.getNombre()+ " Seleccionado");
+							opcion = 0;
+						}else {
+							System.out.println("El dni ingresado no pertenece a ningún Cliente");
+						}
+						break;
+					case 2:
+						nombre = ingresaStr("Dime el NOMBRE del nuevo Cliente");
+						dni = ingresaStr("Dime el DNI del nuevo Cliente");
+						indexTicket = f.buscaCliente(dni);
+						
+						if (indexTicket == -1) {
+							c = new Cliente (nombre, dni);
+							opcion = 0;
+						}else {
+							System.out.println("El dni ingresado ya pertenece a un Cliente");
+						}
+						break;
+					default:
+						System.out.println("INGRESA UN NÚMERO VÁLIDO");
+				}
+			}
+		} else {
+			System.out.println("Actualmente no hay ningun cliente en el sistema de esta Floristeria.\n");
+			nombre = ingresaStr("Dime el NOMBRE de un nuevo Cliente");
+			dni = ingresaStr("Dime el DNI del nuevo Cliente");
+			indexTicket = f.buscaCliente(dni);
+			
+			if (indexTicket == -1) {
+				c = new Cliente (nombre, dni);
+			}else {
+				System.out.println("El dni ingresado ya pertenece a un Cliente");
+			}
+			
+		}
+		return c;
+		
+	}
 	
 	public static Producto defineProducto() {
 		boolean bucle = true;

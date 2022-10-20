@@ -31,5 +31,36 @@ public class Ticket implements Serializable {
 	public double getTotalCompra() {
 		return totalCompra;
 	}
+	
+	public String listaCompra() {
+		String res="";
+		for (Producto p : compra) {
+			res += p.getInfo() + "\n";
+		}
+		return res;
+	}
 
+//	@Override
+//	public String toString() {
+//		
+//		return "----------------\n"
+//				+ cliente.toString()
+//				+ compra.stream().forEach(x-> x.getInfo())
+//				+ "\nTotal venta: " + totalCompra;
+//				
+//	}
+	
+	@Override
+	public String toString() {
+		
+		return "----------------------------\n"
+				+ cliente.toString()
+				+"\n\n--Productos--\n"
+				+listaCompra()
+				+"--------------\n"
+				+ "TOTAL DE COMPRA: " + totalCompra
+				+"\n----------------------------\n";
+				
+				
+	}
 }

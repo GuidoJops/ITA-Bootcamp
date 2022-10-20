@@ -106,7 +106,7 @@ public class Stock implements Serializable {
 		existencias.put("FLOR", contFlor);
 		existencias.put("DECORACION", contDeco);
 		escribeFichero(f.getNombre(), MapToString(existencias));
-		System.out.println("Se ha modificado el Stock de la Floristeria " +f.getNombre());
+		System.out.println("\n-AVISO-Se ha modificado el Stock de la Floristeria " +f.getNombre() +"\n-------\n");
 	
 		
 	
