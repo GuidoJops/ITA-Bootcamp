@@ -1,6 +1,0 @@
-ARBOL: 0
-
-FLOR: 0
-
-DECORACION: 0
-

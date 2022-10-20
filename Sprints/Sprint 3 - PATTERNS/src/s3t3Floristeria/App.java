@@ -8,8 +8,8 @@ import java.util.Scanner;
 import java.io.*;
 public class App {
 		static File file = new File("src/s3t3Floristeria/bd/DatosFloristerias.bin");
-//		static List<Floristeria> tiendas = recuperaListaFloristeria(file);
-		static List<Floristeria> tiendas = new ArrayList();
+		static List<Floristeria> tiendas = recuperaListaFloristeria(file);
+//		static List<Floristeria> tiendas = new ArrayList();
 	
 	public static void main(String[] args) {
 		
@@ -28,17 +28,13 @@ public class App {
 		 */
 		
 		//BORRAR
-		tiendas.add(new Floristeria("JUAN"));
+//		tiendas.add(new Floristeria("JUAN"));
 //		tiendas.add(new Floristeria("pepe"));
 //		tiendas.add(new Floristeria("EOLANDO"));
 		//---
 		
 		menuInicial();
-//		guardaListaFloristeria(file, tiendas);
-		List<Producto> compra = tiendas.get(0).getVentas().get(0).getCompra();
-		double totalCompra = tiendas.get(0).getVentas().get(0).getTotalCompra();
-		System.out.println("Compra: " + compra);
-		System.out.println("Total: " + totalCompra);
+		guardaListaFloristeria(file);
 		System.out.println("\nFIN DEL PROGRAMA");
 		
 	}
@@ -118,14 +114,13 @@ public class App {
 					opcion = 0;
 					break;
 				case 1:
-					
 					f.agregaProducto(defineProducto());
-//					agregaRetiraProducto(f, opcion);
 					break;
 				case 2:
 					f.listaProductos();
-//					f.retiraProducto();
-					f.retiraProducto(ingresaStr("Dime el nombre del producto que quieres eliminar"));
+					if (f.getProductos().size()>0) {
+						f.retiraProducto(ingresaStr("Dime el nombre del producto que quieres eliminar"));
+					}
 					break;
 				case 3:
 					f.listaProductos();
@@ -143,7 +138,10 @@ public class App {
 				case 7:
 					f.listaVentas();
 					break;
-				
+				case 8:
+					System.out.println("Ganancias registradas para Floristeria " + f.getNombre().toUpperCase());
+					System.out.println(f.calculaGanancia()+"€");
+					break;				
 				default:
 					System.out.println("INGRESA UN NÚMERO VÁLIDO");
 			}
@@ -160,6 +158,7 @@ public class App {
 	
 		
 	}
+	
 	
 	public static List<Producto> generaListaCompra(Floristeria f) {
 		boolean bucle = true;
@@ -197,7 +196,7 @@ public class App {
 		if (f.getVentas().size() > 0) {
 			while(opcion!=0) {
 				f.listaClientes();
-				System.out.println("\nActualmente hay " + f.getVentas().size() + " Clientes en el sistema.\n¿Qué deseas hacer?\n");
+				System.out.println("\n¿Qué deseas hacer?\n");
 				System.out.println("1- Seleccionar un Ciente existente");
 				System.out.println("2- Crear un Nuevo Cliente\n");
 //				System.out.println("0- Salir del Programa\n");
@@ -250,6 +249,7 @@ public class App {
 		return c;
 		
 	}
+	
 	
 	public static Producto defineProducto() {
 		boolean bucle = true;
@@ -317,9 +317,10 @@ public class App {
 		}
 
 	}
+	
 
 	public static List<Floristeria> recuperaListaFloristeria(File file) {
-		
+		tiendas = new ArrayList();
 		try {
 			FileInputStream fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
@@ -332,16 +333,20 @@ public class App {
 		}
 		return tiendas;
 	}
+	
 		
-	static String ingresaStr(String str) {		
+	public static String ingresaStr(String str) {		
 		Scanner input = new Scanner(System.in);
 		System.out.println(str);
 		return input.nextLine();	
 	}
 	
-	static int ingresaNum(String str) {			
+	
+	public static int ingresaNum(String str) {			
 		Scanner input = new Scanner(System.in);
 		System.out.println(str);
 		return input.nextInt();	
 	}
+
+
 }

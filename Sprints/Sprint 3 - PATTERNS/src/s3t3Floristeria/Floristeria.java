@@ -2,7 +2,10 @@ package s3t3Floristeria;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Floristeria implements Serializable {
 	private String nombre;
@@ -53,7 +56,6 @@ public class Floristeria implements Serializable {
 
 	public void agregaProducto(Producto p) {
 		productos.add(p);
-//		stock.modificaStock(nombre, p, cant, agrega);
 		stock.modificaStock2(this);
 	}
 	
@@ -115,15 +117,16 @@ public class Floristeria implements Serializable {
 	}
 	
 	public void listaClientes() {
+		Set<Cliente> clientes = new HashSet();
 		if (ventas.size()>0) {
 			System.out.println("\n-----------------------------------------");
 			System.out.println("Clientes de Floristeria " + nombre.toUpperCase());
 			System.out.println("-----------------------------------------\n");
-			
-			
-			//FILTRAR CLIENTES DUPLICADOS
-//			ventas.stream().forEach(x-> System.out.println(x.getCliente()));
-			ventas.stream().distinct().forEach(x-> System.out.println(x.getCliente()));
+
+			for (Ticket item : ventas) {
+				clientes.add(item.getCliente());
+			}
+			clientes.stream().forEach(System.out::println);
 			
 		} else {
 			System.out.println("Actualmente no hay Clientes en el sistema");
@@ -149,6 +152,16 @@ public class Floristeria implements Serializable {
 	}
 	
 	public void listaVentas() {
-		ventas.stream().forEach(x->System.out.println(x.toString()));
+		if(ventas.size() > 0) {
+			ventas.stream().forEach(x->System.out.println(x.toString()));
+		} else {
+			System.out.println("Actualmente no hay ventas registradas");
+		}
+
 	}
+
+	public double calculaGanancia() {
+		return ventas.stream().mapToDouble(Ticket::getTotalCompra).sum();
+	}
+	
 }
