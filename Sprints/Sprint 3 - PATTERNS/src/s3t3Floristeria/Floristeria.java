@@ -62,13 +62,9 @@ public class Floristeria implements Serializable {
 	public void retiraProducto(String eliminar) {
 		boolean bucle = true;
 		int indexProducto;
-//		System.out.println("\n-----------------------------------------");
-//		System.out.println("Productos disponibles en Floristeria " + getNombre().toUpperCase());
-//		System.out.println("-----------------------------------------\n");
-//		listaProductos();
+
 		
 		while(bucle){
-//			String eliminar = App.ingresaStr("\nDime el nombre del producto que quieres eliminar...");
 			indexProducto = compruebaExistencia(eliminar);
 			if (indexProducto == -1) {
 				System.out.println("El nombre ingresado no coincide con ningún producto");
@@ -76,10 +72,7 @@ public class Floristeria implements Serializable {
 				Producto producto = productos.get(indexProducto);
 				productos.remove(indexProducto);
 				stock.modificaStock2(this);
-//				stock.modificaStock(nombre, producto, 1, false);
 				bucle = false;
-//				System.out.println(producto.getClass().getSimpleName()+ " "+ producto.getNombre()+ " eliminado");
-				
 			}
 
 		}
@@ -87,9 +80,9 @@ public class Floristeria implements Serializable {
 		
 	public void listaProductos() {
 		if (productos.size()>0) {
-			System.out.println("\n-----------------------------------------");
+			System.out.println("\n---------------------------------------------------");
 			System.out.println("Productos disponibles en Floristeria " + nombre.toUpperCase());
-			System.out.println("-----------------------------------------\n");
+			System.out.println("----------------------------------------------------");
 			
 			productos.stream().forEach(x-> System.out.println(x.getInfo()));
 			
@@ -152,6 +145,10 @@ public class Floristeria implements Serializable {
 	}
 	
 	public void listaVentas() {
+		System.out.println("\n-----------------------------------------");
+		System.out.println("Compras registradas en Floristeria " + nombre.toUpperCase());
+		System.out.println("-----------------------------------------");
+		
 		if(ventas.size() > 0) {
 			ventas.stream().forEach(x->System.out.println(x.toString()));
 		} else {
@@ -164,4 +161,15 @@ public class Floristeria implements Serializable {
 		return ventas.stream().mapToDouble(Ticket::getTotalCompra).sum();
 	}
 	
+	public void listaCantidadesStock() {
+		listaProductos();
+		stock.listaCantidades();
+	}
+
+	public void valorStock() {
+		System.out.println("---------------------------------------");
+		System.out.println("Valor de Stock de Floristeria " + nombre);
+		System.out.println("---------------------------------------");
+		System.out.println(stock.calculaValorDeStock(this) + "€");
+	}
 }

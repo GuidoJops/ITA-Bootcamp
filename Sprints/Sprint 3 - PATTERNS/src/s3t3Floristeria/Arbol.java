@@ -20,9 +20,10 @@ public class Arbol extends Producto {
 	
 	@Override
 	public String getInfo() {
-		return "\nTipo: Árbol\n"
+		return "Tipo:   Árbol\n"
 				+ "Nombre: " + nombre
-				+"\nPrecio: " + precio;
+				+"\nAltura: "+ altura + "mts"
+				+"\nPrecio: " + precio + "€\n";
 	}
 
 

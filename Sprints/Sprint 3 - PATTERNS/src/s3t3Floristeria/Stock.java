@@ -14,8 +14,6 @@ import java.util.Map;
 
 public class Stock implements Serializable {
 	private Map<String, Integer> existencias;
-//	private double valorStock;
-
 	
 	public Stock() {
 		existencias = new HashMap();
@@ -36,48 +34,15 @@ public class Stock implements Serializable {
 		this.existencias = existencias;
 	}
 
+	public void listaCantidades() {
+		System.out.println("-------------------------");
+		System.out.println("Cantidades por Productos");
+		System.out.println("-------------------------");
 
-//	public double getValorStock() {
-//		return valorStock;
-//	}
-//
-//
-//	public void setValorStock(double valorStock) {
-//		this.valorStock = valorStock;
-//	}
+		existencias.forEach((k,v) -> System.out.println(k + ": " + v));
+					
+	}
 	
-	
-//	public void modificaStock(String nombreFloristeria, Producto p, int cant, boolean agrega) {
-//		
-//		switch (p.getClass().getSimpleName()) {
-//		
-//			case "Arbol":
-//				int valor = existencias.get("ARBOL");
-//				if(agrega) {
-//					//AGREGA
-//					existencias.put("ARBOL", valor + cant);
-//				} else {
-//					//RETIRA
-//					existencias.put("ARBOL", valor - cant);
-//				}	
-//				System.out.println("Se ha modificado el Stock de ARBOL");
-//				escribeFichero(nombreFloristeria, MapToString(existencias));
-//				actualizaValorStock(p,cant, agrega);
-//				
-//				break;
-//				
-//			case "Flor":
-//				break;
-//			
-//			case "Decoracion":
-//				break;
-//								
-//			default:
-//				System.out.println("Algo ha fallado, intenta otra vez");
-//		}
-//		
-//	}
-		
 	public void modificaStock2(Floristeria f) {
 		int contArbol = 0, 
 			contFlor = 0, 
@@ -105,6 +70,7 @@ public class Stock implements Serializable {
 		existencias.put("ARBOL", contArbol);
 		existencias.put("FLOR", contFlor);
 		existencias.put("DECORACION", contDeco);
+
 		escribeFichero(f.getNombre(), MapToString(existencias));
 		System.out.println("\n-AVISO-Se ha modificado el Stock de la Floristeria " +f.getNombre() +"\n-------\n");
 	
@@ -121,16 +87,7 @@ public class Stock implements Serializable {
 		return valorStock;
 		
 	}
-	
-//	public void actualizaValorStock(Producto p, int cant, boolean agrega) {
-//		if (agrega) {
-//			valorStock += (p.getPrecio()*cant);	
-//		} else {
-//			valorStock -= (p.getPrecio()*cant);	
-//		}
-//			
-//	}
-	
+		
 	public void escribeFichero(String nombreFloristeria, String str) {
 		String ruta = "src/s3t3Floristeria/bd/Stock-" + nombreFloristeria.toLowerCase() + ".txt";
 		Path p = Paths.get(ruta);

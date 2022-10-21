@@ -30,7 +30,7 @@ public class Cliente implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Nombre: "+nombre +"\nDni :"+ dni;
+		return "Nombre: "+nombre +"\nDni:    "+ dni;
 	}
 
 }
