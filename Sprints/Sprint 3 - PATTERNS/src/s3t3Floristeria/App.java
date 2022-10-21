@@ -371,7 +371,7 @@ public class App {
 		return res;	
 	}
 
-	static double ingresaDecimal(String str){
+	public static double ingresaDecimal(String str){
 		boolean numOk = false;
 		double num=-1;
 		Scanner sc = new Scanner(System.in);
@@ -388,7 +388,7 @@ public class App {
 		return num;	
 	}
 	
-	static int ingresaInt(String str){
+	public static int ingresaInt(String str){
 		boolean numOk = false;
 		int num=-1;
 		Scanner sc = new Scanner(System.in);
