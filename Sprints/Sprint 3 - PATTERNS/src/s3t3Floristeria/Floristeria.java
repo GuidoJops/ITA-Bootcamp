@@ -152,13 +152,19 @@ public class Floristeria implements Serializable {
 		if(ventas.size() > 0) {
 			ventas.stream().forEach(x->System.out.println(x.toString()));
 		} else {
-			System.out.println("Actualmente no hay ventas registradas");
+			System.out.println("Actualmente no hay compras registradas");
 		}
 
 	}
 
-	public double calculaGanancia() {
-		return ventas.stream().mapToDouble(Ticket::getTotalCompra).sum();
+	public String calculaGanancia() {
+		double ganancias;
+		System.out.println("\n-----------------------------------------");
+		System.out.println("Ganancias registradas en Floristeria " + nombre.toUpperCase());
+		System.out.println("-----------------------------------------");
+		ganancias = ventas.stream().mapToDouble(Ticket::getTotalCompra).sum();
+
+		return ganancias + "€";
 	}
 	
 	public void listaCantidadesStock() {

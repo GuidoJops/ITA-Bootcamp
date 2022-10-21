@@ -123,8 +123,7 @@ public class App {
 					f.listaVentas();
 					break;
 				case 8:
-					System.out.println("Ganancias registradas para Floristeria " + f.getNombre().toUpperCase());
-					System.out.println(f.calculaGanancia()+"€");
+					System.out.println(f.calculaGanancia());
 					break;				
 				default:
 					System.out.println("xx-Ingresa un número válido-xx");
@@ -145,7 +144,6 @@ public class App {
 		}
 	
 	}
-	
 	
 	public static List<Producto> generaListaCompra(Floristeria f) {
 		boolean bucle = true;
@@ -238,7 +236,6 @@ public class App {
 		
 	}
 	
-	
 	public static Producto defineProducto() {
 		boolean bucle = true;
 		Producto p = null;
@@ -261,12 +258,55 @@ public class App {
 					p = new Arbol(nombre, precio, altura);
 					bucle = false;
 					break;
+				case 2:
+					nombre = ingresaStr("Dime el nombre de la Flor");
+					precio = ingresaDecimal("Dime el precio de la Flor");
+					String color = ingresaStr("Dime el color de la Flor");
+					p = new Flor(nombre, precio, color);
+					bucle = false;
+					break;
+				case 3:
+					nombre = ingresaStr("Dime el nombre de la Decoración");
+					precio = ingresaDecimal("Dime el precio de la Decoración");
+					String material = defineMaterialDeco();
+					p = new Decoracion(nombre, precio, material);
+					bucle = false;
+					break;
+					
 				default:
 					System.out.println("xx-Ingresa un número válido-xx");
 			
 			}
 		}
 		return p;
+	
+	}
+	
+	public static String defineMaterialDeco() {
+		boolean bucle = true;
+		int opcion=0;
+		String material="";
+		while(bucle) {
+			System.out.println("\nOpciones de Material para Decoración\n");
+			System.out.println("1- Madera");
+			System.out.println("2- Plástico");
+			
+			opcion = ingresaInt("Dime el material de la Decoración...");
+			switch(opcion) {
+				case 1:
+					material = "Madera";
+					bucle=false;
+					break;
+				case 2:
+					material = "Plástico";
+					bucle = false;
+					break;
+				default:
+					System.out.println("xx-Ingresa un número válido-xx");
+			}
+		}
+		
+		return material;
 		
 	}
 	
@@ -289,7 +329,6 @@ public class App {
 		}	
 		return index;
 	}
-	
 
 	public static void guardaListaFloristeria(File file){
 
@@ -306,7 +345,6 @@ public class App {
 
 	}
 	
-
 	public static List<Floristeria> recuperaListaFloristeria(File file) {
 		tiendas = new ArrayList();
 		try {
@@ -322,14 +360,17 @@ public class App {
 		return tiendas;
 	}
 	
-		
 	public static String ingresaStr(String str) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(str);
-		return sc.nextLine();	
+		String res = sc.nextLine();
+		while (res.length() == 0) {
+			System.out.println("xx-No has ingresado ningún valor-xx\n");
+			res = ingresaStr(str);
+		}
+		return res;	
 	}
-	
-	
+
 	static double ingresaDecimal(String str){
 		boolean numOk = false;
 		double num=-1;
@@ -338,9 +379,9 @@ public class App {
 		while (!numOk) {
 			 try{
 				 num = Double.parseDouble(sc.nextLine());
-	             numOk=true;
+				 numOk=true;
 	        }catch (Exception e) {
-	            System.out.println("Recuerda ingresar un número...");
+	            System.out.println("Recuerda ingresar un número válido...");
 	        }
 			
 		}		
@@ -357,7 +398,7 @@ public class App {
 				 num = Integer.parseInt(sc.nextLine());
 	             numOk=true;
 	        }catch (Exception e) {
-	            System.out.println("Recuerda ingresar un número entero...");
+	            System.out.println("Recuerda ingresar un número válido...");
 	        }
 			
 		}		
