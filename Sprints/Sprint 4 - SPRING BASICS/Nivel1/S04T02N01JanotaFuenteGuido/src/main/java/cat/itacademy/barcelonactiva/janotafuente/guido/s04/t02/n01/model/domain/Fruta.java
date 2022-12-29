@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 public class Fruta {
 	
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -45,4 +46,8 @@ public class Fruta {
 		this.cantidadQuilos = cantidadQuilos;
 	}
 
+	@Override
+	public String toString() {
+		return "Fruta [id=" + id + ", nombre=" + nombre + ", cantidadQuilos=" + cantidadQuilos + "]";
+	}
 }
