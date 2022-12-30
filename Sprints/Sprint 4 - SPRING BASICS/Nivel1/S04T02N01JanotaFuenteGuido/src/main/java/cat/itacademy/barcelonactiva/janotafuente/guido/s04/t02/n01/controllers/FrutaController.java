@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,12 +37,12 @@ public class FrutaController {
 	
 	
 	@GetMapping("/getOne/{id}")
-	public ResponseEntity<Fruta> getFruta(@PathVariable("id") int id){
+	public ResponseEntity<String> getFruta(@PathVariable("id") int id){
 		Fruta fruta = frutaServ.getOneFruta(id);
 		if (fruta!= null) {
-			return new ResponseEntity<>(fruta,HttpStatus.OK);
+			return new ResponseEntity<>(fruta.toString(),HttpStatus.OK);
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("No se encontró fruta con ese ID",HttpStatus.NOT_FOUND);
 				
 	}
 	
@@ -51,17 +52,32 @@ public class FrutaController {
 		if (frutaServ.addFruta(fruta)) {
 			return new ResponseEntity<>(fruta, HttpStatus.CREATED);
 		}
-		return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-		
+	
 
-	//DEVUELVE NOT FOUND CUANDO INGRESO BODY ERRONEO
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Fruta> updateFruta(@PathVariable("id") int id, @RequestBody Fruta fruta){
-		if (frutaServ.updateFruta(id, fruta)!= null) {
-			return new ResponseEntity<>(fruta,HttpStatus.OK);
+	public ResponseEntity<String> updateFruta(@PathVariable("id") int id, @RequestBody Fruta fruta) {
+		Fruta _fruta = frutaServ.updateFruta(id, fruta);
+		
+		if (_fruta == fruta) {
+			return new ResponseEntity<>("Error en el Body",HttpStatus.BAD_REQUEST);
+		
+		} else if (_fruta != null) {
+			return new ResponseEntity<>(fruta.toString(),HttpStatus.OK);
+			
+		} else {
+			return new ResponseEntity<>("No se encontró fruta con ese ID",HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-				
 	}
+	
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<String> deleteFruta(@PathVariable("id") int id) {
+		if (frutaServ.deleteFruta(id)){
+			return new ResponseEntity<>("Borrado Exitoso", HttpStatus.OK);
+		}
+		return new ResponseEntity<>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 }

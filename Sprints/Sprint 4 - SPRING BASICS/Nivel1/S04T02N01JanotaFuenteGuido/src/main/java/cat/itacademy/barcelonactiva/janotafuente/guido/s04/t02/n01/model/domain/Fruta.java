@@ -48,6 +48,7 @@ public class Fruta {
 
 	@Override
 	public String toString() {
-		return "Fruta [id=" + id + ", nombre=" + nombre + ", cantidadQuilos=" + cantidadQuilos + "]";
+		return "{\"id\":\"" + id + "\", \"nombre\":\"" + nombre + "\", \"cantidadQuilos\":\"" + cantidadQuilos + "\"}";
 	}
+	
 }
