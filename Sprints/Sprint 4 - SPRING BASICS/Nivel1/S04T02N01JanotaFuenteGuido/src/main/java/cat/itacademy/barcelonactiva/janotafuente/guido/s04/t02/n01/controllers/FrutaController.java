@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.domain.Fruta;
-import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.services.FrutaService;
+import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.services.FrutaServiceImpl;
 
 @RestController
 @RequestMapping("/fruta")
@@ -24,11 +24,11 @@ public class FrutaController {
 
 	
 	@Autowired
-	FrutaService frutaServ;
+	FrutaServiceImpl frutaServ;
 	
 	@GetMapping("/getAll")
 	public ResponseEntity<List<Fruta>> getFrutas(){
-		List<Fruta> frutas = frutaServ.getAllFrutas();
+		List<Fruta> frutas = frutaServ.getAll();
 		if (frutas.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -38,7 +38,7 @@ public class FrutaController {
 	
 	@GetMapping("/getOne/{id}")
 	public ResponseEntity<String> getFruta(@PathVariable("id") int id){
-		Fruta fruta = frutaServ.getOneFruta(id);
+		Fruta fruta = frutaServ.getOne(id);
 		if (fruta!= null) {
 			return new ResponseEntity<>(fruta.toString(),HttpStatus.OK);
 		}

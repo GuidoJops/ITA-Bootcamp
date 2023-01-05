@@ -13,15 +13,36 @@ import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.domain.
 import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.repository.IFrutaRepository;
 
 @Service
-public class FrutaService {
+public class FrutaServiceImpl implements IFrutaService {
 	
-	private static Logger logger = LoggerFactory.getLogger(FrutaService.class);
+	private static Logger logger = LoggerFactory.getLogger(FrutaServiceImpl.class);
 	
 	@Autowired
 	IFrutaRepository frutaRepo;
 	
 
 	//REST Methods	
+	@Override
+	public List<Fruta> getAll() {
+		List<Fruta> frutas = new ArrayList<Fruta>();
+		frutaRepo.findAll().forEach(frutas::add);
+		return frutas;
+	}
+
+
+	@Override
+	public Fruta getOne(int id) {
+		Optional<Fruta> frutaData = frutaRepo.findById(id);
+		if(frutaData.isEmpty()) {
+			logger.info("No existe Fruta con id "+ id);
+			return null;
+		}
+		logger.info("Fruta Encontrada");
+		return frutaData.get();	
+	}
+	
+
+	@Override
 	public boolean addFruta(Fruta fruta) {
 		boolean frutaOk = false;
 		if (checkBody(fruta)) {
@@ -30,28 +51,13 @@ public class FrutaService {
 			logger.info("Fruta Agregada");
 		}
 		return frutaOk;
-		
-	}
-		
-	public List<Fruta> getAllFrutas() {
-		List<Fruta> frutas = new ArrayList<Fruta>();
-		frutaRepo.findAll().forEach(frutas::add);
-		return frutas;
-		
 	}
 
-	public Fruta getOneFruta(int id) {
-		Optional<Fruta> frutaData = frutaRepo.findById(id);
-		if(frutaData.isEmpty()) {
-			logger.info("No existe Fruta con id "+ id);
-			return null;
-		}
-		logger.info("Fruta Encontrada");
-		return frutaData.get();
-		
-	}
 
+		
+	@Override
 	public Fruta updateFruta(int id, Fruta fruta) {
+		// TODO Auto-generated method stub
 		if(checkBody(fruta)) {
 			Optional<Fruta> frutaData = frutaRepo.findById(id);
 			
@@ -67,11 +73,13 @@ public class FrutaService {
 			}
 		}
 		logger.info("Body Incorrecto");
-		return fruta;
+		return fruta;	
 	}
+
 	
-	
+	@Override
 	public boolean deleteFruta(int id) {
+		// TODO Auto-generated method stub
 		boolean ok = false;
 		try {
 			frutaRepo.deleteById(id);
@@ -81,10 +89,10 @@ public class FrutaService {
 			logger.info(e.getMessage());
 			
 		}
-		return ok;
+		return ok;	
 	}
 	
-	
+
 	
 	//Extra Methods
 	 public boolean checkBody(Fruta fruta) {
@@ -95,6 +103,8 @@ public class FrutaService {
 			return frutaOk;
 	 }
 
+
+	
 
 	 
 	
