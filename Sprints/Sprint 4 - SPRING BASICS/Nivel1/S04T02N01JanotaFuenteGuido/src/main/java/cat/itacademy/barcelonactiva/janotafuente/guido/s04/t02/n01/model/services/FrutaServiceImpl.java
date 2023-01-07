@@ -57,7 +57,6 @@ public class FrutaServiceImpl implements IFrutaService {
 		
 	@Override
 	public Fruta updateFruta(int id, Fruta fruta) {
-		// TODO Auto-generated method stub
 		if(checkBody(fruta)) {
 			Optional<Fruta> frutaData = frutaRepo.findById(id);
 			
@@ -78,8 +77,7 @@ public class FrutaServiceImpl implements IFrutaService {
 
 	
 	@Override
-	public boolean deleteFruta(int id) {
-		// TODO Auto-generated method stub
+	public boolean deleteFruta(int id) {  //If-Else?
 		boolean ok = false;
 		try {
 			frutaRepo.deleteById(id);
@@ -93,6 +91,7 @@ public class FrutaServiceImpl implements IFrutaService {
 	}
 	
 
+
 	
 	//Extra Methods
 	 public boolean checkBody(Fruta fruta) {
@@ -102,6 +101,7 @@ public class FrutaServiceImpl implements IFrutaService {
 			}
 			return frutaOk;
 	 }
+
 
 
 	

@@ -64,7 +64,7 @@ public class FrutaController {
 			return new ResponseEntity<>("Error en el Body",HttpStatus.BAD_REQUEST);
 		
 		} else if (_fruta != null) {
-			return new ResponseEntity<>(fruta.toString(),HttpStatus.OK);
+			return new ResponseEntity<>(fruta.toString(),HttpStatus.CREATED);  
 			
 		} else {
 			return new ResponseEntity<>("No se encontró fruta con ese ID",HttpStatus.NOT_FOUND);
@@ -79,5 +79,7 @@ public class FrutaController {
 		}
 		return new ResponseEntity<>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	
 
 }

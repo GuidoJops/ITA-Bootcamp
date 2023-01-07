@@ -17,4 +17,7 @@ public interface IFrutaService {
 	public Fruta updateFruta(int id, Fruta fruta);
 	
 
+
+	
+
 }
