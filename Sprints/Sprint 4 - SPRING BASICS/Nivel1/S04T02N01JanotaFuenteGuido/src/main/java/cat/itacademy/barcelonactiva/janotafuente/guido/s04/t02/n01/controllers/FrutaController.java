@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.domain.Fruta;
 import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.services.FrutaServiceImpl;
+import cat.itacademy.barcelonactiva.janotafuente.guido.s04.t02.n01.model.services.IFrutaService;
 
 @RestController
 @RequestMapping("/fruta")
@@ -24,7 +25,7 @@ public class FrutaController {
 
 	
 	@Autowired
-	FrutaServiceImpl frutaServ;
+	IFrutaService frutaServ;
 	
 	@GetMapping("/getAll")
 	public ResponseEntity<List<Fruta>> getFrutas(){
