@@ -28,7 +28,7 @@ public class FrutaController {
 	IFrutaService frutaServ;
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<List<Fruta>> getFrutas(){
+	public ResponseEntity<?> getFrutas(){
 		List<Fruta> frutas = frutaServ.getAll();
 		if (frutas.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -38,7 +38,7 @@ public class FrutaController {
 	
 	
 	@GetMapping("/getOne/{id}")
-	public ResponseEntity<Object> getFruta(@PathVariable("id") int id){
+	public ResponseEntity<?> getFruta(@PathVariable("id") int id){
 		Fruta fruta = frutaServ.getOne(id);
 		if (fruta!= null) {
 			return new ResponseEntity<>(fruta,HttpStatus.OK);
@@ -49,7 +49,7 @@ public class FrutaController {
 	
 	
 	@PostMapping("/add") 
-	public ResponseEntity<Fruta> addFruta(@RequestBody Fruta fruta) {
+	public ResponseEntity<?> addFruta(@RequestBody Fruta fruta) {
 		if (frutaServ.addFruta(fruta)) {
 			return new ResponseEntity<>(fruta, HttpStatus.CREATED);
 		}
@@ -58,7 +58,7 @@ public class FrutaController {
 	
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Object> updateFruta(@PathVariable("id") int id, @RequestBody Fruta fruta) {
+	public ResponseEntity<?> updateFruta(@PathVariable("id") int id, @RequestBody Fruta fruta) {
 		Fruta _fruta = frutaServ.updateFruta(id, fruta);
 		
 		if (_fruta == fruta) {
@@ -74,7 +74,7 @@ public class FrutaController {
 	
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteFruta(@PathVariable("id") int id) {
+	public ResponseEntity<?> deleteFruta(@PathVariable("id") int id) {
 		if (frutaServ.deleteFruta(id)){
 			return new ResponseEntity<>("Borrado Exitoso", HttpStatus.OK);
 		}
