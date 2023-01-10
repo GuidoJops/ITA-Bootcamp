@@ -74,7 +74,7 @@ public class FrutaController {
 	
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteFruta(@PathVariable("id") int id) {
+	public ResponseEntity<String> deleteFruta(@PathVariable("id") int id) {
 		if (frutaServ.deleteFruta(id)){
 			return new ResponseEntity<>("Borrado Exitoso", HttpStatus.OK);
 		}
