@@ -12,6 +12,8 @@ public interface IFrutaService {
 	
 	public Fruta getOne(String id);
 	
+	public Fruta getByName(String nombre);
+
 	public boolean addFruta(Fruta fruta);
 	
 	public boolean deleteFruta(String id);

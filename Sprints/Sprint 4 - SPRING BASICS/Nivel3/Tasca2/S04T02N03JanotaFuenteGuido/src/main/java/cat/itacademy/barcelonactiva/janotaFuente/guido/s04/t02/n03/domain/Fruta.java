@@ -6,10 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "frutas")
 public class Fruta {
 	
-	public static final String SEQUENCE_NAME= "fruta_sequence"; //FALTA INCORPORAR EN CONTROLLER
 
 	@Id 
-	private String id; //AUTOINCREMENTAR!!
+	private String id;
 	private String nombre;
 	private int cantidadQuilos;
 	

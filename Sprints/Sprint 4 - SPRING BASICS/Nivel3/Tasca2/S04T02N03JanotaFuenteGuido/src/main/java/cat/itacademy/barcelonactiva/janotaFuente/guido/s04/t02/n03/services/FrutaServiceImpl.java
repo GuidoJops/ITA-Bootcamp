@@ -42,12 +42,25 @@ public class FrutaServiceImpl implements IFrutaService {
 		return frutaData.get();	
 	}
 	
+	
+	@Override
+	public Fruta getByName(String nombre) {
+		Optional<Fruta> frutaData = frutaRepo.findByNombre(nombre.toLowerCase());
+		if(frutaData.isEmpty()) {
+			logger.warn("No existe Fruta con nombre "+ nombre);
+			return null;
+		}
+		logger.info("Fruta Encontrada");
+		return frutaData.get();	
+	}
+	
+	
 
 	@Override
 	public boolean addFruta(Fruta fruta) {
 		boolean frutaOk = false;
 		if (checkBody(fruta)) {
-			frutaRepo.save(new Fruta(fruta.getNombre(), fruta.getCantidadQuilos()));
+			frutaRepo.save(new Fruta(fruta.getNombre().toLowerCase(), fruta.getCantidadQuilos()));
 			frutaOk = true;
 			logger.info("Fruta Agregada");
 		}
@@ -66,7 +79,7 @@ public class FrutaServiceImpl implements IFrutaService {
 				return null;
 				
 			} else {
-				frutaData.get().setNombre(fruta.getNombre());
+				frutaData.get().setNombre(fruta.getNombre().toLowerCase());
 				frutaData.get().setCantidadQuilos(fruta.getCantidadQuilos());
 				logger.info("Fruta Actualizada a --> "+frutaData.get());
 				return frutaRepo.save(frutaData.get());
@@ -103,8 +116,6 @@ public class FrutaServiceImpl implements IFrutaService {
 			}
 			return frutaOk;
 	 }
-
-
 
 	
 

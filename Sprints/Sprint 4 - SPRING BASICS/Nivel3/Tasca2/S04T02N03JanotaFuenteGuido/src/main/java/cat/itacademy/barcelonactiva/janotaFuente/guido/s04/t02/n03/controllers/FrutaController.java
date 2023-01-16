@@ -49,6 +49,17 @@ public class FrutaController {
 	}
 	
 	
+	@GetMapping("/getByName/{nombre}")
+	public ResponseEntity<?> getFrutaByName(@PathVariable("nombre") String nombre){
+		Fruta fruta = frutaServ.getByName(nombre);
+		if (fruta!= null) {
+			return new ResponseEntity<>(fruta,HttpStatus.OK);
+		}
+		return new ResponseEntity<>("No se encontró fruta con ese Nombre",HttpStatus.NOT_FOUND);
+				
+	}
+	
+	
 	@PostMapping("/add") 
 	public ResponseEntity<?> addFruta(@RequestBody Fruta fruta) {
 		if (frutaServ.addFruta(fruta)) {
