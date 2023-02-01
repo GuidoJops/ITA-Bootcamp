@@ -12,9 +12,7 @@ public interface ISucursalService {
 	
 	void saveSucursal (SucursalDto sucursalDto);
 	
-	Sucursal getOneSucursal(Long id);
-	
-	void updateSucursal (Long id);
+	SucursalDto getOneSucursal(Long id);
 	
 	void deleteSucursal (Long id);
 	

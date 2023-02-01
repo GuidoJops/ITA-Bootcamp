@@ -1,7 +1,7 @@
 package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,21 +32,20 @@ public class SucursalServiceImpl implements ISucursalService{
 	}
 
 	@Override
-	public Sucursal getOneSucursal(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public SucursalDto getOneSucursal(Long id) {
+//		Optional<Sucursal> sucursaldata = SucRepo.findById(id);
+//		if(sucursaldata.isEmpty()) {
+//			return null;
+//		}
+//		return converter.entityToDto(sucursaldata.get());
+		return converter.entityToDto(SucRepo.findById(id).orElse(null)); //CHEQUEAR - CREO QUE VA ESTA
 	}
 
-	@Override
-	public void updateSucursal(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public void deleteSucursal(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteSucursal(Long id) { //AGREGAR POR SI NO LA ENCUENTRA
+		SucRepo.deleteById(id);
+
 	}
 
 }

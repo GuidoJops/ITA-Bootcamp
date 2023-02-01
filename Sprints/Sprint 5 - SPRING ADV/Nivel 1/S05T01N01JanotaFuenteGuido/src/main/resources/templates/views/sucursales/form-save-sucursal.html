@@ -11,7 +11,9 @@
 
 	<div class="container">
 		<form th:action="@{/sucursal/save}" th:object="${sucursal}" method="post" >
+		
 			<div class="form-group">
+				<input type="hidden" th:field="*{id}">
 				<label for="nombreSucursal">Nombre de Sucursal:</label>
 				 <input	type="text" th:field="*{nombreSucursal}" class="form-control" placeholder="Ingresa el nombre ed la Sucursal">
 			</div>

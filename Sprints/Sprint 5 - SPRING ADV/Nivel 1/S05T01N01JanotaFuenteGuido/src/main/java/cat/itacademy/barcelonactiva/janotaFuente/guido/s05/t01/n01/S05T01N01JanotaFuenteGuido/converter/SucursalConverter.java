@@ -13,17 +13,6 @@ public class SucursalConverter {
 	private SucursalDto sucursalDto;
 	
 	
-//	public SucursalConverter() {
-//		
-//	}
-	
-//	public SucursalConverter(Sucursal sucursal, SucursalDto sucursalDto) {
-//		super();
-//		this.sucursal = sucursal;
-//		this.sucursalDto = sucursalDto;
-//		
-//	}
-	
 	public Sucursal getSucursal() {
 		return sucursal;
 	}
@@ -39,13 +28,16 @@ public class SucursalConverter {
 
 	
 	public SucursalDto entityToDto(Sucursal sucursal) {
+		String nombrePais = sucursal.getPaisSucursal().getNombre();
 		SucursalDto sucursalDto = new SucursalDto();
 		
 		sucursalDto.setId(sucursal.getId());
 		sucursalDto.setNombreSucursal(sucursal.getNombreSucursal());
 		sucursalDto.setPaisSucursal(sucursal.getPaisSucursal());
-		sucursalDto.setTipoSucursal("A definir...");
+		sucursalDto.setTipoSucursal(sucursalDto.defindeTipoSucursal(nombrePais));
+		
 		System.out.println("Devolviendo DTO...");
+		
 		return sucursalDto;
 	}
 	

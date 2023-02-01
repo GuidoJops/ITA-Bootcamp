@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.domain.Pais;
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.services.IPaisService;
 
+
 //-------La idea es cargar Paises mediante PostMan a la Base de Datos-------
+//BUSCAR MANERA DE CARGAR TODOS LOS PAISES AUTOMATICAMENTE A LA BD
+
 
 @Controller
 @RequestMapping ("/pais")

@@ -19,18 +19,6 @@ public class SucursalDto {
 									 "República Checa","Rumania","Suecia"};
 	
 	
-//	public SucursalDto() {
-//		
-//	}
-	
-//	public SucursalDto(Long id, String nombreSucursal, Pais paisSucursal, String tipoSucursal) {
-//		super();
-//		this.id = id;
-//		this.nombreSucursal = nombreSucursal;
-//		this.paisSucursal = paisSucursal;
-//		this.tipoSucursal = tipoSucursal;
-//	}
-	
 	
 	public Long getId() {
 		return id;
@@ -65,5 +53,20 @@ public class SucursalDto {
 		this.listaPaisesUe = listaPaisesUe;
 	}
 
+	
+	//HACER CON LAMBDA!!
+	public String defindeTipoSucursal(String nombrePais) { 
+		String tipo="Fuera UE";
+		
+		for (String pais : listaPaisesUe) {
+			if(pais.equalsIgnoreCase(nombrePais)) {
+				tipo ="UE";
+				
+			}
+			
+		}
+		return tipo;
+		 
+	}
 
 }

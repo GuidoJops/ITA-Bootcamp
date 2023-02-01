@@ -22,16 +22,7 @@ public class Sucursal {
 	@ManyToOne
 	@JoinColumn (name="pais_id")
 	private Pais paisSucursal;
-	
-			
-//	public Sucursal() {
-//			
-//	}
-	
-//	public Sucursal(String nombreSucursal, Pais paisSucursal) {
-//		this.nombreSucursal = nombreSucursal;
-//		this.paisSucursal = paisSucursal;
-//	}
+
 	
 	public Long getId() {
 		return id;
