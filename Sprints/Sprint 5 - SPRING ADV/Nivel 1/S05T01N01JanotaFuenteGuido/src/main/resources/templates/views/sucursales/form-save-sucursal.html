@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{template/template :: head}">
+</head>
+<body>
+	<header th:replace="~{template/template :: header}"></header>
+
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+	</div>
+
+	<div class="container">
+		<form th:action="@{/sucursal/save}" th:object="${sucursal}" method="post" >
+			<div class="form-group">
+				<label for="nombreSucursal">Nombre de Sucursal:</label>
+				 <input	type="text" th:field="*{nombreSucursal}" class="form-control" placeholder="Ingresa el nombre ed la Sucursal">
+			</div>
+			
+				<div class="form-group">
+				<label for="paisSucursal">País:</label>
+				<select th:field="*{paisSucursal}" class="form-control" id ="paisSucursal" >
+			
+				<option th:each="paisSucursal:${paises}"
+						th:value="${paisSucursal.id}"
+						th:text="${paisSucursal.nombre}"
+						/>
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Guardar Sucursal</button>
+			
+		</form>
+
+	</div>
+
+	<footer th:replace="~{template/template :: footer}"></footer>
+
+
+</body>
+</html>

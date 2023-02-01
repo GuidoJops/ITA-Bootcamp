@@ -1,0 +1,69 @@
+package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.dto;
+
+import java.util.Arrays;
+import java.util.List;
+
+import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.domain.Pais;
+
+public class SucursalDto {
+	
+	private Long id;
+	private String nombreSucursal;
+	private Pais paisSucursal;
+	private String tipoSucursal;
+	private String[] listaPaisesUe= {"Alemania","Austria","Bélgica","Bulgaria","Chipre",
+									 "Croacia","Dinamarca","España","Eslovaquia","Eslovenia",
+									 "Estonia","Finlandia","Francia","Grecia","Hungría",
+									 "Irlanda","Italia","Letonia","Lituania","Luxemburgo",
+									 "Malta","Países Bajos","Polonia","Portugal",
+									 "República Checa","Rumania","Suecia"};
+	
+	
+//	public SucursalDto() {
+//		
+//	}
+	
+//	public SucursalDto(Long id, String nombreSucursal, Pais paisSucursal, String tipoSucursal) {
+//		super();
+//		this.id = id;
+//		this.nombreSucursal = nombreSucursal;
+//		this.paisSucursal = paisSucursal;
+//		this.tipoSucursal = tipoSucursal;
+//	}
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNombreSucursal() {
+		return nombreSucursal;
+	}
+	public void setNombreSucursal(String nombreSucursal) {
+		this.nombreSucursal = nombreSucursal;
+	}
+	public Pais getPaisSucursal() {
+		return paisSucursal;
+	}
+	public void setPaisSucursal(Pais paisSucursal) {
+		this.paisSucursal = paisSucursal;
+	}
+	public String getTipoSucursal() {
+		return tipoSucursal;
+	}
+	public void setTipoSucursal(String tipoSucursal) {
+		this.tipoSucursal = tipoSucursal;
+	}
+
+	public String[] getListaPaisesUe() {
+		return listaPaisesUe;
+	}
+
+	public void setListaPaisesUe(String[] listaPaisesUe) {
+		this.listaPaisesUe = listaPaisesUe;
+	}
+
+
+}
