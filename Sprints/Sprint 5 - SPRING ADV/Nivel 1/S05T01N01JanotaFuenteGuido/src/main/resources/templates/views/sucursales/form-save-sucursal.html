@@ -9,27 +9,28 @@
 		<h1 th:text="${titulo}"></h1>
 	</div>
 
-	<div class="container">
+	<div class="container p-3 my-3 bg-dark text-white">
 		<form th:action="@{/sucursal/save}" th:object="${sucursal}" method="post" >
 		
 			<div class="form-group">
 				<input type="hidden" th:field="*{id}">
 				<label for="nombreSucursal">Nombre de Sucursal:</label>
-				 <input	type="text" th:field="*{nombreSucursal}" class="form-control" placeholder="Ingresa el nombre ed la Sucursal">
+				 <input	type="text" th:field="*{nombreSucursal}" class="form-control" placeholder="-Ingresa el nombre de la Sucursal-">
 			</div>
 			
 				<div class="form-group">
 				<label for="paisSucursal">País:</label>
 				<select th:field="*{paisSucursal}" class="form-control" id ="paisSucursal" >
-			
+				<option value=""> -Selecciona País- </option>
 				<option th:each="paisSucursal:${paises}"
 						th:value="${paisSucursal.id}"
 						th:text="${paisSucursal.nombre}"
+				
 						/>
 				</select>
 			</div>
 			
-			<button type="submit" class="btn btn-primary">Guardar Sucursal</button>
+			<button type="submit" class="btn btn-warning "th:text="${boton}"></button>
 			
 		</form>
 

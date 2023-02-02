@@ -35,7 +35,7 @@ public class SucursalController {
 	//Muestra lista de Sucursales
 	@GetMapping("")
 	public String listSucursales(Model model){
-		model.addAttribute("titulo", "Sucursales disponibles");
+		model.addAttribute("titulo", "Sucursales Disponibles");
 		model.addAttribute("sucursales", sucursalServ.getAllSucursales());
 
 		return "/views/sucursales/list-sucursales";
@@ -47,6 +47,7 @@ public class SucursalController {
 		List<Pais> paises = paisServ.listaPaises();
 	
 		model.addAttribute("titulo", "Agregar Sucursal");
+		model.addAttribute("boton", "Guardar Sucursal");
 		model.addAttribute("sucursal",sucursaldto);
 		model.addAttribute("paises",paises);
 
@@ -75,6 +76,7 @@ public class SucursalController {
 		List<Pais> paises = paisServ.listaPaises();
 	
 		model.addAttribute("titulo", "Editar Sucursal");
+		model.addAttribute("boton", "Actualizar Sucursal");
 		model.addAttribute("sucursal",sucursaldto);
 		model.addAttribute("paises",paises);
 		

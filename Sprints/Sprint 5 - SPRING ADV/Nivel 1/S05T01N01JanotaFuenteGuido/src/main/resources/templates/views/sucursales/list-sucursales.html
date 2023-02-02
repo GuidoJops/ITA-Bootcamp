@@ -8,30 +8,48 @@
 	<div class="container">
 		<h1 th:text="${titulo}"></h1>
 	</div>
-	
+
 	<div class="container">
-		<table class="table table-striped" border=1>
-			<thead class="thead-dark">
-				<tr>
+		<table class="table table-sm table-bordered table-striped table-dark">
+			<thead class="thead-secondary">
+				<tr style="text-align: center; vertical-align: middle">
 					<th scope="col">Id</th>
 					<th scope="col">Nombre</th>
 					<th scope="col">País</th>
 					<th scope="col">Tipo de Sucursal</th>
-					
+					<th scope="col"></th>
+
+
 				</tr>
 			</thead>
-	
+
 			<tbody>
 				<tr th:each="sc:${sucursales}">
 					<th scope="row" th:text="${sc.id}"></th>
 					<td th:text="${sc.nombreSucursal}"></td>
 					<td th:text="${sc.paisSucursal.nombre}"></td>
 					<td th:text="${sc.tipoSucursal}"></td>
-					
+					<td style="text-align: center">
+						<div class="btn-group">
+							<a type="button" th:href="@{/sucursal/update/} + ${sc.id}"
+								class="btn btn-light btn-sm" th:text="Editar"
+								title="Editar Sucursal">
+							</a> 
+							<a type="button" th:href="@{/sucursal/delete/} + ${sc.id}"
+								class="btn btn-danger btn-sm" th:text="Eliminar"
+								title="Eliminar Sucursal"
+								onclick="return confirm('Esta seguro de eliminar la sucursal ${sc.nombreSucursal} del sistema?');">
+							</a>
+						</div>
+					</td>
 				</tr>
 			</tbody>
-
 		</table>
+		<div class="text-center">
+			<a class="btn btn-success" th:href="@{/sucursal/add}"
+				th:text="'Ingresar Nueva Sucursal'" title="Crea Nueva Sucursal"> </a>
+				
+		</div>
 
 	</div>
 
