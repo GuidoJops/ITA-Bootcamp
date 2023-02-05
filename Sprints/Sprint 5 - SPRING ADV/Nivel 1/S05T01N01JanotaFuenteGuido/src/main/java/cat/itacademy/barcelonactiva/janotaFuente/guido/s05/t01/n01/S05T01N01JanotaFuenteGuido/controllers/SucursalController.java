@@ -53,12 +53,11 @@ public class SucursalController {
 		return "/views/sucursales/form-save-sucursal";
 	}
 	
+	//NO FUNCIONA VALIDACION POR CAMPO EN LA VISTA
 	@PostMapping("/save")
 	public String saveSucursal(@Valid @ModelAttribute SucursalDto sucursalDto,
 								BindingResult result, Model model, RedirectAttributes msg ) {
 		
-		System.out.println(result.getAllErrors());
-
 		if(result.hasErrors() || sucursalDto.getPaisSucursal()==null) {
 			System.out.println(result.getAllErrors());
 			List<Pais> paises = paisServ.listaPaises();  //SACAR DEL IF Y PONERLO FUERA??
@@ -71,7 +70,7 @@ public class SucursalController {
 			System.out.println("Errores detectados en Formulario");
 			msg.addFlashAttribute("error", "Verifica que todos los campos estén completos.");
 
-			return "redirect:/sucursal/add";
+			return "/views/sucursales/form-save-sucursal";
 		}
 		
 		sucursalServ.saveSucursal(sucursalDto);
@@ -99,29 +98,42 @@ public class SucursalController {
 
 	}
 
-	//AGREGAR IF-ELSE COMO EN 'showSucursal'
-	@GetMapping("/update/{id}")
-	public String updateSucursal(@PathVariable("id") Long id, Model model) {
-		SucursalDto sucursaldto = sucursalServ.getOneSucursal(id);
+	@GetMapping("/edit/{id}")
+	public String editSucursal(@PathVariable("id") Long id, Model model, RedirectAttributes msg) {
+		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
 		List<Pais> paises = paisServ.listaPaises();
-	
-		model.addAttribute("titulo", "Editar Sucursal");
-		model.addAttribute("boton", "Actualizar Sucursal");
-		model.addAttribute("sucursal",sucursaldto);
-		model.addAttribute("paises",paises);
 
-		return "/views/sucursales/form-save-sucursal";
+		
+		if(sucursalDto!=null) {
+			model.addAttribute("titulo", "Editar Sucursal");
+			model.addAttribute("boton", "Actualizar Sucursal");
+			model.addAttribute("sucursal",sucursalDto);
+			model.addAttribute("paises",paises);
+			return "/views/sucursales/form-save-sucursal";
+			
+		} else {
+			System.out.println("No se encontro sucursal");
+			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
+		}
+	
+		return "redirect:/sucursal";
 	
 	}
 	
-	//AGREGAR IF-ELSE COMO EN 'showSucursal'
 	//AGREGAR NOMBRE DE SUCURSAL EN EL POP-UP DE CONFIRMACION??
 	@GetMapping("/delete/{id}")
 	public String deleteSucursal(@PathVariable("id") Long id, RedirectAttributes msg) {
-		String nombreSucursal = sucursalServ.getOneSucursal(id).getNombreSucursal();
-		sucursalServ.deleteSucursal(id);
-		msg.addFlashAttribute("warning", "La sucursal '" + nombreSucursal+"' se ha eliminado.");
-
+		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
+		
+		if(sucursalDto!=null) {
+			sucursalServ.deleteSucursal(sucursalDto.getId());
+			msg.addFlashAttribute("warning", "La sucursal '" + sucursalDto.getNombreSucursal()+"' se ha eliminado.");
+			return "redirect:/sucursal";
+						
+		} else {
+			System.out.println("No se encontro sucursal");
+			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
+		}
 		return "redirect:/sucursal";
 	
 	}

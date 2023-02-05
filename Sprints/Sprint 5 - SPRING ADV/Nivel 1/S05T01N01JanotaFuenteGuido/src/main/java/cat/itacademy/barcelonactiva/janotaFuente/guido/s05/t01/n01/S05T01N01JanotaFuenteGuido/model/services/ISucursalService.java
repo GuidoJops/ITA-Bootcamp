@@ -16,7 +16,5 @@ public interface ISucursalService {
 	
 	void deleteSucursal (Long id);
 	
-	
-	
 
 }

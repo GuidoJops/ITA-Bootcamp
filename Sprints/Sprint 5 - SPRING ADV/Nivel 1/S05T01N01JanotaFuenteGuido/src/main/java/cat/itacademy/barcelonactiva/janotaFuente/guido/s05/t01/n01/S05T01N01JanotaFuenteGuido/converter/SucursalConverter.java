@@ -22,10 +22,11 @@ public class SucursalConverter {
 	public SucursalDto getSucursalDto() {
 		return sucursalDto;
 	}
+	
+	
 	public void setSucursalDto(SucursalDto sucursalDto) {
 		this.sucursalDto = sucursalDto;
 	}
-
 	
 	public SucursalDto entityToDto(Sucursal sucursal) {
 		if(sucursal !=null) {
@@ -52,7 +53,6 @@ public class SucursalConverter {
 		return listEntity.stream().map(x-> entityToDto(x)).toList();
 	}
 	
-
 	public Sucursal dtoToEntity(SucursalDto sucursalDto) {
 		Sucursal sucursal = new Sucursal();
 		
