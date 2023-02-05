@@ -15,7 +15,11 @@
 			<div class="form-group">
 				<input type="hidden" th:field="*{id}">
 				<label for="nombreSucursal">Nombre de Sucursal:</label>
-				 <input	type="text" th:field="*{nombreSucursal}" class="form-control" placeholder="-Ingresa el nombre de la Sucursal-">
+				<input	type="text" th:field="*{nombreSucursal}" class="form-control"
+						placeholder="-Ingresa el nombre de la Sucursal-">
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreSucursal')}"
+							   th:errors="*{nombreSucursal}">
+						</small>
 			</div>
 			
 				<div class="form-group">
@@ -33,6 +37,8 @@
 			<button type="submit" class="btn btn-warning "th:text="${boton}"></button>
 			
 		</form>
+			
+
 
 	</div>
 

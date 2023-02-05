@@ -28,17 +28,22 @@ public class SucursalConverter {
 
 	
 	public SucursalDto entityToDto(Sucursal sucursal) {
-		String nombrePais = sucursal.getPaisSucursal().getNombre();
-		SucursalDto sucursalDto = new SucursalDto();
+		if(sucursal !=null) {
+			String nombrePais = sucursal.getPaisSucursal().getNombre();
+			SucursalDto sucursalDto = new SucursalDto();
+			
+			sucursalDto.setId(sucursal.getId());
+			sucursalDto.setNombreSucursal(sucursal.getNombreSucursal());
+			sucursalDto.setPaisSucursal(sucursal.getPaisSucursal());
+			sucursalDto.setTipoSucursal(sucursalDto.defindeTipoSucursal(nombrePais));
+			
+			System.out.println("Devolviendo DTO...");
+			
+			return sucursalDto;
+		}
 		
-		sucursalDto.setId(sucursal.getId());
-		sucursalDto.setNombreSucursal(sucursal.getNombreSucursal());
-		sucursalDto.setPaisSucursal(sucursal.getPaisSucursal());
-		sucursalDto.setTipoSucursal(sucursalDto.defindeTipoSucursal(nombrePais));
 		
-		System.out.println("Devolviendo DTO...");
-		
-		return sucursalDto;
+		return null;
 	}
 	
 	public List<SucursalDto> entityToDto(List<Sucursal> listEntity){

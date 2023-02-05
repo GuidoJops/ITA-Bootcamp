@@ -1,14 +1,18 @@
 package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.dto;
 
-import java.util.Arrays;
-import java.util.List;
-
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.domain.Pais;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class SucursalDto {
 	
 	private Long id;
+	
+	//NO FUINCIONAN!!
+	@NotEmpty(message="El nombre de la Sucurasl no puede estar vacio")
+	@NotNull
 	private String nombreSucursal;
+	
 	private Pais paisSucursal;
 	private String tipoSucursal;
 	private String[] listaPaisesUe= {"Alemania","Austria","Bélgica","Bulgaria","Chipre",
