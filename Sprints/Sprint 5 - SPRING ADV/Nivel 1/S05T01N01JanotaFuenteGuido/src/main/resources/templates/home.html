@@ -5,8 +5,45 @@
 <body>
 	<header th:replace="~{template/template :: header}"></header>
 	
-	<h1>Soy el Home Baby</h1>
+	<h1>Gestionar Sucursales </h1>
 	
+		<div class="card-deck">
+		<div class="card">
+			<img src="/images/view.png" class="card-img-top" alt="" width="100px" height="280px"  >
+			<div class="card-body">
+				<h5 class="card-title">Ver Sucursales</h5>
+				<p class="card-text">Visualiza todas las Sucursales disponibles.</p>
+				<div class=text-center>
+					<a th:href="@{/sucursal}"  href="#" class="btn btn-success">Quiero!</a>
+				</div>
+			
+			</div>
+		</div>
+		<div class="card">
+			<img src="/images/add.png" class="card-img-top" alt="" width="100px" height="280px" >
+			<div class="card-body">
+				<h5 class="card-title">Agregar Sucursal</h5>
+				<p class="card-text">Agrega una Sucursal al sistema.</p>
+				<div class=text-center>
+					<a th:href="@{/sucursal/add}" href="#" class="btn btn-primary">Quiero!</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<img src="/images/search.jpg" class="card-img-top" alt="" width="100px" height="280px" >
+			<div class="card-body">
+				<h5 class="card-title">Buscar Sucursal</h5>
+				<p class="card-text">Visualiza los datos de una Sucursal en concreto.</p>
+				<div class=text-center>
+					<a href="#" class="btn btn-warning">Quiero!</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
 	<footer th:replace="~{template/template :: footer}"></footer>
 
 

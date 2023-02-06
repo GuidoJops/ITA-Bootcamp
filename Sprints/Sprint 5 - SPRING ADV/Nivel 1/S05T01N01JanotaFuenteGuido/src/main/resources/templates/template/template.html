@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
 <meta charset="UTF-8">
-<title>CRUD Sucursales</title>
+<title>Gestión Sucursales</title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -24,10 +24,25 @@
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/}" href="#">Inicio
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/}" href="#">Inicio 
 							<span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/sucursal}" href="#">Sucursales</a></li>
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" th:href="@{/sucursal}" href="#" id="navbarDropdownMenuLink"
+					 	  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Sucursales</a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" th:href="@{/sucursal}" href="#">Ver Sucursales</a>
+								<a class="dropdown-item" href="#">Buscar Sucursal</a>
+								<a class="dropdown-item" th:href="@{/sucursal/add}" href="#">Agregar Sucursal</a>	
+								<a class="dropdown-item" href="#">Editar Sucursal</a>	
+								<a class="dropdown-item" href="#">Eliminar Sucursal</a>	
+								
+								
+								
+						</div></li>
 				</ul>
 				
 			</div>
