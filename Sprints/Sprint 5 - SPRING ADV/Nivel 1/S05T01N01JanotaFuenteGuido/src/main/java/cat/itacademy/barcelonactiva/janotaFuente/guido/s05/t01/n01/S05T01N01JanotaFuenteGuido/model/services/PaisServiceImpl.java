@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.domain.Pais;
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.repository.IPaisRepository;
 
+//Los Paises se cargan automaticamente al iniciar el programa
+
 @Service
 public class PaisServiceImpl implements IPaisService {
 
@@ -29,6 +31,11 @@ public class PaisServiceImpl implements IPaisService {
 	@Override
 	public void deletePais(Long id) {
 		paisRepo.deleteById(id);
+	}
+
+	@Override
+	public void addMultiplePais(List<Pais> paises) {
+		paisRepo.saveAll(paises);
 	}
 
 }

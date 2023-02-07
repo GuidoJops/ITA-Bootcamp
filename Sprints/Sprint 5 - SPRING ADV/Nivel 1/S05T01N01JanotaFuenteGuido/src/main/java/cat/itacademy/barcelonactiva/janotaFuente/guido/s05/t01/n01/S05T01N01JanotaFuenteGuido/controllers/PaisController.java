@@ -17,9 +17,7 @@ import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01Jano
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.services.IPaisService;
 
 
-//-------La idea es cargar Paises mediante PostMan a la Base de Datos-------
-//BUSCAR MANERA DE CARGAR TODOS LOS PAISES AUTOMATICAMENTE A LA BD
-
+//Los Paises se cargan automaticamente al iniciar el programa
 
 @Controller
 @RequestMapping ("/pais")
@@ -36,6 +34,13 @@ public class PaisController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(pais,HttpStatus.OK);
+	}
+	
+	@PostMapping("/saveAll") 
+	public ResponseEntity<?> addPises(@RequestBody List<Pais> paises) {
+		serv.addMultiplePais(paises);
+		return new ResponseEntity<>(paises, HttpStatus.CREATED);
+	
 	}
 	
 	

@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+//Los Paises se cargan automaticamente al iniciar el programa
+
+
 @Entity
 @Table (name="pais")
 public class Pais {
@@ -13,7 +16,6 @@ public class Pais {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
-	private char iso;
 	private String nombre;
 	
 	
@@ -38,13 +40,6 @@ public class Pais {
 		this.nombre = nombre;
 	}
 
-	public char getIso() {
-		return iso;
-	}
-
-	public void setIso(char iso) {
-		this.iso = iso;
-	}
 	
 
 }
