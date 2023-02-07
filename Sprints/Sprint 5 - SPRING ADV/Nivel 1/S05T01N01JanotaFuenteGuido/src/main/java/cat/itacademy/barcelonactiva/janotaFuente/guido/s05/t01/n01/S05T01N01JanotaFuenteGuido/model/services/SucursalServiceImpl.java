@@ -30,14 +30,19 @@ public class SucursalServiceImpl implements ISucursalService{
 	}
 
 	@Override
-	public SucursalDto getOneSucursal(Long id) {
-		return converter.entityToDto(SucRepo.findById(id).orElse(null)); //CHEQUEAR - CREO QUE VA ESTA
+	public SucursalDto getOneById(Long id) {
+		return converter.entityToDto(SucRepo.findById(id).orElse(null));
 	}
 
 	@Override
 	public void deleteSucursal(Long id) {
 		SucRepo.deleteById(id);
 
+	}
+
+	@Override
+	public SucursalDto getOneByName(String nombre) {
+		return converter.entityToDto(SucRepo.findBynombreSucursal(nombre));
 	}
 
 

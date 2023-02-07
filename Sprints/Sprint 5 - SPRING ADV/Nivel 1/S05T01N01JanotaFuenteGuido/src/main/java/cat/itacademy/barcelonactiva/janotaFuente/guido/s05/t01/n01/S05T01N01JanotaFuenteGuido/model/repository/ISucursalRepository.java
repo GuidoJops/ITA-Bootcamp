@@ -8,4 +8,5 @@ import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01Jano
 @Repository
 public interface ISucursalRepository extends JpaRepository<Sucursal, Long>{
 
+	public Sucursal findBynombreSucursal(String nombre);
 }

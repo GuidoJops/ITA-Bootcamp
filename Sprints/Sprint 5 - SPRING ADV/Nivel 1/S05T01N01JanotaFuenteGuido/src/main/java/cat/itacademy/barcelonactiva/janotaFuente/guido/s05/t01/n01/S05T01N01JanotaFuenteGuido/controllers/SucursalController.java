@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.domain.Pais;
@@ -31,7 +32,6 @@ public class SucursalController {
 	private IPaisService paisServ;
 	
 
-	//Muestra lista de Sucursales
 	@GetMapping("")
 	public String listSucursales(Model model){
 		model.addAttribute("titulo", "Sucursales Disponibles");
@@ -51,6 +51,33 @@ public class SucursalController {
 		model.addAttribute("paises",paises);
 
 		return "/views/sucursales/form-save-sucursal";
+	}
+	
+	@GetMapping("/search")
+	public String searchByid(@RequestParam("nombreOid") String nombreOid, Model model, RedirectAttributes msg) {
+        boolean isNumeric = nombreOid.chars().allMatch( Character::isDigit );
+        SucursalDto sucursalDto = new SucursalDto();
+        
+        if(isNumeric) {
+        	Long id = Long.parseLong(nombreOid);
+        	sucursalDto = sucursalServ.getOneById(id);
+
+        } else {
+        	sucursalDto = sucursalServ.getOneByName(nombreOid);
+        }
+        
+        if(sucursalDto!=null) {
+			model.addAttribute("titulo", "Sucursal Encontrada");
+			model.addAttribute("sucursales", sucursalDto);
+			return "/views/sucursales/list-sucursales";
+			
+		} else {
+			System.out.println("No se encontro sucursal");
+			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
+		}
+		
+		return "redirect:/sucursal";
+		
 	}
 	
 	//NO FUNCIONA VALIDACION POR CAMPO EN LA VISTA
@@ -81,26 +108,44 @@ public class SucursalController {
 		return "redirect:/sucursal";
 	}
 	
-	@GetMapping("/{id}")
-	public String showSucursal(@PathVariable("id") long id, Model model, RedirectAttributes msg) {
-		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
-		
-		if(sucursalDto!=null) {
-			model.addAttribute("titulo", "Sucursal Encontrada");
-			model.addAttribute("sucursales", sucursalDto);
-			return "/views/sucursales/list-sucursales";
-		} else {
-			System.out.println("No se encontro sucursal");
-			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
-		}
-		
-		return "redirect:/sucursal";
-
-	}
+//	@GetMapping("/get{id}")
+//	public String showSucursalId(@RequestParam("id") long id, Model model, RedirectAttributes msg) {
+//		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
+//		
+//		if(sucursalDto!=null) {
+//			model.addAttribute("titulo", "Sucursal Encontrada");
+//			model.addAttribute("sucursales", sucursalDto);
+//			return "/views/sucursales/list-sucursales";
+//		} else {
+//			System.out.println("No se encontro sucursal");
+//			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
+//		}
+//		
+//		return "redirect:/sucursal";
+//
+//	}
+//	
+//	@GetMapping("/getOne")
+//	public String showSucursalName(@RequestParam("nombre") String nombre, Model model, RedirectAttributes msg) {
+//		SucursalDto sucursalDto = sucursalServ.getOneByName(nombre);
+//
+//		if(sucursalDto!=null) {
+//			model.addAttribute("titulo", "Sucursal Encontrada");
+//			model.addAttribute("sucursales", sucursalDto);
+//			return "/views/sucursales/list-sucursales";
+//			
+//		} else {
+//			System.out.println("No se encontro sucursal");
+//			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
+//		}
+//		
+//		return "redirect:/sucursal";
+//
+//	}
 
 	@GetMapping("/edit/{id}")
 	public String editSucursal(@PathVariable("id") Long id, Model model, RedirectAttributes msg) {
-		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
+		SucursalDto sucursalDto = sucursalServ.getOneById(id);
 		List<Pais> paises = paisServ.listaPaises();
 
 		
@@ -123,7 +168,7 @@ public class SucursalController {
 	//AGREGAR NOMBRE DE SUCURSAL EN EL POP-UP DE CONFIRMACION??
 	@GetMapping("/delete/{id}")
 	public String deleteSucursal(@PathVariable("id") Long id, RedirectAttributes msg) {
-		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
+		SucursalDto sucursalDto = sucursalServ.getOneById(id);
 		
 		if(sucursalDto!=null) {
 			sucursalServ.deleteSucursal(sucursalDto.getId());

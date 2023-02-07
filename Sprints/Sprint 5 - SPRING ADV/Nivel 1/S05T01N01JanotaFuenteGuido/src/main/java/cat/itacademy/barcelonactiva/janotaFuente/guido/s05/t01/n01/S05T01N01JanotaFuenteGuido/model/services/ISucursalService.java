@@ -2,7 +2,6 @@ package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01Jan
 
 import java.util.List;
 
-import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.domain.Sucursal;
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n01.S05T01N01JanotaFuenteGuido.model.dto.SucursalDto;
 
 public interface ISucursalService {
@@ -10,11 +9,15 @@ public interface ISucursalService {
 	
 	List<SucursalDto> getAllSucursales();
 	
+	SucursalDto getOneById(Long id);
+	
+	SucursalDto getOneByName(String nombre);
+	
 	void saveSucursal (SucursalDto sucursalDto);
 	
-	SucursalDto getOneSucursal(Long id);
-	
 	void deleteSucursal (Long id);
+	
+	
 	
 
 }

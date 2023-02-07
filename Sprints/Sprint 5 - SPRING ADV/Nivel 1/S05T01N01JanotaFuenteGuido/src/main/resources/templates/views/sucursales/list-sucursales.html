@@ -36,26 +36,31 @@
 								title="Editar Sucursal">
 							</a> 
 							<a type="button" th:href="@{/sucursal/delete/} + ${sc.id}"
-								class="btn btn-danger btn-sm" th:text="Eliminar"
-								title="Eliminar Sucursal"
+								class="btn btn-danger btn-sm" th:text="Eliminar" title="Eliminar Sucursal"
 								onclick="return confirm('Esta seguro de eliminar la sucursal del sistema?');">
 							</a>
 						</div>
+						
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="text-center">
-			<a class="btn btn-success" th:href="@{/sucursal/add}"
-				th:text="'Ingresar Nueva Sucursal'" title="Crea Nueva Sucursal"> </a>
-				
+			<a class="btn btn-primary" th:href="@{/}">Volver al Inicio</a>
+			<a class="btn btn-success" th:href="@{/sucursal/add}" th:text="'Ingresar Nueva Sucursal'" title="Crea Nueva Sucursal"> </a>
+							
 		</div>
-
+	
 	</div>
 
 
 	<footer th:replace="~{template/template :: footer}"></footer>
 
+	<script>
+		function goBack() {
+			window.history.back();
+		}
+	</script>
 
 </body>
 </html>

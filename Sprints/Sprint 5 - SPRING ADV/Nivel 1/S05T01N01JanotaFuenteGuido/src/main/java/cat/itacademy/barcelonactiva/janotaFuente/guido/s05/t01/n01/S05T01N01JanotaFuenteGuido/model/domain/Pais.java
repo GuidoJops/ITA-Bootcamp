@@ -13,6 +13,7 @@ public class Pais {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+	private char iso;
 	private String nombre;
 	
 	
@@ -35,6 +36,14 @@ public class Pais {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public char getIso() {
+		return iso;
+	}
+
+	public void setIso(char iso) {
+		this.iso = iso;
 	}
 	
 

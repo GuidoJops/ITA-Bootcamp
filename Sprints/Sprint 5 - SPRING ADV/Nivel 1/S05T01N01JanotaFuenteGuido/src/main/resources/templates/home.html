@@ -2,25 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{template/template :: head}">
 </head>
+<style>
+h1 {text-align: center;}
+
+</style>
 <body>
 	<header th:replace="~{template/template :: header}"></header>
-	
-	<h1>Gestionar Sucursales </h1>
-	
+
+	<div class="card">
+		<div class="card-body"
+		
+		><h1 class="text">Gestionar Sucursales</h1>
+		</div>
+	</div>
+
 		<div class="card-deck">
 		<div class="card">
-			<img src="/images/view.png" class="card-img-top" alt="" width="100px" height="280px"  >
+			<img src="/images/view.png" class="card-img-top" alt="" >
 			<div class="card-body">
 				<h5 class="card-title">Ver Sucursales</h5>
 				<p class="card-text">Visualiza todas las Sucursales disponibles.</p>
 				<div class=text-center>
-					<a th:href="@{/sucursal}"  href="#" class="btn btn-success">Quiero!</a>
+					<a th:href="@{/sucursal}"  href="#" class="btn btn-warning">Quiero!</a>
 				</div>
 			
 			</div>
 		</div>
+		
 		<div class="card">
-			<img src="/images/add.png" class="card-img-top" alt="" width="100px" height="280px" >
+			<img src="/images/add.png" class="card-img-top" alt="">
 			<div class="card-body">
 				<h5 class="card-title">Agregar Sucursal</h5>
 				<p class="card-text">Agrega una Sucursal al sistema.</p>
@@ -29,14 +39,19 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="card">
-			<img src="/images/search.jpg" class="card-img-top" alt="" width="100px" height="280px" >
+			<img src="/images/search.png" class="card-img-top" alt="">
 			<div class="card-body">
 				<h5 class="card-title">Buscar Sucursal</h5>
 				<p class="card-text">Visualiza los datos de una Sucursal en concreto.</p>
-				<div class=text-center>
-					<a href="#" class="btn btn-warning">Quiero!</a>
-				</div>
+
+				<form class="d-flex" th:action="@{/sucursal/search}" method="get">
+					<input class="form-control me-2" type="text" name="nombreOid"
+						placeholder="Ingresa el NOMBRE o ID de la Sucursal..." >
+					<button class="btn btn-outline-success" type="submit">Buscar</button>
+			
+				</form>
 			</div>
 		</div>
 	</div>
