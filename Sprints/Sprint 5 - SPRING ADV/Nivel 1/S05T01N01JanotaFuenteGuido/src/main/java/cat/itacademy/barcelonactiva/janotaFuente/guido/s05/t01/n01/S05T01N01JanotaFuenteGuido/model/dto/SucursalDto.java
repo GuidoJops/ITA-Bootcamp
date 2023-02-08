@@ -8,7 +8,6 @@ public class SucursalDto {
 	
 	private Long id;
 	
-	//NO FUINCIONAN!!
 	@NotEmpty(message="El nombre de la Sucurasl no puede estar vacio")
 	@NotNull
 	private String nombreSucursal;
@@ -58,7 +57,7 @@ public class SucursalDto {
 	}
 
 	
-	//HACER CON LAMBDA!!
+	
 	public String defindeTipoSucursal(String nombrePais) { 
 		String tipo="Fuera UE";
 		

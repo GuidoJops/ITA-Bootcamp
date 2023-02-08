@@ -23,10 +23,11 @@ public class SucursalConverter {
 		return sucursalDto;
 	}
 	
-	
 	public void setSucursalDto(SucursalDto sucursalDto) {
 		this.sucursalDto = sucursalDto;
 	}
+	
+	
 	
 	public SucursalDto entityToDto(Sucursal sucursal) {
 		if(sucursal !=null) {
@@ -59,6 +60,7 @@ public class SucursalConverter {
 		sucursal.setId(sucursalDto.getId());
 		sucursal.setNombreSucursal(sucursalDto.getNombreSucursal());
 		sucursal.setPaisSucursal(sucursalDto.getPaisSucursal());
+		
 		System.out.println("Devolviendo Entidad...");
 
 		return sucursal;

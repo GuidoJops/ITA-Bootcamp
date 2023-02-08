@@ -87,7 +87,7 @@ public class SucursalController {
 		
 		if(result.hasErrors() || sucursalDto.getPaisSucursal()==null) {
 			System.out.println(result.getAllErrors());
-			List<Pais> paises = paisServ.listaPaises();  //SACAR DEL IF Y PONERLO FUERA??
+			List<Pais> paises = paisServ.listaPaises();
 			
 			model.addAttribute("titulo", "Agregar Sucursal");
 			model.addAttribute("boton", "Guardar Sucursal");
@@ -107,41 +107,6 @@ public class SucursalController {
 				
 		return "redirect:/sucursal";
 	}
-	
-//	@GetMapping("/get{id}")
-//	public String showSucursalId(@RequestParam("id") long id, Model model, RedirectAttributes msg) {
-//		SucursalDto sucursalDto = sucursalServ.getOneSucursal(id);
-//		
-//		if(sucursalDto!=null) {
-//			model.addAttribute("titulo", "Sucursal Encontrada");
-//			model.addAttribute("sucursales", sucursalDto);
-//			return "/views/sucursales/list-sucursales";
-//		} else {
-//			System.out.println("No se encontro sucursal");
-//			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
-//		}
-//		
-//		return "redirect:/sucursal";
-//
-//	}
-//	
-//	@GetMapping("/getOne")
-//	public String showSucursalName(@RequestParam("nombre") String nombre, Model model, RedirectAttributes msg) {
-//		SucursalDto sucursalDto = sucursalServ.getOneByName(nombre);
-//
-//		if(sucursalDto!=null) {
-//			model.addAttribute("titulo", "Sucursal Encontrada");
-//			model.addAttribute("sucursales", sucursalDto);
-//			return "/views/sucursales/list-sucursales";
-//			
-//		} else {
-//			System.out.println("No se encontro sucursal");
-//			msg.addFlashAttribute("error", "Los datos ingresados no coinciden con ninguna Sucursal en el sistema.");
-//		}
-//		
-//		return "redirect:/sucursal";
-//
-//	}
 
 	@GetMapping("/edit/{id}")
 	public String editSucursal(@PathVariable("id") Long id, Model model, RedirectAttributes msg) {
@@ -165,7 +130,7 @@ public class SucursalController {
 	
 	}
 	
-	//AGREGAR NOMBRE DE SUCURSAL EN EL POP-UP DE CONFIRMACION??
+
 	@GetMapping("/delete/{id}")
 	public String deleteSucursal(@PathVariable("id") Long id, RedirectAttributes msg) {
 		SucursalDto sucursalDto = sucursalServ.getOneById(id);

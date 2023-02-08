@@ -37,7 +37,7 @@ public class PaisController {
 	}
 	
 	@PostMapping("/saveAll") 
-	public ResponseEntity<?> addPises(@RequestBody List<Pais> paises) {
+	public ResponseEntity<?> addPaises(@RequestBody List<Pais> paises) {
 		serv.addMultiplePais(paises);
 		return new ResponseEntity<>(paises, HttpStatus.CREATED);
 	

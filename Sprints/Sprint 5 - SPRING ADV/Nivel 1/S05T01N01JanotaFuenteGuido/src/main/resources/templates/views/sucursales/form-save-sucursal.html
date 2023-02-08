@@ -18,7 +18,7 @@
 				<input	type="text" th:field="*{nombreSucursal}" class="form-control"
 						placeholder="-Ingresa el nombre de la Sucursal-">
 						<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreSucursal')}"
-							   th:errors="*{nombreSucursal}">
+							   th:errors="*{nombreSucursal}">  <!-- NO FUNCIONA -->
 						</small>
 			</div>
 			
