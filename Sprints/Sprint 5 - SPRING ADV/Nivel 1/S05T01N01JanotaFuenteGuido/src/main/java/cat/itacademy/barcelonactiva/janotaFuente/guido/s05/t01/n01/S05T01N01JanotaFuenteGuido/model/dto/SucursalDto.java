@@ -16,8 +16,10 @@ public class SucursalDto {
 	private String nombreSucursal;
 	
 	private Pais paisSucursal;
+	
 	private String tipoSucursal;
-	List<String> listaPaisesUe = Arrays.asList("Alemania","Austria","Bélgica","Bulgaria","Chipre",
+	
+	private List<String> listaPaisesUe = Arrays.asList("Alemania","Austria","Bélgica","Bulgaria","Chipre",
 			 "Croacia","Dinamarca","España","Eslovaquia","Eslovenia",
 			 "Estonia","Finlandia","Francia","Grecia","Hungría",
 			 "Irlanda","Italia","Letonia","Lituania","Luxemburgo",
