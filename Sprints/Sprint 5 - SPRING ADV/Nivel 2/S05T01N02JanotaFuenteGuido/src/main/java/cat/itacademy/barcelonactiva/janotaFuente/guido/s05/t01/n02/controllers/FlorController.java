@@ -64,8 +64,8 @@ public class FlorController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente"),
             @ApiResponse(code = 404, message = "NOT FOUND. No se encontró la Flor")})
-	@GetMapping("/search")
-	public ResponseEntity<?> searchById(@RequestParam("id") Long id) {
+	@GetMapping("/search/{id}")
+	public ResponseEntity<?> searchById(@PathVariable("id") Long id) {
         FlorDTO florDto = new FlorDTO();
         florDto = florServ.getOneById(id);
       
