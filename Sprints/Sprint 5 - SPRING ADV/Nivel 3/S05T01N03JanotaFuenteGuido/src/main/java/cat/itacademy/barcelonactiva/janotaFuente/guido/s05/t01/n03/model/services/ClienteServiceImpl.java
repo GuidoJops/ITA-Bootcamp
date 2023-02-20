@@ -20,7 +20,8 @@ public class ClienteServiceImpl implements IClienteService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<FlorDTO> getAllFlores() {
-		return webRepository.getWebClient().get()
+		return webRepository.getWebClient()
+				.get()
 				.uri("/getAll")
 				.retrieve()
 				.bodyToMono(List.class)
@@ -29,7 +30,8 @@ public class ClienteServiceImpl implements IClienteService{
 		
 	@Override
 	public FlorDTO getOneById(Long id) {
-		return webRepository.getWebClient().get()
+		return webRepository.getWebClient()
+				.get()
 				.uri("/search/{id}", id)
 				.retrieve()
 				.bodyToMono(FlorDTO.class)
@@ -40,7 +42,8 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Override
 	public void saveFlor(FlorDTO florDto) {
-		webRepository.getWebClient().post()
+		webRepository.getWebClient()
+		.post()
 		.uri("/add")
 		.body(Mono.just(florDto), FlorDTO.class)
 		.retrieve()
@@ -51,7 +54,8 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Override
 	public void deleteFlor(Long id) {
-		webRepository.getWebClient().delete()
+		webRepository.getWebClient()
+		.delete()
 		.uri("/delete/{id}", id)
 		.retrieve()
 		.bodyToMono(Void.class)
@@ -62,7 +66,8 @@ public class ClienteServiceImpl implements IClienteService{
 	public FlorDTO updateFlor(Long id, FlorDTO florDto) {
 		FlorDTO _florDto = getOneById(id);
 		if (_florDto!=null) {
-			return webRepository.getWebClient().put()
+			return webRepository.getWebClient()
+					.put()
 					.uri("/edit/{id}", id)
 					.body(Mono.just(florDto), FlorDTO.class)
 					.retrieve()
