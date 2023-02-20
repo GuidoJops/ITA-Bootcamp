@@ -7,15 +7,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class ClientRepository {
 
 
-	private final WebClient webClient;
+	private final WebClient WEBCLIENT;
 	
 
 	public ClientRepository() {
-		webClient = WebClient.create("http://localhost:9001/api/flor");
+		WEBCLIENT = WebClient.create("http://localhost:9001/api/flor");
 	}
 
 	public WebClient getWebClient() {
-		return webClient;
+		return WEBCLIENT;
 	}
 
 	
