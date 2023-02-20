@@ -28,8 +28,6 @@ public class FlorServiceImpl implements IFlorService{
 
 	@Override
 	public boolean saveFlor(FlorDTO florDto) {
-		florRepo.save(converter.dtoToEntity(florDto));
-		
 		boolean ok = false;
 		try {
 			florRepo.save(converter.dtoToEntity(florDto));

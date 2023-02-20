@@ -40,7 +40,8 @@ public class FlorController {
 	public ResponseEntity<?> listFlores(){
 		List<FlorDTO> flores = florServ.getAllFlores();
 		if (flores.isEmpty()) {
-			return new ResponseEntity<>("No hay flores en el sistema", HttpStatus.NO_CONTENT);
+			System.out.println("No hay flores en la BD");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(flores, HttpStatus.OK);
 	}
@@ -115,6 +116,7 @@ public class FlorController {
 			return new ResponseEntity<>("No se encontraron flores con id: " + id, HttpStatus.NOT_FOUND);
 									
 		} else {
+			florServ.deleteFlor(id);
 			System.out.println("Flor con ID: "+id+" borrada");
 			return new ResponseEntity<>("Borrado Exitoso", HttpStatus.OK);			
 		}

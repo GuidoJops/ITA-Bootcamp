@@ -1,17 +1,25 @@
 package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n03.model.dto;
 
+import javax.validation.constraints.NotNull;
+
+//import io.swagger.annotations.ApiModelProperty;
 
 public class FlorDTO {
 
 	
+
+	//@ApiModelProperty(notes = "Flor ID", example = "1", required = false, hidden = true)
 	private Long id;
 	
-	
+	//@ApiModelProperty(notes = "Nombre de la Flor", example = "Margarita", required = true)
+	@NotNull(message="El nombre de la Flor no puede estar vacio")
 	private String nombreFlor;
 
-
+	//@ApiModelProperty(notes = "Pais de la Flor", example = "Brasil", required = true)
+	@NotNull
 	private String paisFlor;
 	
+	//@ApiModelProperty(notes = "Localizacion de la Flor", example = "UE", required = false, hidden = true)
 	private String tipoFlor;
 	
 

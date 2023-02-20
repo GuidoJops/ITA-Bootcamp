@@ -1,8 +1,12 @@
 package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n03.model.services;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n03.model.dto.FlorDTO;
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n03.model.repository.ClientRepository;
 import reactor.core.publisher.Mono;
@@ -13,27 +17,19 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Autowired
 	private ClientRepository webRepository;
-	
+
 
 	
-	 public Mono<List> getAllFlores() {
-	        return webRepository.getWebClient().get()
-					.uri("/getAll")
-	                .retrieve()
-	                .bodyToMono(List.class)
-	                .onErrorComplete();
-	 }
+	@SuppressWarnings("unchecked") // CHEQUEAR ESTO???!"!"
+	@Override
+	public List<FlorDTO> getAllFlores() {
+		return webRepository.getWebClient().get()
+				.uri("/getAll")
+				.retrieve()
+				.bodyToMono(List.class)
+				.block();
+	}
 	
-		
-//	@Override
-//	public List<FlorDTO> getAllFlores() {
-//		return webClient.get()
-//				.uri("/getAll")
-//				.retrieve()
-//				.bodyToMono(List.class)
-//				.block();
-//	}
-//	
 	
 	
 	@Override
@@ -50,35 +46,40 @@ public class ClienteServiceImpl implements IClienteService{
 
 
 	@Override
-	public boolean saveFlor(FlorDTO florDto) {
-		boolean ok = false;
-
-		try {
-			webRepository.getWebClient().post()
-			.uri("/add")
-			.body(Mono.just(florDto), FlorDTO.class)
-			.retrieve()
-			.bodyToMono(FlorDTO.class);
-			ok = true;
-			
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		return ok;
+	public void saveFlor(FlorDTO florDto) {
+		webRepository.getWebClient().post()
+		.uri("/add")
+		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+		.body(Mono.just(florDto), FlorDTO.class)
+		.retrieve()
+		.bodyToMono(FlorDTO.class)
+		.block();
 
 	}
 
 	@Override
 	public void deleteFlor(Long id) {
-		// TODO Auto-generated method stub
-		
+		webRepository.getWebClient().delete()
+		.uri("/delete/{id}", id)
+		.retrieve()
+		.bodyToMono(Void.class)
+		.block();
 	}
 
 	@Override
 	public FlorDTO updateFlor(Long id, FlorDTO florDto) {
-		// TODO Auto-generated method stub
-		return null;
+		FlorDTO _florDto = getOneById(id);
+		if (_florDto!=null) {
+			return webRepository.getWebClient().put()
+					.uri("/edit/{id}", id)
+					.body(Mono.just(florDto), FlorDTO.class)
+					.retrieve()
+					.bodyToMono(FlorDTO.class)
+					.block();
+		} else {
+			return null;			
+		}
+		
 	}
 	
 	

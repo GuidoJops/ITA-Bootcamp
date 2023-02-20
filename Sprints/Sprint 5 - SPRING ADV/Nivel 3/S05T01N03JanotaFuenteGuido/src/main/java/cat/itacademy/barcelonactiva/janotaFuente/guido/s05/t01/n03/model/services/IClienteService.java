@@ -12,11 +12,11 @@ import reactor.core.publisher.Mono;
 public interface IClienteService {
 	
 	
-	Mono<List> getAllFlores();
+	List<FlorDTO> getAllFlores();
 	
 	FlorDTO getOneById(Long id);
 	
-	boolean saveFlor (FlorDTO florDto);
+	void saveFlor (FlorDTO florDto);
 	
 	void deleteFlor (Long id);
 
