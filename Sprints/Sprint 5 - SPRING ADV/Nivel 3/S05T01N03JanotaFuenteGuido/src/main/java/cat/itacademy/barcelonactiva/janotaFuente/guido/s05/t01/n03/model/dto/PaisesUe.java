@@ -7,7 +7,7 @@ import java.util.List;
 public class PaisesUe {
 	
 	
-	private static List<String> listaPaisesUe = Arrays.asList("Alemania","Austria","Bélgica","Bulgaria","Chipre",
+	private static  List<String> listaPaisesUe = Arrays.asList("Alemania","Austria","Bélgica","Bulgaria","Chipre",
 			 "Croacia","Dinamarca","España","Eslovaquia","Eslovenia",
 			 "Estonia","Finlandia","Francia","Grecia","Hungría",
 			 "Irlanda","Italia","Letonia","Lituania","Luxemburgo",
@@ -15,6 +15,8 @@ public class PaisesUe {
 			 "República Checa","Rumania","Suecia");
 
 	
+	
+
 	
 	public static List<String> getListaPaisesUe() {
 		return listaPaisesUe;
@@ -24,9 +26,11 @@ public class PaisesUe {
 		PaisesUe.listaPaisesUe = listaPaisesUe;
 	}
 
-	
-	
-	public static  boolean buscaPaisUe(String nombrePais) {
+
+
+
+
+	public  static  boolean buscaPaisUe(String nombrePais) {
 		boolean paisOk = false;
 		int contador= 0;
 		

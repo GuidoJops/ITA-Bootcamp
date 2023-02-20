@@ -10,18 +10,9 @@ public class ClientRepository {
 	private final WebClient webClient;
 	
 
-	
 	public ClientRepository() {
-		webClient = WebClient.builder()
-				.baseUrl("http://localhost:9001/api/flor")
-				.build();
+		webClient = WebClient.create("http://localhost:9001/api/flor");
 	}
-	
-//	public ClientRepository() {
-//		webClient = WebClient.create("http://localhost:9001/api/flor");
-//	}
-
-
 
 	public WebClient getWebClient() {
 		return webClient;

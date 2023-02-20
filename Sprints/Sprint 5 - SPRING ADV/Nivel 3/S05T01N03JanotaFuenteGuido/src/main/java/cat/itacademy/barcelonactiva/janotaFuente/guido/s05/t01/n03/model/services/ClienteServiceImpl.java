@@ -3,8 +3,6 @@ package cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n03.model.servic
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import cat.itacademy.barcelonactiva.janotaFuente.guido.s05.t01.n03.model.dto.FlorDTO;
@@ -17,10 +15,9 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Autowired
 	private ClientRepository webRepository;
-
-
 	
-	@SuppressWarnings("unchecked") // CHEQUEAR ESTO???!"!"
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<FlorDTO> getAllFlores() {
 		return webRepository.getWebClient().get()
@@ -29,9 +26,7 @@ public class ClienteServiceImpl implements IClienteService{
 				.bodyToMono(List.class)
 				.block();
 	}
-	
-	
-	
+		
 	@Override
 	public FlorDTO getOneById(Long id) {
 		return webRepository.getWebClient().get()
@@ -43,13 +38,10 @@ public class ClienteServiceImpl implements IClienteService{
 			
 	}
 	
-
-
 	@Override
 	public void saveFlor(FlorDTO florDto) {
 		webRepository.getWebClient().post()
 		.uri("/add")
-		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 		.body(Mono.just(florDto), FlorDTO.class)
 		.retrieve()
 		.bodyToMono(FlorDTO.class)
