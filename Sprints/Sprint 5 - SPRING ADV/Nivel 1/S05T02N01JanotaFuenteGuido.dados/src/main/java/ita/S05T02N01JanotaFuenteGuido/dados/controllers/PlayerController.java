@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +27,10 @@ public class PlayerController {
 	
 	
 	@GetMapping("players")
-	public ResponseEntity<?> listPlayers(){
+	public ResponseEntity<List> listPlayers(){
 		List<PlayerDto> playersDto = playerService.getAllPlayers();
 		if (playersDto.isEmpty()) {
-			System.out.println("No hay Jugadores en el sistema");
+			System.out.println("No hay Jugadores en el sistema.");
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(playersDto, HttpStatus.OK);
@@ -37,10 +38,22 @@ public class PlayerController {
 	
 	
 	@PostMapping("players")
-	public void registerPlayer(@RequestParam String name) {
-		playerService.register(name);
-	}
+	public ResponseEntity<?> registerPlayer(@RequestParam String name) {
+		PlayerDto playerDto = playerService.register(name);
+		if(playerDto==null) {
+			return new ResponseEntity<>("EL nombre del Jugador ya existe.", HttpStatus.NOT_ACCEPTABLE);//CHEQUEAR CODIGO ERROR
+		}
+		return new ResponseEntity<>(playerDto, HttpStatus.CREATED);
+		}
 	
+	@PutMapping("players")
+	public ResponseEntity<?> changeNamePlayer(@RequestBody PlayerDto playerDto) {
+		PlayerDto _playerDto = playerService.changeName(playerDto);
+		if(_playerDto==null) {
+			return new ResponseEntity<>("EL nombre del Jugador NO existe.", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(_playerDto, HttpStatus.CREATED);
+		}
 
 		
 

@@ -1,5 +1,6 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,31 @@ public class GameServiceImpl implements IGameService {
 		return converter.toGameDto(gameRepository.save(game));
 				
 		
+	}
+
+
+	@Override
+	public boolean deleteAllGames(int id) {
+		boolean deleted=false;
+		Optional<Player> oPlayer= playerRepository.findById(id);
+		if(oPlayer.isEmpty()) {
+			return deleted;
+		}
+		//Se crea una lista con todas las partidas para poder obtener el Id de cada una
+		List<Game> playerGames = oPlayer.get().getGames();
+		//Se itera para borrar por Id
+		playerGames.stream().forEach( x-> gameRepository.deleteById(x.getId()));
+
+		//OTRA OPCION
+//		for (Game o : playerGames){
+//		gameRepository.deleteById(o.getId());
+//}
+		
+//		//SE PODRÁ HACER ALGO ASI??
+//		Player player = oPlayer.get();
+//		player.setGames(new ArrayList<Game>());
+//		playerRepository.save(player);
+		return deleted=true;
 	}
 	
 

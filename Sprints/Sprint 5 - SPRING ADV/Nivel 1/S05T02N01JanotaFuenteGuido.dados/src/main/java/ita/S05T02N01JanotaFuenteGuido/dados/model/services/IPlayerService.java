@@ -12,6 +12,8 @@ public interface IPlayerService {
 	PlayerDto findPlayerById(int id) throws Exception;
 
 	PlayerDto register(String nombre);
+
+	PlayerDto changeName(PlayerDto playerDto);
 	
 
 }

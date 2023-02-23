@@ -1,6 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IPlayerRepository;
 
-@SuppressWarnings("unused")
+
 @Service
 public class PlayerServiceImpl implements IPlayerService{
 
@@ -23,15 +24,24 @@ public class PlayerServiceImpl implements IPlayerService{
 	private EntityDtoConverter converter;
 	
 	
-//	@Override
-//	public PlayerDto register(PlayerDto playerDto) {
-//		playerRepository.save(converter.toPlayerEntity(playerDto));
-//		return playerDto;
-//	}
+	@Override
+	public PlayerDto register(String name) {
+		Optional<Player> oPlayer = playerRepository.findByName(name);
+		if(oPlayer.isPresent()) {
+			return null;
+		}
+		Player player = new Player(name);
+		return converter.toPlayerDto(playerRepository.save(player));
+	}
 	
 	@Override
-	public PlayerDto register(String nombre) {
-		Player player = new Player(nombre);
+	public PlayerDto changeName(PlayerDto playerDto) {
+		Optional<Player> oPlayer = playerRepository.findById(playerDto.getId());
+		if(oPlayer.isEmpty()) {
+			return null;
+		}
+		Player player = oPlayer.get();
+		player.setName(playerDto.getName());
 		return converter.toPlayerDto(playerRepository.save(player));
 	}
 
