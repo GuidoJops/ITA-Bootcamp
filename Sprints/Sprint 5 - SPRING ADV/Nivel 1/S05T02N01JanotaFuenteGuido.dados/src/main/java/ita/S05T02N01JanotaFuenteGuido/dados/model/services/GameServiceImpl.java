@@ -36,12 +36,21 @@ public class GameServiceImpl implements IGameService {
 	
 	@Override
 	public GameDto newGame(int id) {
-		Player player = playerRepository.findById(id).get();
-		if (player==null) {
+		Optional<Player> oPlayer = playerRepository.findById(id);
+		if (oPlayer.isEmpty()) {
 			return null;
 		}
 		
+		Player player = oPlayer.get();
 		Game game = new Game(player);
+
+		//Si gana la partida se agrega a las victorias del jugador
+		if (game.getWin()) {
+			player.setVictories(player.getVictories()+1);
+		}
+		//Actualiza porcentaje de partidas ganadas
+		player.updateWinSuccess();
+	
 		//Guarda el 'game' y se actualiza la 'Lista de Games' en la tabla 'Players'
 		//gracias a CascadeType.PERSIST en entidad GAME
 		return converter.toGameDto(gameRepository.save(game));
@@ -54,23 +63,32 @@ public class GameServiceImpl implements IGameService {
 	public boolean deleteAllGames(int id) {
 		boolean deleted=false;
 		Optional<Player> oPlayer= playerRepository.findById(id);
+		
 		if(oPlayer.isEmpty()) {
 			return deleted;
 		}
-		//Se crea una lista con todas las partidas para poder obtener el Id de cada una
-		List<Game> playerGames = oPlayer.get().getGames();
-		//Se itera para borrar por Id
-		playerGames.stream().forEach( x-> gameRepository.deleteById(x.getId()));
+		
+		Player player = oPlayer.get();
+		player.setVictories(0);
+		player.setWinSuccess(0);
+		
+		//Crea una lista con todas las partidas para poder obtener el Id de cada una
+		List<Game> playerGames = player.getGames();
+		
+		//Itera para borrar por Id
+		playerGames.stream().forEach( x-> gameRepository.deleteById(x.getId()) );
+		//playerGames.forEach( x-> gameRepository.deleteById(x.getId()) );
 
 		//OTRA OPCION
-//		for (Game o : playerGames){
-//		gameRepository.deleteById(o.getId());
+//		for (Game x : playerGames){
+//		gameRepository.deleteById(x.getId());
 //}
 		
 //		//SE PODRÁ HACER ALGO ASI??
 //		Player player = oPlayer.get();
 //		player.setGames(new ArrayList<Game>());
 //		playerRepository.save(player);
+		
 		return deleted=true;
 	}
 	

@@ -100,10 +100,6 @@ public class Game {
 	}
 	
 	public boolean winLose() {
-		System.out.println(diceA);
-		System.out.println(diceB);
-		System.out.println(diceA+diceB);
-
 		return diceA + diceB == 7;
 	}
 	

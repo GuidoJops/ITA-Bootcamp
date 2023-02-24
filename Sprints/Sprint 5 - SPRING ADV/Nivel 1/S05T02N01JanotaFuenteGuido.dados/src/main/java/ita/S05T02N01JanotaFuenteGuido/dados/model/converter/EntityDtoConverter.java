@@ -17,7 +17,7 @@ public class EntityDtoConverter {
 		
 		player.setId(playerDto.getId());
 		player.setRegistDate(playerDto.getRegistDate());
-//		player.setWinSuccess(playerDto.getWinSuccess());
+		player.setWinSuccess(playerDto.getWinSuccess());
 //		player.setGames(playerDto.getGames());
 		
 		System.out.println("Devolviendo PlayerEntidad...");

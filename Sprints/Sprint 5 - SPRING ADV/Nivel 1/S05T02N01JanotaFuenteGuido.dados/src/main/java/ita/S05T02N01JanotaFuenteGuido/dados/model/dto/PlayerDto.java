@@ -1,7 +1,6 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.dto;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,18 +14,6 @@ public class PlayerDto {
 	private Date registDate;
 	private double winSuccess;
 	private List<Game> games;
-	
-	
-//	public PlayerDto() {
-//		
-//	}
-//	
-//	public PlayerDto(String name) {
-//		this.name = name;
-//		registDate = Calendar.getInstance().getTime();
-//		winSuccess= 0;
-//		games = new ArrayList<Game>();
-//	}
 	
 	
 	public int getId() {

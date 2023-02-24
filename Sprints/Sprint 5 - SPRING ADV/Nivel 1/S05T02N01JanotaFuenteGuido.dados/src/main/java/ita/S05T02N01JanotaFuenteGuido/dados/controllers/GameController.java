@@ -24,10 +24,10 @@ public class GameController {
 		
 	
 	@PostMapping("players/{id}/games")
-	public ResponseEntity<GameDto> playGame(@PathVariable int id) {
+	public ResponseEntity<?> playGame(@PathVariable int id) {
 		GameDto gameDto =	gameService.newGame(id);
 		if (gameDto==null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
 		}
         return new ResponseEntity<>(gameDto, HttpStatus.CREATED);
 
@@ -37,7 +37,7 @@ public class GameController {
 	@DeleteMapping("players/{id}/games")
 	public ResponseEntity<String> deleteGames(@PathVariable int id) {
 		if (!gameService.deleteAllGames(id)) {
-            return new ResponseEntity<>("El id ingresado no coincide con ningún Jugador.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
 		}
         return new ResponseEntity<>("Se han borrado todas las partidas del Jugador con id: " + id, HttpStatus.OK);
 
