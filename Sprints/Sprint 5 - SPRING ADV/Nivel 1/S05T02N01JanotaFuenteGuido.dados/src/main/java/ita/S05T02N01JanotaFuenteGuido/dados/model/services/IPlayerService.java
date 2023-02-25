@@ -2,7 +2,7 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
 import java.util.List;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 
 public interface IPlayerService {
@@ -14,6 +14,8 @@ public interface IPlayerService {
 	PlayerDto register(String nombre);
 
 	PlayerDto changeName(PlayerDto playerDto);
+
+	List<Game> gamesByPlayerId(int id);
 	
 
 }

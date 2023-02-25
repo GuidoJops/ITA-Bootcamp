@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IGameService;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IPlayerService;
@@ -55,6 +57,19 @@ public class PlayerController {
 		return new ResponseEntity<>(_playerDto, HttpStatus.CREATED);
 		}
 
-		
+	@GetMapping("players/{id}/games")
+	public ResponseEntity<?> getGamesPlayer(@PathVariable int id) {
+		List <Game> games =	playerService.gamesByPlayerId(id);
+		if (games==null) {
+            return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
+            
+		} else if (games.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 
+		}
+        return new ResponseEntity<>(games, HttpStatus.OK);
+	}
+
+	
+	
 }

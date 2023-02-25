@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.converter.EntityDtoConverter;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.converter.PlayerConverter;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IPlayerRepository;
@@ -56,6 +57,7 @@ public class PlayerServiceImpl implements IPlayerService{
 	}
 
 	@Override
+	//CHEQUEAR EL 'throws Exception'
 	public PlayerDto findPlayerById(int id) throws Exception {
 		return converter.toPlayerDto(playerRepository.findById(id).orElse(null));
 //		return playerConverter.entityToDto(playerRepository.findById(id).orElseThrow(() -> new Exception("No existe Usiario con id: " + id)));
@@ -63,4 +65,14 @@ public class PlayerServiceImpl implements IPlayerService{
 
 	}
 
+	@Override
+	public List<Game> gamesByPlayerId (int id){
+		Optional <Player> oPlayer =  playerRepository.findById(id);
+		if(oPlayer.isEmpty()) {
+			return null;
+
+		}
+		PlayerDto playerDto = converter.toPlayerDto (oPlayer.get());
+		return playerDto.getGames();
+	}
 }
