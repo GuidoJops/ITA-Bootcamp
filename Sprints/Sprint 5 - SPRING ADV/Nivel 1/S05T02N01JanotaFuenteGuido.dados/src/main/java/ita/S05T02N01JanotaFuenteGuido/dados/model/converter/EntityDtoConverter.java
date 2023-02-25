@@ -34,7 +34,7 @@ public class EntityDtoConverter {
 			playerDto.setName(player.getName());
 			playerDto.setRegistDate(player.getRegistDate());
 			playerDto.setWinSuccess(player.getWinSuccess());
-			playerDto.setGames(player.getGames());
+//			playerDto.setGames(player.getGames());
 
 			
 			System.out.println("Devolviendo PlayerDTO...");

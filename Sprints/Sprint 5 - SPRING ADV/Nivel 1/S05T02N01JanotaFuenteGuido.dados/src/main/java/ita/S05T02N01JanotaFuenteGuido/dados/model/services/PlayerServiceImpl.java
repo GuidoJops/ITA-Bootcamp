@@ -1,6 +1,10 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -8,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.converter.EntityDtoConverter;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.converter.PlayerConverter;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
@@ -72,7 +75,43 @@ public class PlayerServiceImpl implements IPlayerService{
 			return null;
 
 		}
-		PlayerDto playerDto = converter.toPlayerDto (oPlayer.get());
-		return playerDto.getGames();
+//		PlayerDto playerDto = converter.toPlayerDto (oPlayer.get());
+//		return playerDto.getGames();
+		
+		Player player = oPlayer.get();
+		return player.getGames();
 	}
+
+	
+	@Override
+	public Map<String, Double> getAllPlayersRanking() {
+		List<PlayerDto> playersDto = getAllPlayers();
+		return playersDto.stream()
+				.sorted(Comparator.comparing(PlayerDto::getWinSuccess) //Ordena el Map segun valor
+						.reversed())								// en orden mayor a menor
+				.collect(Collectors.toMap(PlayerDto::getName, PlayerDto::getWinSuccess,
+						(e1, e2) -> e2, LinkedHashMap::new));	// Toma los datos del sorted()
+	}
+	
+	//CONTEMPLAR SI HAY MAS DE UNO??
+	@Override
+	public PlayerDto getWinner() {
+		List<PlayerDto> playersDto = getAllPlayers();
+		return playersDto.stream()
+				.max(Comparator.comparing(PlayerDto::getWinSuccess))
+				.get();
+	}
+	
+	//CONTEMPLAR SI HAY MAS DE UNO??
+	@Override
+	public PlayerDto getLoser() {
+		List<PlayerDto> playersDto = getAllPlayers();
+		return playersDto.stream()
+				.min(Comparator.comparing(PlayerDto::getWinSuccess))
+				.get();
+	}
+	
+	
+	
+	
 }

@@ -1,6 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,10 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IGameService;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IPlayerService;
 
 @RestController
+//PONER URL GENERAL 'players'
 public class PlayerController {
+	
+	//PASAR LOS OPTIONAL DEL SERVICE ACA????
 
 	@Autowired
 	private IPlayerService playerService;
@@ -58,7 +62,7 @@ public class PlayerController {
 		}
 
 	@GetMapping("players/{id}/games")
-	public ResponseEntity<?> getGamesPlayer(@PathVariable int id) {
+	public ResponseEntity<?> getPlayerGames(@PathVariable int id) {
 		List <Game> games =	playerService.gamesByPlayerId(id);
 		if (games==null) {
             return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
@@ -70,6 +74,38 @@ public class PlayerController {
         return new ResponseEntity<>(games, HttpStatus.OK);
 	}
 
+	@GetMapping("players/ranking")
+	public ResponseEntity<?> getPlayersRanking(){
+		Map<String, Double> playersRanking = playerService.getAllPlayersRanking();
+		if (playersRanking.isEmpty()) {
+			System.out.println("No hay Jugadores en el sistema.");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(playersRanking, HttpStatus.OK);
+	}
+	
+	@GetMapping("players/ranking/winner")
+	public ResponseEntity<?> getWinnerPlayer(){
+		PlayerDto playerDto = playerService.getWinner();
+
+		if (playerDto==null) {
+			System.out.println("No hay Jugadores en el sistema.");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(playerDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("players/ranking/loser")
+	public ResponseEntity<?> getLoserPlayer(){
+		PlayerDto playerDto = playerService.getLoser();
+
+		if (playerDto==null) {
+			System.out.println("No hay Jugadores en el sistema.");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(playerDto, HttpStatus.OK);
+	}
+	
 	
 	
 }

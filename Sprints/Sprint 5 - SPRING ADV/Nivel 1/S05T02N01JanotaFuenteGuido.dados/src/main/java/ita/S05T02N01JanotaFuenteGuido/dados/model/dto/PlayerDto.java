@@ -13,7 +13,7 @@ public class PlayerDto {
 	private String name;
 	private Date registDate;
 	private double winSuccess;
-	private List<Game> games;
+	//private List<Game> games;
 	
 	
 	public int getId() {
@@ -40,12 +40,12 @@ public class PlayerDto {
 	public void setWinSuccess(double winSuccess) {
 		this.winSuccess = winSuccess;
 	}
-	public List<Game> getGames() {
-		return games;
-	}
-	public void setGames(List<Game> games) {
-		this.games = games;
-	}
+//	public List<Game> getGames() {
+//		return games;
+//	}
+//	public void setGames(List<Game> games) {
+//		this.games = games;
+//	}
 	
 	
 
