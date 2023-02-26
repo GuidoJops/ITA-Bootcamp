@@ -1,6 +1,5 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,7 +50,7 @@ public class PlayerServiceImpl implements IPlayerService{
 
 	@Override
 	public List<PlayerDto> getAllPlayers() {
-		//Crea una lista de Dtos con las Entidades y las retorna
+		//Crea una lista de Dtos con las Entidades y los retorna
 		return playerRepository.findAll()
 				.stream()
 				.map(player -> converter.toPlayerDto(player))
@@ -60,11 +59,8 @@ public class PlayerServiceImpl implements IPlayerService{
 	}
 
 	@Override
-	//CHEQUEAR EL 'throws Exception'
-	public PlayerDto findPlayerById(int id) throws Exception {
+	public PlayerDto findPlayerById(int id) {
 		return converter.toPlayerDto(playerRepository.findById(id).orElse(null));
-//		return playerConverter.entityToDto(playerRepository.findById(id).orElseThrow(() -> new Exception("No existe Usiario con id: " + id)));
-
 
 	}
 
@@ -73,45 +69,47 @@ public class PlayerServiceImpl implements IPlayerService{
 		Optional <Player> oPlayer =  playerRepository.findById(id);
 		if(oPlayer.isEmpty()) {
 			return null;
-
 		}
-//		PlayerDto playerDto = converter.toPlayerDto (oPlayer.get());
-//		return playerDto.getGames();
-		
 		Player player = oPlayer.get();
 		return player.getGames();
 	}
 
 	
 	@Override
-	public Map<String, Double> getAllPlayersRanking() {
-		List<PlayerDto> playersDto = getAllPlayers();
-		return playersDto.stream()
-				.sorted(Comparator.comparing(PlayerDto::getWinSuccess) //Ordena el Map segun valor
-						.reversed())								// en orden mayor a menor
-				.collect(Collectors.toMap(PlayerDto::getName, PlayerDto::getWinSuccess,
-						(e1, e2) -> e2, LinkedHashMap::new));	// Toma los datos del sorted()
-	}
-	
-	//CONTEMPLAR SI HAY MAS DE UNO??
+    public Map<String, Double> getAllPlayersRanking() {
+    	//LinkedHashMap garantiza el orden en el que insertan los datos
+        Map<String, Double> rankingMap = new LinkedHashMap<>(); 
+        
+        //Ordenados de mayor a menor segun el ranking
+        List<Player> players = playerRepository.findAll().stream()
+                .sorted(Comparator.comparing(Player::getWinSuccess).reversed())
+                .collect(Collectors.toList());
+        
+        //Inserta en el MAP los jugadores ordenados        
+        players.forEach(p -> rankingMap.put(p.getName(), p.getWinSuccess()));
+        return rankingMap;
+    }
+		
 	@Override
 	public PlayerDto getWinner() {
-		List<PlayerDto> playersDto = getAllPlayers();
-		return playersDto.stream()
-				.max(Comparator.comparing(PlayerDto::getWinSuccess))
-				.get();
+		List<Player> players = playerRepository.findAll();
+		if (players.isEmpty()) {
+			return null;
+		}
+		Optional<Player> oPlayer = players.stream().max(Comparator.comparing(Player::getWinSuccess));
+		return converter.toPlayerDto(oPlayer.get());
 	}
-	
-	//CONTEMPLAR SI HAY MAS DE UNO??
+
 	@Override
 	public PlayerDto getLoser() {
-		List<PlayerDto> playersDto = getAllPlayers();
-		return playersDto.stream()
-				.min(Comparator.comparing(PlayerDto::getWinSuccess))
-				.get();
+		List<Player> players = playerRepository.findAll();
+		if (players.isEmpty()) {
+			return null;
+		}
+		Optional<Player> oPlayer = players.stream().min(Comparator.comparing(Player::getWinSuccess));
+		return converter.toPlayerDto(oPlayer.get());
+	
 	}
-	
-	
 	
 	
 }

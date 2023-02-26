@@ -10,7 +10,7 @@ public interface IPlayerService {
 	
 	List<PlayerDto> getAllPlayers();
 
-	PlayerDto findPlayerById(int id) throws Exception;
+	PlayerDto findPlayerById(int id);
 
 	PlayerDto register(String nombre);
 

@@ -11,29 +11,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IGameService;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IPlayerService;
 
 @RestController
 //PONER URL GENERAL 'players'
 public class PlayerController {
 	
-	//PASAR LOS OPTIONAL DEL SERVICE ACA????
-
 	@Autowired
 	private IPlayerService playerService;
 	
 	
 	@GetMapping("players")
-	public ResponseEntity<List> listPlayers(){
+	public ResponseEntity<List<PlayerDto>> listPlayers(){
 		List<PlayerDto> playersDto = playerService.getAllPlayers();
 		if (playersDto.isEmpty()) {
 			System.out.println("No hay Jugadores en el sistema.");
@@ -68,6 +62,7 @@ public class PlayerController {
             return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
             
 		} else if (games.isEmpty()) {
+			System.out.println("El jugador con id: "+id+" no tiene juegos");
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 
 		}

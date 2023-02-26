@@ -2,9 +2,8 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.dto;
 
 
 import java.util.Date;
-import java.util.List;
+//import java.util.List;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 
 public class PlayerDto {
 	

@@ -1,6 +1,5 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.dto;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 
 public class GameDto {
 	
@@ -9,7 +8,6 @@ public class GameDto {
 	private int diceA;
 	private int diceB;
 	private boolean win;
-//	private Player player;
 	
 	
 	public int getId() {
@@ -30,18 +28,12 @@ public class GameDto {
 	public void setDiceB(int diceB) {
 		this.diceB = diceB;
 	}
-	public boolean getWin() {
+	public boolean isWin() {
 		return win;
 	}
 	public void setWin(boolean win) {
 		this.win = win;
 	}
-//	public Player getPlayer() {
-//		return player;
-//	}
-//	public void setPlayer(Player player) {
-//		this.player = player;
-//	}
-	
+
 	
 }

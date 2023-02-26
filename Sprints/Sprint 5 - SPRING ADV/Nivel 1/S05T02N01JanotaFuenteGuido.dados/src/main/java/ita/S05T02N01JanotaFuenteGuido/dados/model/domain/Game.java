@@ -76,7 +76,7 @@ public class Game {
 		this.diceB = diceB;
 	}
 
-	public boolean getWin() {
+	public boolean isWin() {
 		return win;
 	}
 

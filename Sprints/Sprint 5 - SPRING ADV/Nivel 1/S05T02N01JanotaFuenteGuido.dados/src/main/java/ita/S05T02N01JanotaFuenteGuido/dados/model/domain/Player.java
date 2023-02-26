@@ -1,6 +1,5 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.domain;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
