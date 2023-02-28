@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "players")
@@ -22,13 +23,14 @@ public class Player {
 	@Column(name = "pk_PlayerId")
 	private int id;
 	
+	@NotNull(message="El nombre deL Jugador no puede estar vacio")
 	@Column(name = "Name")
 	private String name;
 	
 	@Column(name = "Registation_Date")
 	private Date registDate;
 	
-	@Column(name = "Win_Porcentage")
+	@Column(name = "Win_Percentage")
 	private double winSuccess;
 	
 	private int victories;

@@ -43,13 +43,13 @@ public class GameServiceImpl implements IGameService {
 		//Actualiza porcentaje de partidas ganadas
 		player.updateWinSuccess();
 	
-		//Guarda el 'game' y se actualiza la 'Lista de Games' en la tabla 'Players'
+		//Guarda el 'game' y tambien actualiza la 'Lista de Games' en la tabla 'Players'
 		//gracias a CascadeType.PERSIST en entidad GAME
 		return converter.toGameDto(gameRepository.save(game));
 				
 		
 	}
-
+	
 
 	@Override
 	public boolean deleteAllGamesByPlayerId(int id) {
@@ -66,7 +66,6 @@ public class GameServiceImpl implements IGameService {
 			
 			//Itera para borrar por Id
 			playerGames.forEach( x-> gameRepository.deleteById(x.getId()) );
-			//playerGames.stream().forEach( x-> gameRepository.deleteById(x.getId()) );
 			deleted =true;
 		}
 		return deleted;	

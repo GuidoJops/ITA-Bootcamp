@@ -5,13 +5,17 @@ import java.util.Date;
 //import java.util.List;
 
 
+
 public class PlayerDto {
 	
-
 	private int id;
+	
 	private String name;
+	
 	private Date registDate;
+	
 	private double winSuccess;
+	
 	//private List<Game> games;
 	
 	

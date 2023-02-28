@@ -12,17 +12,17 @@ public interface IPlayerService {
 
 	PlayerDto findPlayerById(int id);
 
-	PlayerDto register(String nombre);
+	PlayerDto registerPlayer(String nombre);
 
-	PlayerDto changeName(PlayerDto playerDto);
+	PlayerDto changePlayerName(PlayerDto playerDto);
 
-	List<Game> gamesByPlayerId(int id);
+	List<Game> getGamesByPlayerId(int id);
 
 	Map<String, Double> getAllPlayersRanking();
 
-	PlayerDto getWinner();
+	PlayerDto getPlayerWinner();
 
-	PlayerDto getLoser();
+	PlayerDto getPlayerLoser();
 	
 
 }
