@@ -6,8 +6,10 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class EntityDtoConverter {
 	
 //----PLAYER----
@@ -20,7 +22,7 @@ public class EntityDtoConverter {
 		playerDto.setRegistDate(player.getRegistDate());
 		playerDto.setWinSuccess(player.getWinSuccess());
 
-		System.out.println("Devolviendo PlayerDTO...");
+		log.info("Devolviendo PlayerDto...");
 		return playerDto;
 
 	}
@@ -34,7 +36,7 @@ public class EntityDtoConverter {
 		gameDto.setDiceB(game.getDiceB());
 		gameDto.setWin(game.isWin());
 
-		System.out.println("Devolviendo GameDTO...");
+		log.info("Devolviendo GameDTO...");
 		return gameDto;
 	}
 

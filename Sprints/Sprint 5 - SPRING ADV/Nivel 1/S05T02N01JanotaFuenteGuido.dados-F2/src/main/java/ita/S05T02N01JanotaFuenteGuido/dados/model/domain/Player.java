@@ -10,14 +10,21 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 
 @Document(collection = "players")
+@Getter 
+@Setter 
+@ToString
 public class Player {
 	
 	@Id
 	private String id;
 	
-	@NotNull(message="El nombre deL Jugador no puede estar vacio")
+	@NotNull(message="El nombre del Jugador no puede estar vacio")
 	private String name;
 	
 	private Date registDate;
@@ -30,10 +37,6 @@ public class Player {
 
 	
 	
-	public Player() {
-		
-	}
-	
 	public Player(String name) {
 		this.name = name;
 		registDate = Calendar.getInstance().getTime();
@@ -43,62 +46,6 @@ public class Player {
 	}
 	
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getRegistDate() {
-		return registDate;
-	}
-
-	public void setRegistDate(Date registDate) {
-		this.registDate = registDate;
-	}
-
-	public double getWinSuccess() {
-		return winSuccess;
-	}
-
-	public void setWinSuccess(double winSuccess) {
-		this.winSuccess = winSuccess;
-	}
-	
-	public int getVictories() {
-		return victories;
-	}
-
-	public void setVictories(int victories) {
-		this.victories = victories;
-	}
-	
-
-	public List<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(List<Game> games) {
-		this.games = games;
-	}
-
-	@Override
-	public String toString() {
-		return "Player [idPlayer=" + id + ", name=" + name + ", registDate=" + registDate + ", winSucces="
-				+ winSuccess + "]";
-	}
-	
-	
 	public void updateWinSuccess() {
 		setWinSuccess(winSuccesCalculator());
 		

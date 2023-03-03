@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IPlayerService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
@@ -31,7 +33,8 @@ public class PlayerController {
 	public ResponseEntity<List<PlayerDto>> listPlayers(){
 		List<PlayerDto> playersDto = playerService.getAllPlayers();
 		if (playersDto.isEmpty()) {
-			System.out.println("No hay Jugadores en el sistema.");
+			
+			log.info("No hay Jugadores en el sistema.");
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(playersDto, HttpStatus.OK);
@@ -63,7 +66,7 @@ public class PlayerController {
             return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
             
 		} else if (games.isEmpty()) {
-			System.out.println("El jugador con id: "+id+" no tiene juegos");
+			log.info("El jugador con id: "+id+" no tiene juegos");
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 
 		}
@@ -75,7 +78,7 @@ public class PlayerController {
 		Map<String, Double> playersRanking = playerService.getAllPlayersRanking();
 //		List<PlayerDto> playersRanking = playerService.getAllPlayersRanking();
 		if (playersRanking.isEmpty()) {
-			System.out.println("No hay Jugadores en el sistema.");
+			log.info("No hay Jugadores en el sistema.");
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(playersRanking, HttpStatus.OK);
@@ -86,7 +89,7 @@ public class PlayerController {
 		PlayerDto playerDto = playerService.getPlayerWinner();
 
 		if (playerDto==null) {
-			System.out.println("No hay Jugadores en el sistema.");
+			log.info("No hay Jugadores en el sistema.");
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(playerDto, HttpStatus.OK);
@@ -97,7 +100,7 @@ public class PlayerController {
 		PlayerDto playerDto = playerService.getPlayerLoser();
 
 		if (playerDto==null) {
-			System.out.println("No hay Jugadores en el sistema.");
+			log.info("No hay Jugadores en el sistema.");
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(playerDto, HttpStatus.OK);
