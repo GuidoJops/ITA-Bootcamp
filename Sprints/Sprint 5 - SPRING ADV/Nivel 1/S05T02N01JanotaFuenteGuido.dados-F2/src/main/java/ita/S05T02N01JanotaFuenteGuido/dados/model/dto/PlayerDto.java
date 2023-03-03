@@ -2,7 +2,6 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.dto;
 
 
 import java.util.Date;
-//import java.util.List;
 
 
 
@@ -16,7 +15,6 @@ public class PlayerDto {
 	
 	private double winSuccess;
 	
-	//private List<Game> games;
 	
 	
 	public String getId() {
@@ -43,12 +41,6 @@ public class PlayerDto {
 	public void setWinSuccess(double winSuccess) {
 		this.winSuccess = winSuccess;
 	}
-//	public List<Game> getGames() {
-//		return games;
-//	}
-//	public void setGames(List<Game> games) {
-//		this.games = games;
-//	}
 	
 	
 

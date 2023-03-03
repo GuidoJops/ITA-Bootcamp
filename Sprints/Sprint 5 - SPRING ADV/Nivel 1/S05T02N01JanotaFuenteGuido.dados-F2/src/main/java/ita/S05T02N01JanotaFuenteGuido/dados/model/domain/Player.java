@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Document(collection = "players")
 public class Player {
 	
@@ -111,6 +112,13 @@ public class Player {
 			result = victories/ (double) totalGames*100;
 		}
 		return (double) Math.round(result * 10d) / 10d;
+	}
+	
+	public void resetPlayer() {
+		winSuccess=0;
+		victories=0;
+		games = new ArrayList<Game>();
+		
 	}
 
 

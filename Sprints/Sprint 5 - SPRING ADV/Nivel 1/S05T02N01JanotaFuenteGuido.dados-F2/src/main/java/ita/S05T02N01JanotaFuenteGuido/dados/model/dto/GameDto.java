@@ -3,19 +3,11 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.dto;
 
 public class GameDto {
 	
-
-	//private String id;
 	private int diceA;
 	private int diceB;
 	private boolean win;
 	
 	
-//	public String getId() {
-//		return id;
-//	}
-//	public void setId(String id) {
-//		this.id = id;
-//	}
 	public int getDiceA() {
 		return diceA;
 	}

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IGameService;
 
 @RestController
@@ -31,15 +30,15 @@ public class GameController {
 
 	}
 	
-//	@DeleteMapping("players/{id}/games")
-//	public ResponseEntity<String> deleteGames(@PathVariable String id) {
-//		if (!gameService.deleteAllGamesByPlayerId(id)) {
-//            return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
-//		}
-//        return new ResponseEntity<>("Se han borrado todas las partidas del Jugador con id: " + id, HttpStatus.OK);
-//
-//
-//	}
+	@DeleteMapping("players/{id}/games")
+	public ResponseEntity<String> deleteGames(@PathVariable String id) {
+		if (!gameService.deleteAllGamesByPlayerId(id)) {
+            return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
+		}
+        return new ResponseEntity<>("Se han borrado todas las partidas del Jugador con id: " + id, HttpStatus.OK);
+
+
+	}
 	
 
 }

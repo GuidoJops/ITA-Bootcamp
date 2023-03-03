@@ -30,7 +30,6 @@ public class EntityDtoConverter {
 	public GameDto toGameDto(Game game) {
 		GameDto gameDto = new GameDto();
 
-//		gameDto.setId(game.getId());
 		gameDto.setDiceA(game.getDiceA());
 		gameDto.setDiceB(game.getDiceB());
 		gameDto.setWin(game.isWin());
