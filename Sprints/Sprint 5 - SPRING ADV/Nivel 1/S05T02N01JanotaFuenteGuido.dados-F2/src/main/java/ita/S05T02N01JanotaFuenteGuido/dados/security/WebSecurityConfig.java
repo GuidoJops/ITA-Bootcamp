@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 	
 	//
-	//Reemplazo de `WebConfigurerAdapter' (versiones anteriores de Spring)
+	//Reemplazo de `extends WebConfigurerAdapter' (versiones anteriores de Spring)
 /*	@Bean
 	public SecurityFilterChain appSecurity(HttpSecurity http) throws Exception {
 		http

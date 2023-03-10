@@ -17,12 +17,12 @@ public class User {
 	private String id;
 	private String email;
 	private String password;
-	private List<Authority> authorities;
+	private List<Role> roles;
 
-	public User(String email, String password, List<Authority> authorities){
+	public User(String email, String password, List<Role> roles){
 		this.email = email;
 		this. password = password;
-		this.authorities = authorities;
+		this.roles = roles;
 	}
 
 }

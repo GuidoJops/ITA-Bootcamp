@@ -5,19 +5,18 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Document(collection = "roles")
-public class Authority {
+public class Role {
 
     @Id
-    private String id;
+    private Long id;
 
-    private AuthorityName role;
+    private ERole roleType;
 
-    public Authority(AuthorityName role){
-         this.role = role;
+    public Role(Long id,ERole roleType){
+        this.id = id;
+         this.roleType = roleType;
     }
 }
