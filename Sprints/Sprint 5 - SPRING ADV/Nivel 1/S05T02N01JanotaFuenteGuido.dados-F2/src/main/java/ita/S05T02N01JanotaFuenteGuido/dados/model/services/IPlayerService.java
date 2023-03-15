@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
 
 public interface IPlayerService {
 	
@@ -27,6 +28,8 @@ public interface IPlayerService {
 	PlayerDto findPlayerById(String id);
 
 	List<Game> getGamesByPlayerId(String id);
-	
 
+	PlayerDto registerUser(UserDto playerDto);
+
+	void loginUser(UserDto userDto);
 }

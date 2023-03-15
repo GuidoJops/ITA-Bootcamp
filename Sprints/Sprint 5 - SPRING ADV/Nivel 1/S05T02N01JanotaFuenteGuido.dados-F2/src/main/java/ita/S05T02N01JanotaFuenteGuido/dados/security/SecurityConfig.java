@@ -1,5 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,21 +21,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+//SecurityFilterChain-> Filtro que maneja la autorizacion
+//UserDetailService -> Administrador de credenciales de Usuario
 
 @Configuration
 @EnableWebSecurity
+//@EnableMethodSecurity
 public class SecurityConfig {
+
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
 
 
 	//Reemplazo de `extends WebConfigurerAdapter' (versiones anteriores de Spring)
-	//SecurityFilterChain-> Filtro que maneja la autorizacion
-	//UserDetailService -> Administrador de credenciales de Usuario
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 		http
 				.csrf().disable()
 				.authorizeRequests()
-				.requestMatchers(HttpMethod.GET).permitAll()
+				.requestMatchers("/api/auth/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.httpBasic();
@@ -41,28 +47,35 @@ public class SecurityConfig {
 		return http.build();
 	}
 
-	//**Usuarios en Memoria**
 	@Bean
-	public UserDetailsService users() {
-		UserDetails admin = User.builder()
-				.username("admin")
-				.password(passwordEncoder().encode("admin"))
-				.roles("ADMIN")
-				.build();
-
-		UserDetails user = User.builder()
-				.username("user")
-				.password(passwordEncoder().encode("user"))
-				.roles("USER")
-				.build();
-
-		return new InMemoryUserDetailsManager(admin,user);
+	public AuthenticationManager authenticationManager(
+			AuthenticationConfiguration authenticationConfiguration) throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+
+//	//**Usuarios en Memoria**
+//	@Bean
+//	public UserDetailsService users() {
+//		UserDetails admin = User.builder()
+//				.username("admin")
+//				.password(passwordEncoder().encode("admin"))
+//				.roles("ADMIN")
+//				.build();
+//
+//		UserDetails user = User.builder()
+//				.username("user")
+//				.password(passwordEncoder().encode("user"))
+//				.roles("USER")
+//				.build();
+//
+//		return new InMemoryUserDetailsManager(admin,user);
+//	}
 }
 
 
