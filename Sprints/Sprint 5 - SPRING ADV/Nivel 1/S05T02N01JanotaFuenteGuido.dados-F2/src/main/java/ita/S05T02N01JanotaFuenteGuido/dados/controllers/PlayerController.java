@@ -6,6 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +34,7 @@ public class PlayerController {
 	
 	
 	@GetMapping("")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<PlayerDto>> listPlayers(){
 		List<PlayerDto> playersDto = playerService.getAllPlayers();
 		if (playersDto.isEmpty()) {
@@ -42,8 +47,9 @@ public class PlayerController {
 	
 	
 	@PostMapping("")
-	public ResponseEntity<?> registerPlayer(@RequestParam (defaultValue = "NoNamePlayer") String name) {
-		PlayerDto playerDto = playerService.registerPlayer(name);
+	public ResponseEntity<?> registerPlayer(@RequestParam (defaultValue = "NoNamePlayer") String name,
+											@RequestParam String userName,@RequestParam String password) {
+		PlayerDto playerDto = playerService.registerPlayer(name, userName, password);
 		if(playerDto==null) {
 			return new ResponseEntity<>("EL nombre del Jugador ya existe.", HttpStatus.CONFLICT); //Es correcto este tipo de respuesta?
 		}
@@ -51,6 +57,7 @@ public class PlayerController {
 		}
 	
 	@PutMapping("")
+//	@PreAuthorize("@conditionEvaluator.canPreAuth2(#playerDto, authentication)") // REALIZA EL CAMBIO PERO LUEGO COMO NO COINCIDE EL NOMBRE NO LO MUESTRA
 	public ResponseEntity<?> changeNamePlayer(@RequestBody PlayerDto playerDto) {
 		PlayerDto _playerDto = playerService.changePlayerName(playerDto);
 		if(_playerDto==null) {
@@ -60,6 +67,7 @@ public class PlayerController {
 		}
 
 	@GetMapping("/{id}/games")
+//	@PreAuthorize("@conditionEvaluator.canPreAuth(#id, authentication)")
 	public ResponseEntity<?> getPlayerGames(@PathVariable String id) {
 		List <Game> games =	playerService.getGamesByPlayerId(id);
 		if (games==null) {

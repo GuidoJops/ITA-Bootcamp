@@ -13,10 +13,10 @@ public class Role {
     @Id
     private Long id;
 
-    private ERole roleType;
+    private ERole type;
 
-    public Role(Long id,ERole roleType){
+    public Role(Long id,ERole type){
         this.id = id;
-         this.roleType = roleType;
+         this.type = type;
     }
 }

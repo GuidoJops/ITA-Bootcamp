@@ -10,7 +10,11 @@ public interface IPlayerService {
 	
 	List<PlayerDto> getAllPlayers();
 
-	PlayerDto registerPlayer(String nombre);
+	//PlayerDto registerPlayer(String nombre);
+
+	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
+	//el nombre por defecto("NoNamePlayer")
+	PlayerDto registerPlayer(String name, String UserName, String password);
 
 	PlayerDto changePlayerName(PlayerDto playerDto);
 

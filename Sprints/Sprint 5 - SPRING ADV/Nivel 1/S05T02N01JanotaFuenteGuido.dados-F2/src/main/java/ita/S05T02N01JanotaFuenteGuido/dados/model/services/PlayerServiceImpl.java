@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+//import ita.S05T02N01JanotaFuenteGuido.dados.security.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,6 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IPlayerRepository;
 
-
 @Service
 public class PlayerServiceImpl implements IPlayerService{
 
@@ -26,19 +26,23 @@ public class PlayerServiceImpl implements IPlayerService{
 	
 	@Autowired
 	private EntityDtoConverter converter;
+
+//	@Autowired
+//	SecurityConfig securityConfig;
 	
 	
 	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
 	//el nombre por defecto("NoNamePlayer")
 	@Override
-	public PlayerDto registerPlayer(String name) {
+	public PlayerDto registerPlayer(String name, String UserName, String password) {
 		Optional<Player> oPlayer = playerRepository.findByName(name).stream().findFirst();
 		if(oPlayer.isPresent() && !(oPlayer.get().getName().equalsIgnoreCase("NoNamePlayer"))) {
 			return null;
 		}
-		Player player = new Player(name);
-		
-		return converter.toPlayerDto(playerRepository.save(player));
+//		Player player = new Player(name, UserName, securityConfig.passwordEncoder().encode(password));
+
+//		return converter.toPlayerDto(playerRepository.save(player));
+		return null;
 	}
 	
 	@Override
