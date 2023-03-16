@@ -18,7 +18,7 @@ import lombok.ToString;
 @Getter
 @Setter 
 @ToString
-@NoArgsConstructor
+
 @Document(collection = "players")
 public class Player {
 	
@@ -37,15 +37,7 @@ public class Player {
 
 	
 	
-//	public Player(String username) {
-//		this.name = name;
-//		registDate = Calendar.getInstance().getTime();
-//		winSuccess= 0;
-//		victories=0;
-//		games = new ArrayList<Game>();
-//	}
-
-	public Player(String name, String userName, String password) {
+	public Player() {
 		this.name = name;
 		this.userName = userName;
 		this.password = password;
@@ -55,6 +47,17 @@ public class Player {
 		games = new ArrayList<Game>();
 		roles = new ArrayList<Role>();
 	}
+
+//	public Player(String name, String userName, String password) {
+//		this.name = name;
+//		this.userName = userName;
+//		this.password = password;
+//		registDate = Calendar.getInstance().getTime();
+//		winSuccess= 0;
+//		victories=0;
+//		games = new ArrayList<Game>();
+//		roles = new ArrayList<Role>();
+//	}
 	
 
 	public void updateWinSuccess() {

@@ -28,8 +28,4 @@ public interface IPlayerService {
 	PlayerDto findPlayerById(String id);
 
 	List<Game> getGamesByPlayerId(String id);
-
-	PlayerDto registerUser(UserDto playerDto);
-
-	void loginUser(UserDto userDto);
 }

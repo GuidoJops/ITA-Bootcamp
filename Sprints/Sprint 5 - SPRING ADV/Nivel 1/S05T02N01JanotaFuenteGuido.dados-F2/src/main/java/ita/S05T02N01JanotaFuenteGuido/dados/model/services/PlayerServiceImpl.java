@@ -38,32 +38,6 @@ public class PlayerServiceImpl implements IPlayerService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Override
-	public PlayerDto registerUser(UserDto userDto) { // QUE DEVUELVA UN BOOLEANO?
-		if (playerRepository.existsByUserName(userDto.getUserName())) {
-			log.info("EL nombre de usuario ya existe");
-			return null;
-		}
-		Role roles = roleRepository.findByType(ERole.ROLE_USER).get(); // role de USER por defecto
-		Player player = new Player();
-		player.setUserName(userDto.getUserName());
-		player.setPassword(passwordEncoder.encode(userDto.getPassword()));
-		player.setRoles(Collections.singletonList(roles));
-		log.info("Usuario Registrado con éxito!");
-
-		return converter.toPlayerDto(playerRepository.save(player));
-	}
-
-	@Override
-	public void loginUser(UserDto userDto) {
-		Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				userDto.getUserName(),
-				userDto.getPassword()));
-
-		SecurityContextHolder.getContext().setAuthentication(auth);
-	}
-
-
 	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
 	//el nombre por defecto("NoNamePlayer")
 	@Override
