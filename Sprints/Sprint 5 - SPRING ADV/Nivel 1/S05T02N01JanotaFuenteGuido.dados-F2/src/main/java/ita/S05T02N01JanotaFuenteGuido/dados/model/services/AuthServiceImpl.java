@@ -8,6 +8,7 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IPlayerRepository;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IRoleRepository;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.JwtGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,6 +34,9 @@ public class AuthServiceImpl implements IAuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    JwtGenerator jwtGenerator;
+
     @Override
     public PlayerDto registerUser(UserDto userDto) { // QUE DEVUELVA UN BOOLEANO?
         if (playerRepository.existsByUserName(userDto.getUserName())) {
@@ -50,11 +54,14 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public void loginUser(UserDto userDto) {
+    public String loginUser(UserDto userDto) {
+//        String token ="No hay nada.";
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 userDto.getUserName(),
                 userDto.getPassword()));
-        log.info("Bienvenido {}",  userDto.getUserName());
         SecurityContextHolder.getContext().setAuthentication(auth);
+        String token = jwtGenerator.generateToken(auth);
+        log.info("Bienvenido {}",  userDto.getUserName());
+        return token;
     }
 }

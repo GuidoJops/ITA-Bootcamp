@@ -6,5 +6,5 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
 public interface IAuthService {
     PlayerDto registerUser(UserDto userDto);
 
-    void loginUser(UserDto userDto);
+    String loginUser(UserDto userDto);
 }

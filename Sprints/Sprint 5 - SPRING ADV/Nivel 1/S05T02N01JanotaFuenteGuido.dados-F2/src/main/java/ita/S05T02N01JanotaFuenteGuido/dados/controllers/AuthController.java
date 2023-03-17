@@ -2,11 +2,13 @@ package ita.S05T02N01JanotaFuenteGuido.dados.controllers;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IAuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -25,11 +27,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDto userDto) {
-//        if (playerService.loginUser(userDto)){
-//            return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST); // o CONFLICT??
-//        }
-        authService.loginUser(userDto);
-        return new ResponseEntity<>("Bienvenido " + userDto.getUserName(), HttpStatus.OK);
+        String token = authService.loginUser(userDto);
+        log.info(token);
+        if (token == null){
+            return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST); // o CONFLICT??
+        }
+
+        return new ResponseEntity<>(token, HttpStatus.OK);
 
     }
 
