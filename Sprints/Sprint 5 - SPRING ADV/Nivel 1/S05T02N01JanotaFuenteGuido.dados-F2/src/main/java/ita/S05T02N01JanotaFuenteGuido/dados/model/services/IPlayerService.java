@@ -11,11 +11,7 @@ public interface IPlayerService {
 	
 	List<PlayerDto> getAllPlayers();
 
-	//PlayerDto registerPlayer(String nombre);
-
-	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
-	//el nombre por defecto("NoNamePlayer")
-	PlayerDto registerPlayer(String name, String UserName, String password);
+	PlayerDto createPlayer(UserDto userDto);
 
 	PlayerDto changePlayerName(PlayerDto playerDto);
 
@@ -28,4 +24,12 @@ public interface IPlayerService {
 	PlayerDto findPlayerById(String id);
 
 	List<Game> getGamesByPlayerId(String id);
+
+	Boolean playerExist(String userName);
+
+
+
+
+	/*-----BORRAR??-----*/
+	List<Game> getGamesByPlayerUserName(String userName);
 }

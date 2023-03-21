@@ -1,5 +1,7 @@
-package ita.S05T02N01JanotaFuenteGuido.dados.security;
+package ita.S05T02N01JanotaFuenteGuido.dados.security.jwt;
 
+import ita.S05T02N01JanotaFuenteGuido.dados.security.CustomUserDetailsService;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtGenerator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -39,8 +40,10 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
 
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                log.info("Header de RESPONSE: " + response.getHeader("Authorization"));
             }
         } catch (Exception e) {
             log.error("No se pudo authenticar el usuario. {}", e.getMessage());

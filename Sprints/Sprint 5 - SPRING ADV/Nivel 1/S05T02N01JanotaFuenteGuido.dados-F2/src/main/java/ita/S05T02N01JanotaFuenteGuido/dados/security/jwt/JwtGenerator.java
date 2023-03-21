@@ -1,4 +1,4 @@
-package ita.S05T02N01JanotaFuenteGuido.dados.security;
+package ita.S05T02N01JanotaFuenteGuido.dados.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,25 +15,8 @@ import java.util.Date;
 @Component
 public class JwtGenerator {
 
-    private final long JWT_EXPIRATION = 300000;  // equivale a 5 minutos
+    private final long JWT_EXPIRATION = 3000000;  // 300000 = 5 minutos
     private final String JWT_SECRET = "dG9wc2VjcmV0a2V5dG9wc2VjcmV0a2V5dG9wc2VjcmV0a2V5dG9wc2VjcmV0a2V5";
-
-//    //Genera el Token
-//    public String generateToken(Authentication authentication) {
-//        log.info(authentication.getName());
-//        log.info(authentication.getPrincipal().toString());
-//
-//        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-//
-//        String token = Jwts.builder()
-//                .setSubject(userPrincipal.getUsername())
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(new Date().getTime() + JWT_EXPIRATION))
-//                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
-//                .compact();
-//        return token;
-//    }
-
 
     //Genera el Token
     public String generateToken(Authentication authentication) {

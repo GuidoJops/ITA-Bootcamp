@@ -18,7 +18,6 @@ import lombok.ToString;
 @Getter
 @Setter 
 @ToString
-
 @Document(collection = "players")
 public class Player {
 	
@@ -27,7 +26,7 @@ public class Player {
 	@NotNull(message="El nombre del Jugador no puede estar vacio")
 	//@NotBlank
 	private String name;
-	private String userName;
+	private String userName; //E-mail
 	private String password;
 	private Date registDate;
 	private double winSuccess;

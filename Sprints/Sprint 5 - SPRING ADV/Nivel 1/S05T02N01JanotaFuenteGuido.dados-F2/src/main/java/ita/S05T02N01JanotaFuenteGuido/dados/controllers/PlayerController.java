@@ -32,9 +32,9 @@ public class PlayerController {
 	@Autowired
 	private IPlayerService playerService;
 	
-	
+
 	@GetMapping("")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<PlayerDto>> listPlayers(){
 		List<PlayerDto> playersDto = playerService.getAllPlayers();
 		if (playersDto.isEmpty()) {
@@ -45,19 +45,8 @@ public class PlayerController {
 		return new ResponseEntity<>(playersDto, HttpStatus.OK);
 	}
 	
-	
-	@PostMapping("")
-	public ResponseEntity<?> registerPlayer(@RequestParam (defaultValue = "NoNamePlayer") String name,
-											@RequestParam String userName,@RequestParam String password) {
-		PlayerDto playerDto = playerService.registerPlayer(name, userName, password);
-		if(playerDto==null) {
-			return new ResponseEntity<>("EL nombre del Jugador ya existe.", HttpStatus.CONFLICT); //Es correcto este tipo de respuesta?
-		}
-		return new ResponseEntity<>(playerDto, HttpStatus.CREATED);
-		}
-	
 	@PutMapping("")
-//	@PreAuthorize("@conditionEvaluator.canPreAuth2(#playerDto, authentication)") // REALIZA EL CAMBIO PERO LUEGO COMO NO COINCIDE EL NOMBRE NO LO MUESTRA
+	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
 	public ResponseEntity<?> changeNamePlayer(@RequestBody PlayerDto playerDto) {
 		PlayerDto _playerDto = playerService.changePlayerName(playerDto);
 		if(_playerDto==null) {
@@ -67,7 +56,7 @@ public class PlayerController {
 		}
 
 	@GetMapping("/{id}/games")
-//	@PreAuthorize("@conditionEvaluator.canPreAuth(#id, authentication)")
+	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
 	public ResponseEntity<?> getPlayerGames(@PathVariable String id) {
 		List <Game> games =	playerService.getGamesByPlayerId(id);
 		if (games==null) {
@@ -84,7 +73,6 @@ public class PlayerController {
 	@GetMapping("/ranking")
 	public ResponseEntity<?> getPlayersRanking(){
 		Map<String, Double> playersRanking = playerService.getAllPlayersRanking();
-//		List<PlayerDto> playersRanking = playerService.getAllPlayersRanking();
 		if (playersRanking.isEmpty()) {
 			log.info("No hay Jugadores en el sistema.");
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -113,7 +101,36 @@ public class PlayerController {
 		}
 		return new ResponseEntity<>(playerDto, HttpStatus.OK);
 	}
-	
-	
+
+
+
+
+/*-------BORRAR??---------*/
+
+	@GetMapping("/{userName}/username/games")
+	@PreAuthorize("#userName == principal.username or hasRole('ADMIN')")
+	public ResponseEntity<?> getPlayerGamesByUsername(@PathVariable String userName) {
+		List <Game> games =	playerService.getGamesByPlayerUserName(userName);
+		if (games==null) {
+			return new ResponseEntity<>("NO hay jugadores con el userName: "+userName, HttpStatus.NOT_FOUND);
+
+		} else if (games.isEmpty()) {
+			log.info("El jugador  "+userName+" no tiene juegos");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+
+		}
+		return new ResponseEntity<>(games, HttpStatus.OK);
+	}
+
+
+//	@PostMapping("")
+//	public ResponseEntity<?> registerPlayer(@RequestParam (defaultValue = "NoNamePlayer") String name,
+//											@RequestParam String userName,@RequestParam String password) {
+//		PlayerDto playerDto = playerService.registerPlayer(name, userName, password);
+//		if(playerDto==null) {
+//			return new ResponseEntity<>("EL nombre del Jugador ya existe.", HttpStatus.CONFLICT); //Es correcto este tipo de respuesta?
+//		}
+//		return new ResponseEntity<>(playerDto, HttpStatus.CREATED);
+//	}
 	
 }

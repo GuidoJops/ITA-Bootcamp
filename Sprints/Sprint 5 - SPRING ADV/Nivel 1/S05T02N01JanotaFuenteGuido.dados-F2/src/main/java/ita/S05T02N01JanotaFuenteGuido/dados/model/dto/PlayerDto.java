@@ -14,8 +14,10 @@ import lombok.ToString;
 public class PlayerDto {
 	
 	private String id;
-	
+
 	private String name;
+	
+	private String userName; //E-mail
 	
 	private Date registDate;
 	

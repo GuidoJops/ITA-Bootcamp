@@ -24,10 +24,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Player user = userRepo.findByUserName(username).orElseThrow(()-> new UsernameNotFoundException("No se encontró un usuario con userName:" + username));
-        return new User(user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        Player user = userRepo.findByUserName(username).orElseThrow(()->
+                new UsernameNotFoundException("No se encontró un usuario con userName:" + username));
+
+        return new CustomUserDetails(user.getId(), user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
+/*--Pasa Roles a Authorities*/
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map(role-> new SimpleGrantedAuthority(role.getType().toString())).collect(Collectors.toList());
     }

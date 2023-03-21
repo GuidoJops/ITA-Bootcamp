@@ -1,4 +1,4 @@
-package ita.S05T02N01JanotaFuenteGuido.dados.security;
+package ita.S05T02N01JanotaFuenteGuido.dados.security.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
