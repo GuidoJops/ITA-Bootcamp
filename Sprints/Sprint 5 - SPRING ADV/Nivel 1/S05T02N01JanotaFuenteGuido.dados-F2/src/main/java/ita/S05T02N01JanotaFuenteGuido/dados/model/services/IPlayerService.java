@@ -13,8 +13,6 @@ public interface IPlayerService {
 
 	PlayerDto createPlayer(UserDto userDto);
 
-	PlayerDto changePlayerName(PlayerDto playerDto);
-
 	Map<String, Double> getAllPlayersRanking();
 
 	PlayerDto getPlayerWinner();
@@ -30,6 +28,16 @@ public interface IPlayerService {
 
 
 
-	/*-----BORRAR??-----*/
+
+	/*-----TESTEO-----*/
+	PlayerDto changePlayerName(String id, String Name);
+
+
+
+/*	//-----BORRAR??-----//
 	List<Game> getGamesByPlayerUserName(String userName);
+	PlayerDto changePlayerName(PlayerDto playerDto);
+
+
+	*/
 }

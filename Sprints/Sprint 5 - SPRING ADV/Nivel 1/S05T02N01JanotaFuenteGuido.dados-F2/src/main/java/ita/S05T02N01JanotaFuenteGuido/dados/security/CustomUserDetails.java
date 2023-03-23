@@ -1,12 +1,16 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.ERole;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -62,5 +66,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isAdmin() {
+        return authorities.stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+
     }
 }

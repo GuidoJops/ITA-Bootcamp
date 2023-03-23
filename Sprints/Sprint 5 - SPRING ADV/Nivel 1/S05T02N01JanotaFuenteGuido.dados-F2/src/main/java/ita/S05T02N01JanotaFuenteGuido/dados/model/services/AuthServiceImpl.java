@@ -2,7 +2,7 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
-import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtGenerator;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +20,7 @@ public class AuthServiceImpl implements IAuthService {
     @Autowired
     private IPlayerService playerService;
     @Autowired
-    private JwtGenerator jwtGenerator;
+    private JwtUtils jwtUtils;
 
     @Override
     public PlayerDto registerUser(UserDto userDto) { // QUE DEVUELVA UN BOOLEANO?
@@ -39,7 +39,7 @@ public class AuthServiceImpl implements IAuthService {
                 userDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(auth);
-        String token = jwtGenerator.generateToken(auth);
+        String token = jwtUtils.generateToken(auth);
         log.info("Bienvenido {}",  userDto.getUserName());
         return token;
     }

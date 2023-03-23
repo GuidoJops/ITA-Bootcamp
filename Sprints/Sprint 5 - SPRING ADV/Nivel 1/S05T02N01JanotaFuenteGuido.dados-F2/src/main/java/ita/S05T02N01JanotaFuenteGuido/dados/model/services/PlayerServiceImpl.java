@@ -11,6 +11,7 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,23 +37,6 @@ public class PlayerServiceImpl implements IPlayerService{
 	private PasswordEncoder passwordEncoder;
 
 
-
-//---------------------------BORRAR-------------------------------------------------
-//	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
-//	//el nombre por defecto("NoNamePlayer")
-//	@Override
-//	public PlayerDto registerPlayer(String name, String UserName, String password) {
-//		Optional<Player> oPlayer = playerRepository.findByName(name).stream().findFirst();
-//		if(oPlayer.isPresent() && !(oPlayer.get().getName().equalsIgnoreCase("NoNamePlayer"))) {
-//			return null;
-//		}
-////		Player player = new Player(name, UserName, securityConfig.passwordEncoder().encode(password));
-//
-////		return converter.toPlayerDto(playerRepository.save(player));
-//		return null;
-//	}
-//	-------------------------------------------------------------------------------------
-
 	@Override
 	public PlayerDto createPlayer(UserDto userDto) {
 		Role roles = roleRepository.findByType(ERole.ROLE_USER).get(); // role de USER por defecto
@@ -65,16 +49,17 @@ public class PlayerServiceImpl implements IPlayerService{
 		return converter.toPlayerDto(playerRepository.save(player));
 	}
 
-
+	/*-----TESTEO-----*/
 	@Override
-	public PlayerDto changePlayerName(PlayerDto playerDto) {
-		Optional<Player> oPlayer = playerRepository.findById(playerDto.getId());
+	public PlayerDto changePlayerName(String id, String name) {
+		log.info(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+		Optional<Player> oPlayer = playerRepository.findById(id);
 		if(oPlayer.isEmpty()) {
 			return null;
 		}
 		Player player = oPlayer.get();
-		player.setName(playerDto.getName());
-		
+		player.setName(name);
+
 		return converter.toPlayerDto(playerRepository.save(player));
 	}
 
@@ -105,7 +90,7 @@ public class PlayerServiceImpl implements IPlayerService{
 		return player.getGames();
 	}
 
-	//Tiene en cuenta solo Jugadores registrados con nombre. Excluye los 'NoNamePLayer'
+	//Tiene en cuenta solo Jugadores registrados CON nombre. Excluye los 'NoNamePLayer'
 	@Override
 	public Map<String, Double> getAllPlayersRanking() {
     	//LinkedHashMap garantiza el orden en el que insertan los datos
@@ -157,9 +142,7 @@ public class PlayerServiceImpl implements IPlayerService{
 	}
 
 
-
-
-	/*-------BORRAR??---------*/
+	/*-------BORRAR??---------*//*
 
 	@Override
 	public List<Game> getGamesByPlayerUserName(String userName){
@@ -171,4 +154,35 @@ public class PlayerServiceImpl implements IPlayerService{
 
 		return player.getGames();
 	}
+
+	@Override
+	public PlayerDto changePlayerName(PlayerDto playerDto) {
+		Optional<Player> oPlayer = playerRepository.findById(playerDto.getId());
+		if(oPlayer.isEmpty()) {
+			return null;
+		}
+		Player player = oPlayer.get();
+		player.setName(playerDto.getName());
+
+		return converter.toPlayerDto(playerRepository.save(player));
+	}
+
+
+	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
+	//el nombre por defecto("NoNamePlayer")
+	@Override
+	public PlayerDto registerPlayer(String name, String UserName, String password) {
+		Optional<Player> oPlayer = playerRepository.findByName(name).stream().findFirst();
+		if(oPlayer.isPresent() && !(oPlayer.get().getName().equalsIgnoreCase("NoNamePlayer"))) {
+			return null;
+		}
+//		Player player = new Player(name, UserName, securityConfig.passwordEncoder().encode(password));
+
+//		return converter.toPlayerDto(playerRepository.save(player));
+		return null;
+	}
+
+
+	*/
+
 }

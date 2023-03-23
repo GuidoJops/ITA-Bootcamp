@@ -37,6 +37,7 @@ public class Player {
 	
 	
 	public Player() {
+		//REVISAR?????!"?!"·?!"?$!?"?$!"?$!?$
 		this.name = name;
 		this.userName = userName;
 		this.password = password;

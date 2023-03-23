@@ -1,7 +1,6 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.security.jwt;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.security.CustomUserDetailsService;
-import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtGenerator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class JwtSecurityFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JwtGenerator tokenGenerator;
+    private JwtUtils jwtUtils;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -34,16 +34,16 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
 
         try {
             String jwtToken = getJwtTokenFromRequest(request);
-            if (jwtToken != null && tokenGenerator.validateToken(jwtToken)) { // SOLO 2da CONDICION??
-                String username = tokenGenerator.getUsernameFromJWT(jwtToken);
+            if (jwtToken != null && jwtUtils.validateToken(jwtToken)) { // SOLO 2da CONDICION??
+                String username = jwtUtils.getUsernameFromJWT(jwtToken);
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                WebAuthenticationDetails webAuthenticationDetails =
+                        new WebAuthenticationDetailsSource().buildDetails(request);
 
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                authenticationToken.setDetails(webAuthenticationDetails);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                log.info("Header de RESPONSE: " + response.getHeader("Authorization"));
             }
         } catch (Exception e) {
             log.error("No se pudo authenticar el usuario. {}", e.getMessage());
@@ -68,8 +68,8 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
 //                                    FilterChain filterChain) throws ServletException, IOException {
 //
 //        String token = getJwtFromRequest(request);
-//        if(token!=null && tokenGenerator.validateToken(token)){
-//            String userName = tokenGenerator.getUsernameFromJWT(token);
+//        if(token!=null && jwtUtils.validateToken(token)){
+//            String userName = jwtUtils.getUsernameFromJWT(token);
 //
 //            UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);
 //            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,

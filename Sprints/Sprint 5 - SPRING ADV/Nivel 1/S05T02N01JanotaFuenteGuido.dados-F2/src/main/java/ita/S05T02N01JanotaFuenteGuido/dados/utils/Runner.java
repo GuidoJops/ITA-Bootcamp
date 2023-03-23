@@ -29,7 +29,6 @@ public class Runner implements CommandLineRunner {
 /*
 * --Se agregan los Roles y un Usario Admin la primera vez que se ejecuta el programa--
 */
-
         if(roleRepo.count() == 0){
             roleRepo.saveAll(List.of(
                     new Role(1L,ERole.ROLE_ADMIN),

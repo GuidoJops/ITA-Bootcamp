@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+//Se encarga de manejar la respuesta HTTP cuando se produce un error de autenticación
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 

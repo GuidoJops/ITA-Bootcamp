@@ -45,15 +45,18 @@ public class PlayerController {
 		return new ResponseEntity<>(playersDto, HttpStatus.OK);
 	}
 	
-	@PutMapping("")
+	/*-----TESTEO-----*/
+	@PutMapping("/{id}")
 	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
-	public ResponseEntity<?> changeNamePlayer(@RequestBody PlayerDto playerDto) {
-		PlayerDto _playerDto = playerService.changePlayerName(playerDto);
+	public ResponseEntity<?> changePayerName(@PathVariable String id, @RequestParam String name) {
+		PlayerDto _playerDto = playerService.changePlayerName(id, name);
 		if(_playerDto==null) {
 			return new ResponseEntity<>("EL Jugador que se quiere modificar NO existe, revisa el ID.", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(_playerDto, HttpStatus.OK);
-		}
+	}
+
+
 
 	@GetMapping("/{id}/games")
 	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
@@ -107,20 +110,20 @@ public class PlayerController {
 
 /*-------BORRAR??---------*/
 
-	@GetMapping("/{userName}/username/games")
-	@PreAuthorize("#userName == principal.username or hasRole('ADMIN')")
-	public ResponseEntity<?> getPlayerGamesByUsername(@PathVariable String userName) {
-		List <Game> games =	playerService.getGamesByPlayerUserName(userName);
-		if (games==null) {
-			return new ResponseEntity<>("NO hay jugadores con el userName: "+userName, HttpStatus.NOT_FOUND);
-
-		} else if (games.isEmpty()) {
-			log.info("El jugador  "+userName+" no tiene juegos");
-			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-
-		}
-		return new ResponseEntity<>(games, HttpStatus.OK);
-	}
+//	@GetMapping("/{userName}/username/games")
+//	@PreAuthorize("#userName == principal.username or hasRole('ADMIN')")
+//	public ResponseEntity<?> getPlayerGamesByUsername(@PathVariable String userName) {
+//		List <Game> games =	playerService.getGamesByPlayerUserName(userName);
+//		if (games==null) {
+//			return new ResponseEntity<>("NO hay jugadores con el userName: "+userName, HttpStatus.NOT_FOUND);
+//
+//		} else if (games.isEmpty()) {
+//			log.info("El jugador  "+userName+" no tiene juegos");
+//			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+//
+//		}
+//		return new ResponseEntity<>(games, HttpStatus.OK);
+//	}
 
 
 //	@PostMapping("")
@@ -132,5 +135,15 @@ public class PlayerController {
 //		}
 //		return new ResponseEntity<>(playerDto, HttpStatus.CREATED);
 //	}
-	
+
+
+	//	@PutMapping("")
+//	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
+//	public ResponseEntity<?> changePayerName(@RequestBody PlayerDto playerDto) {
+//		PlayerDto _playerDto = playerService.changePlayerName(playerDto);
+//		if(_playerDto==null) {
+//			return new ResponseEntity<>("EL Jugador que se quiere modificar NO existe, revisa el ID.", HttpStatus.NOT_FOUND);
+//		}
+//		return new ResponseEntity<>(_playerDto, HttpStatus.OK);
+//		}
 }

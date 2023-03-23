@@ -36,17 +36,17 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 		http
-				.csrf().disable()
+				.csrf().disable()		//Deshabilita protección CSRF porque se usa JWT para autenticación y autorización
 				.exceptionHandling()
-				.authenticationEntryPoint(authEntryPoint)
+				.authenticationEntryPoint(authEntryPoint)	//Excepciones de autenticación manejadas por 'authEntryPoint'
 				.and()
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // sin sesiones de usuario en servidor
 				.and()
 				.authorizeRequests()
 				.requestMatchers("/api/auth/**").permitAll()
 				.anyRequest().authenticated();
-		http.addFilterBefore(jwtSecurityFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtSecurityFilter(), UsernamePasswordAuthenticationFilter.class); 	//Filtro personalizado (donde va el token)
 		return http.build();
 	}
 

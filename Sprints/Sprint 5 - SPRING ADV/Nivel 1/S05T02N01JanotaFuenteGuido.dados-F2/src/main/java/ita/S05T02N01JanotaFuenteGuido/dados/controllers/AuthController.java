@@ -35,7 +35,7 @@ public class AuthController {
             return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST); // o CONFLICT??
         }
 
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return new ResponseEntity<>("Token de acceso: " + token, HttpStatus.OK);
 //        return ResponseEntity.ok().header(token).body("Bievenido " + userDto.getUserName());
 
     }
