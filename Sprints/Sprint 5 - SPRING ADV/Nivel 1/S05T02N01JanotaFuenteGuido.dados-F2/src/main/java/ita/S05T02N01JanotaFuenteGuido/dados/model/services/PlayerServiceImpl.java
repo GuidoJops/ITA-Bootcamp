@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.ERole;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Role;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,12 @@ public class PlayerServiceImpl implements IPlayerService{
 
 
 	@Override
-	public PlayerDto createPlayer(UserDto userDto) {
+	public PlayerDto createPlayer(AuthRequest authRequest) {
 		Role roles = roleRepository.findByType(ERole.ROLE_USER).get(); // role de USER por defecto
 		Player player = new Player();
-		player.setName(userDto.getName());
-		player.setUserName(userDto.getUserName());
-		player.setPassword(passwordEncoder.encode(userDto.getPassword()));
+		player.setName(authRequest.getName());
+		player.setUserName(authRequest.getUserName());
+		player.setPassword(passwordEncoder.encode(authRequest.getPassword()));
 		player.setRoles(Collections.singletonList(roles));
 		log.info("Player Creado");
 		return converter.toPlayerDto(playerRepository.save(player));
@@ -68,9 +68,9 @@ public class PlayerServiceImpl implements IPlayerService{
 		//Crea una lista de PlayerDtos a partir de las Entidades y los retorna
 		return playerRepository.findAll()
 				.stream()
+				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
 				.map(player -> converter.toPlayerDto(player))
 				.collect(Collectors.toList());
-	
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class PlayerServiceImpl implements IPlayerService{
 		return player.getGames();
 	}
 
-	//Tiene en cuenta solo Jugadores registrados CON nombre. Excluye los 'NoNamePLayer'
+	//Tiene en cuenta solo Jugadores registrados CON nombre. Excluye los 'NoNamePLayer' y 'DEFAULT-ADMIN'
 	@Override
 	public Map<String, Double> getAllPlayersRanking() {
     	//LinkedHashMap garantiza el orden en el que insertan los datos
@@ -99,6 +99,7 @@ public class PlayerServiceImpl implements IPlayerService{
         //Ordenados de mayor a menor segun el porcentaje de exito
         List<Player> players = playerRepository.findAll().stream()
         		.filter(Predicate.not(p->p.getName().equalsIgnoreCase("NoNamePlayer")))
+				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
                 .sorted(Comparator.comparing(Player::getWinSuccess).reversed())
                 .collect(Collectors.toList());
         //Inserta en el MAP los jugadores ordenados   
@@ -107,8 +108,8 @@ public class PlayerServiceImpl implements IPlayerService{
         return rankingMap;
        
     }
-		
-	//Tiene en cuenta solo Jugadores registrados con nombre. Excluye los 'NoNamePLayer'
+
+	//Tiene en cuenta solo Jugadores registrados CON nombre. Excluye los 'NoNamePLayer' y 'DEFAULT-ADMIN'
 	@Override
 	public PlayerDto getPlayerWinner() {
 		List<Player> players = playerRepository.findAll();
@@ -117,6 +118,7 @@ public class PlayerServiceImpl implements IPlayerService{
 		}
 		Optional<Player> oPlayer = players.stream()
 				.filter(Predicate.not(p->p.getName().equalsIgnoreCase("NoNamePlayer")))
+				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
 				.max(Comparator.comparing(Player::getWinSuccess));
 		
 		return converter.toPlayerDto(oPlayer.get());
@@ -131,6 +133,7 @@ public class PlayerServiceImpl implements IPlayerService{
 		}
 		Optional<Player> oPlayer = players.stream()
 				.filter(Predicate.not(p->p.getName().equalsIgnoreCase("NoNamePlayer")))
+				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
 				.min(Comparator.comparing(Player::getWinSuccess));
 		
 		return converter.toPlayerDto(oPlayer.get());

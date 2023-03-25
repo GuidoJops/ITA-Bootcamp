@@ -13,14 +13,15 @@ public class Application {
 }
 
 /*--TODO LIST--
-*   -Que no devuelva el Player Admin en las peticiones
+	-Donde colocar clases AuthRequest y AuthResponse??
+*   -Que no devuelva el Player Admin en las peticiones--O
 * 	-Crear métodos registerAdmin y addAdminRoleToUser
 * 	-Agregar método que devuelva datos útiles para un ADMIN? ej: PrincipalUser
 * 	-Agregar Validaciones:
 * 		-UserName acepte formato email?
 * 		-JsonIgnore a Password en Entity?
 * 	-Agregar Swagger
-*   -Hacer que PLAYER sea el CUSTOMUSERDETAILS???
+*   -Hacer que PLAYER sea el CUSTOMuSERDETAILS???
 *
 *
 * 	-Agregar Datos al Payload del JWT--OK

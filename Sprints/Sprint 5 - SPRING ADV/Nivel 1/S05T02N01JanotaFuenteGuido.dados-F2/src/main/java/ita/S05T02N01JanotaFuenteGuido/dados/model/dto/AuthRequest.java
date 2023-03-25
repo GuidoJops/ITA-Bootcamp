@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDto {
+public class AuthRequest {
 
     private String name;
     private String userName;
     private String password;
 
-    public UserDto() {
+    public AuthRequest() {
         name = "NoNamePlayer";
     }
 }

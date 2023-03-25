@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
 
 public interface IPlayerService {
 	
 	List<PlayerDto> getAllPlayers();
 
-	PlayerDto createPlayer(UserDto userDto);
+	PlayerDto createPlayer(AuthRequest authRequest);
 
 	Map<String, Double> getAllPlayersRanking();
 

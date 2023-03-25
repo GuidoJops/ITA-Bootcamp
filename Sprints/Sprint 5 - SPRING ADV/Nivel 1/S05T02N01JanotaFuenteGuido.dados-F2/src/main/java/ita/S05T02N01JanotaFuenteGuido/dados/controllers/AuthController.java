@@ -1,6 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.controllers;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.UserDto;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +19,22 @@ public class AuthController {
     private IAuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDto userDto) {
-        if (authService.registerUser(userDto) == null){
+    public ResponseEntity<String> register(@RequestBody AuthRequest authRequest) {
+        if (authService.registerUser(authRequest) == null){
             return new ResponseEntity<>("Nombre de Usuario ya existe", HttpStatus.BAD_REQUEST); // o CONFLICT??
         }
         log.info("Usuario Registrado");
         return new ResponseEntity<>("Usuario registrado con éxito!", HttpStatus.CREATED);
-
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
-        String token = authService.loginUser(userDto);
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+        AuthResponse authResponse = authService.loginUser(authRequest);
 //        log.info(token);
-        if (token == null){
+        if (authResponse.getToken() == null){
             return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST); // o CONFLICT??
         }
-
-        return new ResponseEntity<>("Token de acceso: " + token, HttpStatus.OK);
-//        return ResponseEntity.ok().header(token).body("Bievenido " + userDto.getUserName());
-
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
     @GetMapping("/principal")
