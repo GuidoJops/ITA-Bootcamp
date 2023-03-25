@@ -39,11 +39,11 @@ public class PlayerServiceImpl implements IPlayerService{
 
 	@Override
 	public PlayerDto createPlayer(AuthRequest authRequest) {
+		Player player = new Player(authRequest.getName(),
+				authRequest.getUserName(),
+				passwordEncoder.encode(authRequest.getPassword()));
+
 		Role roles = roleRepository.findByType(ERole.ROLE_USER).get(); // role de USER por defecto
-		Player player = new Player();
-		player.setName(authRequest.getName());
-		player.setUserName(authRequest.getUserName());
-		player.setPassword(passwordEncoder.encode(authRequest.getPassword()));
 		player.setRoles(Collections.singletonList(roles));
 		log.info("Player Creado");
 		return converter.toPlayerDto(playerRepository.save(player));

@@ -14,16 +14,18 @@ public class Application {
 
 /*--TODO LIST--
 	-Donde colocar clases AuthRequest y AuthResponse??
-*   -Que no devuelva el Player Admin en las peticiones--O
 * 	-Crear métodos registerAdmin y addAdminRoleToUser
 * 	-Agregar método que devuelva datos útiles para un ADMIN? ej: PrincipalUser
-* 	-Agregar Validaciones:
-* 		-UserName acepte formato email?
-* 		-JsonIgnore a Password en Entity?
 * 	-Agregar Swagger
 *   -Hacer que PLAYER sea el CUSTOMuSERDETAILS???
 *
-*
+
+
+
+	-Agregar Validaciones:--OK
+		-En modelos de cara a BD--OK
+* 		-UserName acepte formato email?--OK
+*   -Que no devuelva el Player Admin en las peticiones--OK
 * 	-Agregar Datos al Payload del JWT--OK
 * 	-Devolver JWT en el HEADER--OK
 *   -Agregar PreAuth a GameController--OK

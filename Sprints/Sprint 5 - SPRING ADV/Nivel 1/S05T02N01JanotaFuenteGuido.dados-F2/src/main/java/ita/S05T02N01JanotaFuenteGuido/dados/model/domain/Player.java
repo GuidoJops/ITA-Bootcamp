@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,10 +26,14 @@ public class Player {
 	
 	@Id
 	private String id;
-	@NotNull(message="El nombre del Jugador no puede estar vacio")
-	//@NotBlank
+	@NotBlank(message="El nombre del Jugador no puede estar vacio")
 	private String name;
-	private String userName; //E-mail
+	//Se usa e-mail como 'userName'
+	@Email(message = "El nombre de usuario debe ser formato e-mail")
+	@NotBlank (message = "El nombre de usuario no puede estar vacío")
+	private String userName;
+	@JsonIgnore
+	@NotBlank (message = "La contraseña no puede estar vacía")
 	private String password;
 	private Date registDate;
 	private double winSuccess;
@@ -36,8 +43,7 @@ public class Player {
 
 	
 	
-	public Player() {
-		//REVISAR?????!"?!"·?!"?$!?"?$!"?$!?$
+	public Player(String name, String userName, String password) {
 		this.name = name;
 		this.userName = userName;
 		this.password = password;
@@ -47,17 +53,6 @@ public class Player {
 		games = new ArrayList<Game>();
 		roles = new ArrayList<Role>();
 	}
-
-//	public Player(String name, String userName, String password) {
-//		this.name = name;
-//		this.userName = userName;
-//		this.password = password;
-//		registDate = Calendar.getInstance().getTime();
-//		winSuccess= 0;
-//		victories=0;
-//		games = new ArrayList<Game>();
-//		roles = new ArrayList<Role>();
-//	}
 	
 
 	public void updateWinSuccess() {

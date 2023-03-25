@@ -3,6 +3,7 @@ package ita.S05T02N01JanotaFuenteGuido.dados.controllers;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IAuthService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class AuthController {
     private IAuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<String> register(@Valid @RequestBody AuthRequest authRequest) {
         if (authService.registerUser(authRequest) == null){
             return new ResponseEntity<>("Nombre de Usuario ya existe", HttpStatus.BAD_REQUEST); // o CONFLICT??
         }
@@ -28,9 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthRequest authRequest) {
         AuthResponse authResponse = authService.loginUser(authRequest);
-//        log.info(token);
         if (authResponse.getToken() == null){
             return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST); // o CONFLICT??
         }

@@ -3,6 +3,7 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.CustomUserDetails;
 import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class AuthServiceImpl implements IAuthService {
         authResponse.setUserName(authRequest.getUserName());
         authResponse.setToken(token);
 
-        log.info("Usuario {} ha iniciado sesión",  authRequest.getUserName());
+        log.info("Usuario '{}' ha iniciado sesión",  authRequest.getUserName());
         return authResponse;
     }
 }

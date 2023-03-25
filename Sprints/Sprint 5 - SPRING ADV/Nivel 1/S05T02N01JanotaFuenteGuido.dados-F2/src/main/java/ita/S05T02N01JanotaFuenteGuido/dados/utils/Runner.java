@@ -40,10 +40,9 @@ public class Runner implements CommandLineRunner {
 
         if (playerRepo.count() == 0) {
 
-            Player adminPlayer = new Player();
-            adminPlayer.setName("DEFAULT-ADMIN");
-            adminPlayer.setUserName("admin");
-            adminPlayer.setPassword(passwordEncoder.encode("admin"));
+            Player adminPlayer = new Player("DEFAULT-ADMIN",
+                    "admin@admin.com",
+                    passwordEncoder.encode("admin"));
             adminPlayer.setRoles(roleRepo.findAll());
             playerRepo.save(adminPlayer);
             log.info("Usuario 'admin' creado.");

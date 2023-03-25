@@ -29,8 +29,8 @@ public class JwtUtils {
     private HttpServletResponse response;
 
     //Genera el Token
-    public String generateToken(Authentication authentication) {
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+    public String generateToken(Authentication auth) {
+        CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
         log.info(user.toString());
 
         //Datos del HEADER
@@ -48,12 +48,11 @@ public class JwtUtils {
                 .setHeader(header)
                 .setSubject(user.getUsername())
                 .addClaims(extraClaims)
-                .setIssuer("DiceApp")
+                .setIssuer("Dice-App")
                 .setIssuedAt( new Date())
                 .setExpiration(new Date (System.currentTimeMillis()+ JWT_EXPIRATION_MS))
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
-
         addTokenToResponseHeader(token);
         log.info("Token: " + token);
         return token;
@@ -80,9 +79,12 @@ public class JwtUtils {
         }
     }
 
+
     //Agrega token en el Header del HttpServletResponse
     public void addTokenToResponseHeader(String token) {
         response.setHeader("Authorization", "Bearer " + token);
+        log.info("Token agregado en el Header del Response");
+
     }
 
 
