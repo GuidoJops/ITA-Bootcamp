@@ -13,15 +13,15 @@ public class Application {
 }
 
 /*--TODO LIST--
-	-Donde colocar clases AuthRequest y AuthResponse??
-* 	-Crear métodos registerAdmin y addAdminRoleToUser
+*   -Hacer que PLAYER sea el CUSTOMuSERDETAILS???
+	-private-public-protected??
 * 	-Agregar método que devuelva datos útiles para un ADMIN? ej: PrincipalUser
 * 	-Agregar Swagger
-*   -Hacer que PLAYER sea el CUSTOMuSERDETAILS???
+	-Array o set para Roles y Games?
 *
 
 
-
+* 	-Crear métodos addAdminRoleToUser--OK
 	-Agregar Validaciones:--OK
 		-En modelos de cara a BD--OK
 * 		-UserName acepte formato email?--OK
@@ -30,6 +30,9 @@ public class Application {
 * 	-Devolver JWT en el HEADER--OK
 *   -Agregar PreAuth a GameController--OK
 * 	-Chequear parametros cambiarnombre--OK
+*
+* 	-Donde colocar clases AuthRequest y AuthResponse??
+
 *
 *
 * */

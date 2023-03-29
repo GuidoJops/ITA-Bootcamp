@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.converter.EntityDtoConverter;
+import ita.S05T02N01JanotaFuenteGuido.dados.utils.mapper.EntityDtoMapper;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;
@@ -21,9 +21,9 @@ public class GameServiceImpl implements IGameService {
 	private IPlayerRepository playerRepository;
 	
 	@Autowired
-	private EntityDtoConverter converter;
+	private EntityDtoMapper entityDtoMapper;
 	
-	
+
 	@Override
 	public GameDto newGame(String id) {
 		Optional<Player> oPlayer = playerRepository.findById(id);
@@ -44,27 +44,19 @@ public class GameServiceImpl implements IGameService {
 		player.getGames().add(game);	
 		playerRepository.save(player);
 		
-		return converter.toGameDto(game);
-				
-		
+		return entityDtoMapper.toGameDto(game);
 	}
-	
 
 	@Override
 	public boolean deleteAllGamesByPlayerId(String id) {
-		boolean deleted=false;
 		Optional<Player> oPlayer= playerRepository.findById(id);
-		
 		if(oPlayer.isPresent()) {
 			Player player = oPlayer.get();
 			player.resetPlayer();
 			playerRepository.save(player);
-
-			deleted =true;
+			return true;
 		}
-		return deleted;	
+		return false;
 	}
-	
-
 
 }

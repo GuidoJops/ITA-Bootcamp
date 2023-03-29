@@ -48,8 +48,8 @@ public class Player {
 		this.userName = userName;
 		this.password = password;
 		registDate = Calendar.getInstance().getTime();
-		winSuccess= 0;
-		victories=0;
+		winSuccess = 0;
+		victories = 0;
 		games = new ArrayList<Game>();
 		roles = new ArrayList<Role>();
 	}
@@ -57,27 +57,23 @@ public class Player {
 
 	public void updateWinSuccess() {
 		setWinSuccess(winSuccesCalculator());
-		
 	}
 	
 	public double winSuccesCalculator() {
-		int totalGames = games.size()+ 1; //Se suma 1 para tomar en cuenta la partida actual
-		double result=0;
+		int totalGames = games.size() + 1; //Se suma 1 para tomar en cuenta la partida actual
+		double result = 0;
 		
-		if (totalGames>=1) {
-			result = victories/ (double) totalGames*100;
+		if (totalGames >= 1) {
+			result = victories/ (double) totalGames * 100;
 		}
 		return (double) Math.round(result * 10d) / 10d;
 	}
 	
 	public void resetPlayer() {
-		winSuccess=0;
-		victories=0;
+		winSuccess = 0;
+		victories = 0;
 		games = new ArrayList<Game>();
 		
 	}
-
-
-	
 
 }

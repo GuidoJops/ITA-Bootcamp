@@ -31,23 +31,9 @@ public class PlayerController {
 	
 	@Autowired
 	private IPlayerService playerService;
-	
 
-	@GetMapping("")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<List<PlayerDto>> listPlayers(){
-		List<PlayerDto> playersDto = playerService.getAllPlayers();
-		if (playersDto.isEmpty()) {
-			
-			log.info("No hay Jugadores en el sistema.");
-			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(playersDto, HttpStatus.OK);
-	}
-	
-	/*-----TESTEO-----*/
-	@PutMapping("/{id}")
 	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> changePayerName(@PathVariable String id, @RequestParam String name) {
 		PlayerDto _playerDto = playerService.changePlayerName(id, name);
 		if(_playerDto==null) {
@@ -56,10 +42,8 @@ public class PlayerController {
 		return new ResponseEntity<>(_playerDto, HttpStatus.OK);
 	}
 
-
-
-	@GetMapping("/{id}/games")
 	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
+	@GetMapping("/{id}/games")
 	public ResponseEntity<?> getPlayerGames(@PathVariable String id) {
 		List <Game> games =	playerService.getGamesByPlayerId(id);
 		if (games==null) {
@@ -105,45 +89,41 @@ public class PlayerController {
 		return new ResponseEntity<>(playerDto, HttpStatus.OK);
 	}
 
+/*------Funcionalidades sólo para Admin-------*/
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("")
+	public ResponseEntity<List<PlayerDto>> listPlayers(){
+		List<PlayerDto> playersDto = playerService.getAllPlayers();
+		if (playersDto.isEmpty()) {
+
+			log.info("No hay Jugadores en el sistema.");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(playersDto, HttpStatus.OK);
+	}
+
+	@PostMapping("/{id}/add-admin-role")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> addAdminRoleToUser(@PathVariable String id) {
+		PlayerDto playerDto = playerService.addAdminRole(id);
+		if(playerDto == null){
+			return new ResponseEntity<>("NO hay jugadores con id: "+id, HttpStatus.NOT_FOUND);
+		}
+		log.info("Admin Role agregado para usuario {} ", playerDto.getUserName());
+		return new ResponseEntity<>(playerDto, HttpStatus.OK);
+	}
+
+	@GetMapping("/all-admins")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> listAdmins() {
+		List<PlayerDto> playersDto = playerService.getAllAdmins();
+		if (playersDto.isEmpty()) {
+			log.info("No hay Admins en el sistema.");
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(playersDto, HttpStatus.OK);
+
+	}
 
 
-
-/*-------BORRAR??---------*/
-
-//	@GetMapping("/{userName}/username/games")
-//	@PreAuthorize("#userName == principal.username or hasRole('ADMIN')")
-//	public ResponseEntity<?> getPlayerGamesByUsername(@PathVariable String userName) {
-//		List <Game> games =	playerService.getGamesByPlayerUserName(userName);
-//		if (games==null) {
-//			return new ResponseEntity<>("NO hay jugadores con el userName: "+userName, HttpStatus.NOT_FOUND);
-//
-//		} else if (games.isEmpty()) {
-//			log.info("El jugador  "+userName+" no tiene juegos");
-//			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-//
-//		}
-//		return new ResponseEntity<>(games, HttpStatus.OK);
-//	}
-
-
-//	@PostMapping("")
-//	public ResponseEntity<?> registerPlayer(@RequestParam (defaultValue = "NoNamePlayer") String name,
-//											@RequestParam String userName,@RequestParam String password) {
-//		PlayerDto playerDto = playerService.registerPlayer(name, userName, password);
-//		if(playerDto==null) {
-//			return new ResponseEntity<>("EL nombre del Jugador ya existe.", HttpStatus.CONFLICT); //Es correcto este tipo de respuesta?
-//		}
-//		return new ResponseEntity<>(playerDto, HttpStatus.CREATED);
-//	}
-
-
-	//	@PutMapping("")
-//	@PreAuthorize("#id == principal.id or hasRole('ADMIN')")
-//	public ResponseEntity<?> changePayerName(@RequestBody PlayerDto playerDto) {
-//		PlayerDto _playerDto = playerService.changePlayerName(playerDto);
-//		if(_playerDto==null) {
-//			return new ResponseEntity<>("EL Jugador que se quiere modificar NO existe, revisa el ID.", HttpStatus.NOT_FOUND);
-//		}
-//		return new ResponseEntity<>(_playerDto, HttpStatus.OK);
-//		}
 }

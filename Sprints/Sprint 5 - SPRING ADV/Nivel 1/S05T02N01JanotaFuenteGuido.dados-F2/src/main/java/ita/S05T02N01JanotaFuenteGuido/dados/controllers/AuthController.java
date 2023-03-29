@@ -1,7 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.controllers;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IAuthService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,8 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody AuthRequest authRequest) {
         if (authService.registerUser(authRequest) == null){
-            return new ResponseEntity<>("Nombre de Usuario ya existe", HttpStatus.BAD_REQUEST); // o CONFLICT??
+            log.error("Fallo en el registro de Usuario");
+            return new ResponseEntity<>("Nombre de Usuario ya existe", HttpStatus.CONFLICT);
         }
         log.info("Usuario Registrado");
         return new ResponseEntity<>("Usuario registrado con éxito!", HttpStatus.CREATED);
@@ -31,8 +32,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody AuthRequest authRequest) {
         AuthResponse authResponse = authService.loginUser(authRequest);
-        if (authResponse.getToken() == null){
-            return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST); // o CONFLICT??
+        if (authResponse == null){
+            return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }

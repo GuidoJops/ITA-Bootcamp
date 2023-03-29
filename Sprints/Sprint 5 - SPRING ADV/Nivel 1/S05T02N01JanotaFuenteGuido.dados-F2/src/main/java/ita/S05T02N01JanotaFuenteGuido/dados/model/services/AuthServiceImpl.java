@@ -1,15 +1,16 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
-import ita.S05T02N01JanotaFuenteGuido.dados.security.CustomUserDetails;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -25,31 +26,40 @@ public class AuthServiceImpl implements IAuthService {
     private JwtUtils jwtUtils;
 
     @Override
-    public PlayerDto registerUser(AuthRequest authRequest) { // QUE DEVUELVA UN BOOLEANO?
-
+    public PlayerDto registerUser(AuthRequest authRequest) {
         if (playerService.playerExist(authRequest.getUserName())) {
-            log.info("EL nombre de usuario ya existe");
             return null;
         }
         return playerService.createPlayer(authRequest);
     }
 
-    //TODO Agregar retorno con inicio de sesión fallido
     @Override
     public AuthResponse loginUser(AuthRequest authRequest) {
-        AuthResponse authResponse = new AuthResponse();
+        try{
+            Authentication auth = getAuthentication(authRequest);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            String token = jwtUtils.generateToken(auth);
 
-        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authRequest.getUserName(),
-                authRequest.getPassword()));
+            AuthResponse authResponse = new AuthResponse();
+            authResponse.setUserName(authRequest.getUserName());
+            authResponse.setToken(token);
 
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        String token = jwtUtils.generateToken(auth);
+            log.info("Usuario '{}' ha iniciado sesión",  authRequest.getUserName());
+            return authResponse;
 
-        authResponse.setUserName(authRequest.getUserName());
-        authResponse.setToken(token);
-
-        log.info("Usuario '{}' ha iniciado sesión",  authRequest.getUserName());
-        return authResponse;
+        } catch (AuthenticationException e) {
+            log.error("Error al autenticar usuario: " + e.getMessage());
+        }
+        return null;
     }
+
+    private Authentication getAuthentication(AuthRequest authRequest) throws AuthenticationException {
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+               authRequest.getUserName(),
+               authRequest.getPassword()
+        ));
+
+    }
+
+
 }

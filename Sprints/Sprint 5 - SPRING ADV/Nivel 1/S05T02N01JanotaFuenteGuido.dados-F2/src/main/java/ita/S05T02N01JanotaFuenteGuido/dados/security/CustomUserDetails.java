@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ToString
 public class CustomUserDetails implements UserDetails {
 /*¿PONER DIRECTAMENTE LA CLASE 'PLAYER'??*/
 
@@ -66,6 +65,16 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomUserDetails{" +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password=[PROTECTED]'" +
+                ", authorities=" + authorities +
+                '}';
     }
 
     public boolean isAdmin() {

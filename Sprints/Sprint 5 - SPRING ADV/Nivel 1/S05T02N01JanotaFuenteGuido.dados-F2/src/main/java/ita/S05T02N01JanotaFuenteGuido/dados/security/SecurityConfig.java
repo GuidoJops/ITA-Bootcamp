@@ -1,8 +1,9 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtAuthEntryPoint;
+//import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtAuthEntryPoint;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtSecurityFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 //SecurityFilterChain-> Filtro que maneja la autorizacion
-//UserDetailService -> Administrador de credenciales de Usuario
+
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +30,7 @@ public class SecurityConfig {
 	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
-	private JwtAuthEntryPoint authEntryPoint;
+//	private JwtAuthEntryPoint authEntryPoint;
 
 
 	//Reemplazo de `extends WebConfigurerAdapter' (versiones anteriores de Spring)
@@ -37,11 +38,16 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 		http
 				.csrf().disable()		//Deshabilita protección CSRF porque se usa JWT para autenticación y autorización
-				.exceptionHandling()
-				.authenticationEntryPoint(authEntryPoint)	//Excepciones de autenticación manejadas por 'authEntryPoint'
+				.exceptionHandling().authenticationEntryPoint(
+						(request, response, ex) -> {	//Retorna UNAUTHORIZED si hay error durante proceso de autenticación
+							response.sendError(
+									HttpServletResponse.SC_UNAUTHORIZED,
+									ex.getMessage());
+						}
+				)
 				.and()
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // sin sesiones de usuario en servidor
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Sin sesiones de usuario en servidor
 				.and()
 				.authorizeRequests()
 				.requestMatchers("/api/auth/**").permitAll()
@@ -66,6 +72,9 @@ public class SecurityConfig {
 		return new JwtSecurityFilter();
 	}
 
+}
+
+
 
 //	//**Usuarios en Memoria**
 //	@Bean
@@ -84,11 +93,6 @@ public class SecurityConfig {
 //
 //		return new InMemoryUserDetailsManager(admin,user);
 //	}
-}
-
-
-
-
 
 
 

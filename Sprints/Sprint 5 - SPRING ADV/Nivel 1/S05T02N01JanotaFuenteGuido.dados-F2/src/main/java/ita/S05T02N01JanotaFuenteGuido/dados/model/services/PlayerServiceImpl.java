@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.ERole;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Role;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.model.converter.EntityDtoConverter;
+import ita.S05T02N01JanotaFuenteGuido.dados.utils.mapper.EntityDtoMapper;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
@@ -28,7 +28,7 @@ public class PlayerServiceImpl implements IPlayerService{
 	@Autowired 
 	private IPlayerRepository playerRepository;
 	@Autowired
-	private EntityDtoConverter converter;
+	private EntityDtoMapper entityDtoMapper;
 	@Autowired
 	private IRoleRepository roleRepository;
 	@Autowired
@@ -46,36 +46,56 @@ public class PlayerServiceImpl implements IPlayerService{
 		Role roles = roleRepository.findByType(ERole.ROLE_USER).get(); // role de USER por defecto
 		player.setRoles(Collections.singletonList(roles));
 		log.info("Player Creado");
-		return converter.toPlayerDto(playerRepository.save(player));
+		return entityDtoMapper.toPlayerDto(playerRepository.save(player));
 	}
 
-	/*-----TESTEO-----*/
 	@Override
 	public PlayerDto changePlayerName(String id, String name) {
-		log.info(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
 		Optional<Player> oPlayer = playerRepository.findById(id);
 		if(oPlayer.isEmpty()) {
 			return null;
 		}
 		Player player = oPlayer.get();
 		player.setName(name);
-
-		return converter.toPlayerDto(playerRepository.save(player));
+		return entityDtoMapper.toPlayerDto(playerRepository.save(player));
 	}
 
 	@Override
+	public PlayerDto addAdminRole(String id) {
+		Optional <Player> oPlayer =  playerRepository.findById(id);
+		if(oPlayer.isEmpty()) {
+			return null;
+		}
+		Player player = oPlayer.get();
+		List<Role> roles = player.getRoles();
+		roles.add(roleRepository.findByType(ERole.ROLE_ADMIN).get());
+		return entityDtoMapper.toPlayerDto(playerRepository.save(player));
+	}
+
+	//Crea una lista de PlayerDtos a partir de las Entidades, filtra 'Admins' y los retorna
+	@Override
+	public List<PlayerDto> getAllAdmins() {
+		return playerRepository.findAll()
+				.stream()
+				.filter(player -> player.getRoles()
+						.stream()
+						.anyMatch(role -> role.getType() == ERole.ROLE_ADMIN))
+				.map(player -> entityDtoMapper.toPlayerDto(player)).collect(Collectors.toList());
+	}
+
+	//Crea una lista de PlayerDtos a partir de las Entidades y los retorna
+	@Override
 	public List<PlayerDto> getAllPlayers() {
-		//Crea una lista de PlayerDtos a partir de las Entidades y los retorna
 		return playerRepository.findAll()
 				.stream()
 				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
-				.map(player -> converter.toPlayerDto(player))
+				.map(player -> entityDtoMapper.toPlayerDto(player))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public PlayerDto findPlayerById(String id) {
-		return converter.toPlayerDto(playerRepository.findById(id).orElse(null));
+		return entityDtoMapper.toPlayerDto(playerRepository.findById(id).orElse(null));
 
 	}
 
@@ -86,7 +106,6 @@ public class PlayerServiceImpl implements IPlayerService{
 			return null;
 		}
 		Player player = oPlayer.get();
-		
 		return player.getGames();
 	}
 
@@ -98,13 +117,13 @@ public class PlayerServiceImpl implements IPlayerService{
         
         //Ordenados de mayor a menor segun el porcentaje de exito
         List<Player> players = playerRepository.findAll().stream()
-        		.filter(Predicate.not(p->p.getName().equalsIgnoreCase("NoNamePlayer")))
-				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
+        		.filter(Predicate.not(p ->
+						p.getName().equalsIgnoreCase("NoNamePlayer") ||
+						p.getName().equalsIgnoreCase("DEFAULT-ADMIN")))
                 .sorted(Comparator.comparing(Player::getWinSuccess).reversed())
                 .collect(Collectors.toList());
         //Inserta en el MAP los jugadores ordenados   
         players.forEach(p -> rankingMap.put(p.getUserName(), p.getWinSuccess()));
-        
         return rankingMap;
        
     }
@@ -117,11 +136,12 @@ public class PlayerServiceImpl implements IPlayerService{
 			return null;
 		}
 		Optional<Player> oPlayer = players.stream()
-				.filter(Predicate.not(p->p.getName().equalsIgnoreCase("NoNamePlayer")))
-				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
+				.filter(Predicate.not(p ->
+						p.getName().equalsIgnoreCase("NoNamePlayer") ||
+						p.getName().equalsIgnoreCase("DEFAULT-ADMIN")))
 				.max(Comparator.comparing(Player::getWinSuccess));
 		
-		return converter.toPlayerDto(oPlayer.get());
+		return entityDtoMapper.toPlayerDto(oPlayer.get());
 	}
 
 	//Tiene en cuenta solo Jugadores registrados con nombre. Excluye los 'NoNamePLayer'
@@ -132,60 +152,19 @@ public class PlayerServiceImpl implements IPlayerService{
 			return null;
 		}
 		Optional<Player> oPlayer = players.stream()
-				.filter(Predicate.not(p->p.getName().equalsIgnoreCase("NoNamePlayer")))
-				.filter(Predicate.not(p->p.getName().equals("DEFAULT-ADMIN")))
+				.filter(Predicate.not(p ->
+						p.getName().equalsIgnoreCase("NoNamePlayer") ||
+						p.getName().equalsIgnoreCase("DEFAULT-ADMIN")))
 				.min(Comparator.comparing(Player::getWinSuccess));
 		
-		return converter.toPlayerDto(oPlayer.get());
+		return entityDtoMapper.toPlayerDto(oPlayer.get());
 	}
 
 	@Override
-	public Boolean playerExist(String userName) {
+	public boolean playerExist(String userName) {
 		return playerRepository.existsByUserName(userName);
 	}
 
 
-	/*-------BORRAR??---------*//*
-
-	@Override
-	public List<Game> getGamesByPlayerUserName(String userName){
-		Optional <Player> oPlayer =  playerRepository.findByUserName(userName);
-		if(oPlayer.isEmpty()) {
-			return null;
-		}
-		Player player = oPlayer.get();
-
-		return player.getGames();
-	}
-
-	@Override
-	public PlayerDto changePlayerName(PlayerDto playerDto) {
-		Optional<Player> oPlayer = playerRepository.findById(playerDto.getId());
-		if(oPlayer.isEmpty()) {
-			return null;
-		}
-		Player player = oPlayer.get();
-		player.setName(playerDto.getName());
-
-		return converter.toPlayerDto(playerRepository.save(player));
-	}
-
-
-	//No puede haber Jugadores con el nombre repetido pero SI puede haber muchos jugadores con
-	//el nombre por defecto("NoNamePlayer")
-	@Override
-	public PlayerDto registerPlayer(String name, String UserName, String password) {
-		Optional<Player> oPlayer = playerRepository.findByName(name).stream().findFirst();
-		if(oPlayer.isPresent() && !(oPlayer.get().getName().equalsIgnoreCase("NoNamePlayer"))) {
-			return null;
-		}
-//		Player player = new Player(name, UserName, securityConfig.passwordEncoder().encode(password));
-
-//		return converter.toPlayerDto(playerRepository.save(player));
-		return null;
-	}
-
-
-	*/
 
 }

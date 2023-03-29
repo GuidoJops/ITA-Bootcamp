@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class JwtUtils {
 
 
-    private final long JWT_EXPIRATION_MS = 3000000;  // 300000 = 5 minutos
+    private final long JWT_EXPIRATION_MS = 600000;  // 300000 = 5 minutos
 
     @Value("${app.jwt.secret}")
     private String JWT_SECRET;
@@ -54,7 +55,6 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
         addTokenToResponseHeader(token);
-        log.info("Token: " + token);
         return token;
     }
 
@@ -81,9 +81,9 @@ public class JwtUtils {
 
 
     //Agrega token en el Header del HttpServletResponse
-    public void addTokenToResponseHeader(String token) {
+    private void addTokenToResponseHeader(String token) {
         response.setHeader("Authorization", "Bearer " + token);
-        log.info("Token agregado en el Header del Response");
+        log.info("Se agrego Token en el Header (Authorization)");
 
     }
 

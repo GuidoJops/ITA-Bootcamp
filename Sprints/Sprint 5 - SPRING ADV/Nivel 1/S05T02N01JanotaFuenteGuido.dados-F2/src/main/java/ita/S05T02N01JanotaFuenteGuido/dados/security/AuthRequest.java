@@ -1,4 +1,4 @@
-package ita.S05T02N01JanotaFuenteGuido.dados.model.dto;
+package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

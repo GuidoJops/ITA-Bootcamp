@@ -1,6 +1,5 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -15,8 +15,10 @@ public class Role {
 
     private ERole type;
 
-    public Role(Long id,ERole type){
+    public Role(Long id, ERole type){
         this.id = id;
-         this.type = type;
+        this.type = type;
     }
 }
+
+
