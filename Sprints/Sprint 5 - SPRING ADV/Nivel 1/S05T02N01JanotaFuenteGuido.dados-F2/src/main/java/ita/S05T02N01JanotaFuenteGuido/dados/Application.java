@@ -13,14 +13,14 @@ public class Application {
 }
 
 /*--TODO LIST--
-*   -Hacer que PLAYER sea el CUSTOMuSERDETAILS???
+
 	-private-public-protected??
 * 	-Agregar método que devuelva datos útiles para un ADMIN? ej: PrincipalUser
 * 	-Agregar Swagger
 	-Array o set para Roles y Games?
 *
 
-
+*   -Hacer que PLAYER sea el CUSTOMuSERDETAILS--OK
 * 	-Crear métodos addAdminRoleToUser--OK
 	-Agregar Validaciones:--OK
 		-En modelos de cara a BD--OK

@@ -1,7 +1,6 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.utils.mapper;
 
 import org.springframework.stereotype.Component;
-
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;

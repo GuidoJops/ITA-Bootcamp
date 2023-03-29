@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class AuthRequest {
 
-    private String name = "NoNamePlayer"; //Valor por defecto
+    private String name;
 
     @Email (message = "El nombre de usuario debe ser formato e-mail")
     @NotBlank (message = "El nombre de usuario no puede estar vacío")
@@ -17,5 +17,10 @@ public class AuthRequest {
 
     @NotBlank (message = "La contraseña no puede estar vacía")
     private String password;
+
+    public AuthRequest () {
+        name = "NoNamePlayer"; //Valor por defecto
+  
+    }
 
 }

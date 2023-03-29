@@ -3,7 +3,6 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.ERole;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Role;
 import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
@@ -11,10 +10,8 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import ita.S05T02N01JanotaFuenteGuido.dados.utils.mapper.EntityDtoMapper;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Game;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;

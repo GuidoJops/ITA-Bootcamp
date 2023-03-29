@@ -1,10 +1,8 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
-//import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtAuthEntryPoint;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.security.jwt.JwtSecurityFilter;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,22 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//SecurityFilterChain-> Filtro que maneja la autorizacion
-
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
-
-	@Autowired
-//	private JwtAuthEntryPoint authEntryPoint;
-
-
 	//Reemplazo de `extends WebConfigurerAdapter' (versiones anteriores de Spring)
+	//SecurityFilterChain -> Filtro que maneja la autorizacion
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 		http

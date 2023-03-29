@@ -1,50 +1,42 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.ERole;
+
+import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Role;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
-import java.util.function.Predicate;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
 public class CustomUserDetails implements UserDetails {
-/*¿PONER DIRECTAMENTE LA CLASE 'PLAYER'??*/
 
     private String id;
-    private String userName;
-    @JsonIgnore
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private Player user;
 
-
-    public CustomUserDetails(String id, String userName, String password,
-                             Collection<? extends GrantedAuthority> authorities){
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.authorities = authorities;
+    public CustomUserDetails(Player user) {
+        id = user.getId();
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return mapRolesToAuthorities(user.getRoles());
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return user.getUserName();
     }
 
     @Override
@@ -70,15 +62,22 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String toString() {
         return "CustomUserDetails{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
+                "id='" + user.getId()+ '\'' +
+                ", userName='" + getUsername() + '\'' +
                 ", password=[PROTECTED]'" +
-                ", authorities=" + authorities +
+                ", authorities=" + getAuthorities() +
                 '}';
     }
 
     public boolean isAdmin() {
-        return authorities.stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+        return getAuthorities().stream().
+                anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
 
+    }
+
+    /*--Pasa Roles a Authorities*/
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+        return roles.stream().map(role->
+                new SimpleGrantedAuthority(role.getType().toString())).collect(Collectors.toList());
     }
 }
