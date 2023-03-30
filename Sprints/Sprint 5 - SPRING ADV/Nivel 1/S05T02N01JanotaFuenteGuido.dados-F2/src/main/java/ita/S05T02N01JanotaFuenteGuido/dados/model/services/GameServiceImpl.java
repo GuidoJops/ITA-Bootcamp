@@ -2,6 +2,8 @@ package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
 
 import java.util.Optional;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.GameDto;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IPlayerRepository;
 
+@Slf4j
 @Service
 public class GameServiceImpl implements IGameService {
 
@@ -39,7 +42,7 @@ public class GameServiceImpl implements IGameService {
 		//Guarda
 		player.getGames().add(game);	
 		playerRepository.save(player);
-		
+		log.info("Usuario {} jugó una partida", player.getUserName());
 		return entityDtoMapper.toGameDto(game);
 	}
 
