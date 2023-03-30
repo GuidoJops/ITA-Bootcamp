@@ -83,7 +83,7 @@ public class PlayerController {
 		return new ResponseEntity<>(playerDto, HttpStatus.OK);
 	}
 
-/*------Funcionalidades sólo para Admin-------*/
+/*--Funcionalidades sólo para Admin--*/
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("")
 	public ResponseEntity<List<PlayerDto>> listPlayers(){

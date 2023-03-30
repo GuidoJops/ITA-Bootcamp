@@ -7,4 +7,5 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 public interface IAuthService {
     PlayerDto registerUser(AuthRequest authRequest);
     AuthResponse loginUser(AuthRequest authRequest);
+
 }

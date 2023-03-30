@@ -7,7 +7,6 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 
 public interface IPlayerService {
-	
 	List<PlayerDto> getAllPlayers();
 	PlayerDto createPlayer(AuthRequest authRequest);
 	Map<String, Double> getAllPlayersRanking();

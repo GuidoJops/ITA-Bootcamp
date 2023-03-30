@@ -161,6 +161,4 @@ public class PlayerServiceImpl implements IPlayerService{
 		return playerRepository.existsByUserName(userName);
 	}
 
-
-
 }

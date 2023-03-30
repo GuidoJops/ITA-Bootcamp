@@ -22,5 +22,4 @@ public class AuthRequest {
         name = "NoNamePlayer"; //Valor por defecto
   
     }
-
 }

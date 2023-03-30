@@ -11,7 +11,6 @@ public interface IPlayerRepository extends MongoRepository <Player, String>{
 	
 	Optional<Player> findByUserName(String userName);
 	Boolean existsByUserName(String userName);
-
 }
 
 

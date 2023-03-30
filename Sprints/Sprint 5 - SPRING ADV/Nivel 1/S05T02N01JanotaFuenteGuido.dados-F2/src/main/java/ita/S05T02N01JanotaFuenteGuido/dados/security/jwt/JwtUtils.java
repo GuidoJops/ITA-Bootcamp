@@ -18,7 +18,6 @@ import java.util.Map;
 @Component
 public class JwtUtils {
 
-
     private final long JWT_EXPIRATION_MS = 600000;  // 300000 = 5 minutos
 
     @Value("${app.jwt.secret}")
@@ -84,6 +83,5 @@ public class JwtUtils {
         log.info("Se agrego Token en el Header (Authorization)");
 
     }
-
 
 }

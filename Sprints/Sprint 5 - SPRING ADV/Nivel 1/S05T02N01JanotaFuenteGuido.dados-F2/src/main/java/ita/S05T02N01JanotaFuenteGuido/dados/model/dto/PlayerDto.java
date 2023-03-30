@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter 
 @Setter 
 @ToString
@@ -17,7 +16,5 @@ public class PlayerDto {
 	private String userName; //E-mail
 	private Date registDate;
 	private double winSuccess;
-	
-		
 
 }

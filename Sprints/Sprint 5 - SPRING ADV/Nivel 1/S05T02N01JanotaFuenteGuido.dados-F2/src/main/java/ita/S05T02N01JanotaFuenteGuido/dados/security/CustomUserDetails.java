@@ -79,4 +79,6 @@ public class CustomUserDetails implements UserDetails {
         return roles.stream().map(role->
                 new SimpleGrantedAuthority(role.getType().toString())).collect(Collectors.toList());
     }
+
+
 }

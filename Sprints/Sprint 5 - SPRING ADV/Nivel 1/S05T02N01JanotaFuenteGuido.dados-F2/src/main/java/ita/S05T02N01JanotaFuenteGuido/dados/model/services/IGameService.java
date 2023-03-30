@@ -7,5 +7,4 @@ public interface IGameService {
 	boolean deleteAllGamesByPlayerId(String id);
 	GameDto newGame(String id);
 
-
 }

@@ -20,7 +20,6 @@ public class Game {
 		diceB = (int)(Math.random()*6)+1;
 		win = winLose();
 	}
-	
 
 	public boolean winLose() {
 		return diceA + diceB == 7;

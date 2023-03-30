@@ -13,12 +13,10 @@ import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IGameService;
 
 @RestController
 public class GameController {
-	
-	
+
 	@Autowired
 	private IGameService gameService;
 		
-	
 	@PostMapping("players/{id}/games")
 	@PreAuthorize("#id == principal.id")
 	public ResponseEntity<?> playGame(@PathVariable String id) {
@@ -27,8 +25,6 @@ public class GameController {
             return new ResponseEntity<>("NO hay jugadores con el id: "+id, HttpStatus.NOT_FOUND);
 		}
         return new ResponseEntity<>(gameDto, HttpStatus.CREATED);
-
-
 	}
 	
 	@DeleteMapping("players/{id}/games")

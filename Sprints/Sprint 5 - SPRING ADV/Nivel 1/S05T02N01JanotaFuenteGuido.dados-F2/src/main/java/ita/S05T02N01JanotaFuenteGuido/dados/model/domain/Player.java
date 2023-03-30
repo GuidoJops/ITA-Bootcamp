@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter
 @Setter 
 @ToString
@@ -37,8 +36,7 @@ public class Player {
 	private List<Game> games;
 	private List<Role> roles;
 
-	
-	
+
 	public Player(String name, String userName, String password) {
 		this.name = name;
 		this.userName = userName;

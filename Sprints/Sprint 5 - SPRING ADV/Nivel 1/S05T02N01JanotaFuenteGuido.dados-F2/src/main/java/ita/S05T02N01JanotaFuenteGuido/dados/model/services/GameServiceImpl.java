@@ -16,7 +16,6 @@ public class GameServiceImpl implements IGameService {
 
 	@Autowired
 	private IPlayerRepository playerRepository;
-	
 	@Autowired
 	private EntityDtoMapper entityDtoMapper;
 	

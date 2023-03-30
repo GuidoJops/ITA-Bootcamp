@@ -37,7 +37,5 @@ public class EntityDtoMapper {
 //		log.info("Devolviendo GameDTO...");
 		return gameDto;
 	}
-
-	
 	
 }

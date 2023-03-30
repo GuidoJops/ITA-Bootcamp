@@ -60,5 +60,4 @@ public class JwtSecurityFilter extends OncePerRequestFilter { // Garantiza solo 
         return null;
     }
 
-
 }
