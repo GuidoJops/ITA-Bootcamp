@@ -74,7 +74,7 @@ public class CustomUserDetails implements UserDetails {
         return user.getId();
     }
 
-    /*--Pasa Roles a Authorities*/
+    /*--Pasa Roles a Authorities--*/
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map(role->
                 new SimpleGrantedAuthority(role.getType().toString())).collect(Collectors.toList());
