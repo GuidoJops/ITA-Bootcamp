@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.ERole;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Role;
-import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.repository.IRoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +93,6 @@ public class PlayerServiceImpl implements IPlayerService{
 	@Override
 	public PlayerDto findPlayerById(String id) {
 		return entityDtoMapper.toPlayerDto(playerRepository.findById(id).orElse(null));
-
 	}
 
 	@Override

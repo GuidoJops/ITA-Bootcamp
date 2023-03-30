@@ -3,6 +3,7 @@ package ita.S05T02N01JanotaFuenteGuido.dados.security;
 
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Player;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.domain.Role;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,15 +15,10 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private String id;
     private Player user;
-
-    public CustomUserDetails(Player user) {
-        id = user.getId();
-        this.user = user;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,7 +58,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String toString() {
         return "CustomUserDetails{" +
-                "id='" + user.getId()+ '\'' +
+                "id='" + getId() + '\'' +
                 ", userName='" + getUsername() + '\'' +
                 ", password=[PROTECTED]'" +
                 ", authorities=" + getAuthorities() +
@@ -72,7 +68,10 @@ public class CustomUserDetails implements UserDetails {
     public boolean isAdmin() {
         return getAuthorities().stream().
                 anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+    }
 
+    public String getId() {
+        return user.getId();
     }
 
     /*--Pasa Roles a Authorities*/

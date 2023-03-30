@@ -1,7 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.controllers;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
-import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthResponse;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.services.IAuthService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -37,14 +37,5 @@ public class AuthController {
         }
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
-
-    @GetMapping("/principal")
-    public ResponseEntity<String> whoIsPrincipal(){
-        log.info(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        return  new ResponseEntity<>("Si tienes acceso puedes ver " +
-                "el usuario principal en la consola", HttpStatus.OK);
-    }
-
-
 
 }

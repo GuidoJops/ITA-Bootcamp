@@ -1,7 +1,7 @@
 package ita.S05T02N01JanotaFuenteGuido.dados.model.services;
 
-import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthRequest;
-import ita.S05T02N01JanotaFuenteGuido.dados.security.AuthResponse;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthRequest;
+import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.AuthResponse;
 import ita.S05T02N01JanotaFuenteGuido.dados.model.dto.PlayerDto;
 
 public interface IAuthService {

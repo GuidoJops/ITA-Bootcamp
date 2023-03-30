@@ -12,7 +12,6 @@ public class Role {
 
     @Id
     private Long id;
-
     private ERole type;
 
     public Role(Long id, ERole type){

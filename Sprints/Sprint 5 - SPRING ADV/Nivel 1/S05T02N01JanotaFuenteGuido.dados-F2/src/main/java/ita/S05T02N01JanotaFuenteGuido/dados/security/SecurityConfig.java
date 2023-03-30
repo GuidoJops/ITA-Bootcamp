@@ -23,13 +23,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 	//Reemplazo de `extends WebConfigurerAdapter' (versiones anteriores de Spring)
-	//SecurityFilterChain -> Filtro que maneja la autorizacion
+	//SecurityFilterChain -> Filtro que maneja la autorización
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 		http
 				.csrf().disable()		//Deshabilita protección CSRF porque se usa JWT para autenticación y autorización
-				.exceptionHandling().authenticationEntryPoint(
-						(request, response, ex) -> {	//Retorna UNAUTHORIZED si hay error durante proceso de autenticación
+				.exceptionHandling().authenticationEntryPoint(  //Retorna UNAUTHORIZED si hay error durante proceso de autenticación
+						(request, response, ex) -> {
 							response.sendError(
 									HttpServletResponse.SC_UNAUTHORIZED,
 									ex.getMessage());

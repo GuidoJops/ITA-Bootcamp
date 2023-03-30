@@ -96,9 +96,9 @@ public class PlayerController {
 		return new ResponseEntity<>(playersDto, HttpStatus.OK);
 	}
 
-	@PostMapping("/{id}/add-admin-role")
+	@PostMapping("/add-admin-role")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> addAdminRoleToUser(@PathVariable String id) {
+	public ResponseEntity<?> addAdminRoleToUser(@RequestParam String id) {
 		PlayerDto playerDto = playerService.addAdminRole(id);
 		if(playerDto == null){
 			return new ResponseEntity<>("NO hay jugadores con id: "+id, HttpStatus.NOT_FOUND);

@@ -21,10 +21,8 @@ public class JwtSecurityFilter extends OncePerRequestFilter { // Garantiza solo 
 
     @Autowired
     private JwtUtils jwtUtils;
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -40,10 +38,10 @@ public class JwtSecurityFilter extends OncePerRequestFilter { // Garantiza solo 
                 //Objeto que contiene Información adicional sobre la request (IP, URL, etc)
                 WebAuthenticationDetails webAuthenticationDetails =
                         new WebAuthenticationDetailsSource().buildDetails(request);
-                //Objeto que encapsula credenciales de usuario
+                //Se pasan los detalles de usuario para autenticación
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                //Se agrega la info adicional al objeto que encapsula
+                //Se agrega la info adicional
                 authenticationToken.setDetails(webAuthenticationDetails);
                 //Actualiza SecurityContextHolder con datos de autenticación
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
