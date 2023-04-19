@@ -1,4 +1,4 @@
-package ita.S05T02N02JanotaFuenteGuido.dados.model.services;
+package ita.S05T02N02JanotaFuenteGuido.dados.model.services.impl;
 
 import ita.S05T02N02JanotaFuenteGuido.dados.model.domain.ERole;
 import ita.S05T02N02JanotaFuenteGuido.dados.model.domain.Game;
@@ -50,10 +50,10 @@ class PlayerServiceImplTest {
                 .thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class)))
                 .thenAnswer(invocation -> {
-                    Player player = invocation.getArgument(0);
+                    Player invPlayer = invocation.getArgument(0);
                     return PlayerDto.builder()
-                            .name(player.getName())
-                            .userName(player.getUserName())
+                            .name(invPlayer.getName())
+                            .userName(invPlayer.getUserName())
                             .build();
                 });
 

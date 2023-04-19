@@ -1,12 +1,11 @@
 package ita.S05T02N02JanotaFuenteGuido.dados.model.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter 
-@Setter 
+@Setter
+@AllArgsConstructor
 @ToString
 public class Game {
 	

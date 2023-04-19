@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class EntityDtoMapper {
-	
-//----PLAYER----
+
+	//----PLAYER----
 	public PlayerDto toPlayerDto(Player player) {
 		PlayerDto playerDto = new PlayerDto();
 

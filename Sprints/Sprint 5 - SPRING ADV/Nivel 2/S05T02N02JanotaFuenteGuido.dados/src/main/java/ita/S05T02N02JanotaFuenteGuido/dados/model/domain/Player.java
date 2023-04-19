@@ -40,7 +40,7 @@ public class Player {
 		this.name = name;
 		this.userName = userName;
 		this.password = password;
-		registDate = Calendar.getInstance().getTime();
+		registDate = new Date();
 		winSuccess = 0;
 		victories = 0;
 		games = new ArrayList<Game>();
