@@ -52,9 +52,11 @@ class AuthServiceImplTest {
                 .registDate(new Date())
                 .winSuccess(0)
                 .build();
-        //when
+
         Mockito.when(playerService.playerExist(authRequest.getUserName())).thenReturn(false);
         Mockito.when(playerService.createPlayer(authRequest)).thenReturn(playerDto);
+
+        //when
         PlayerDto result = authServiceImpl.registerUser(authRequest);
 
         //then
@@ -65,8 +67,9 @@ class AuthServiceImplTest {
     @Test
     void shouldNotRegisterUser_UserNameTaken(){
         //given
-        //when
         Mockito.when(playerService.playerExist(authRequest.getUserName())).thenReturn(true);
+
+        //when
         PlayerDto result = authServiceImpl.registerUser(authRequest);
 
         //then
@@ -80,13 +83,15 @@ class AuthServiceImplTest {
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 authRequest.getUserName(),
                 authRequest.getPassword());
+
         String token = "testToken";
 
-        //when
         Mockito.when(authenticationManager.authenticate(Mockito.any(Authentication.class)))
                 .thenReturn(authentication);
         Mockito.when(jwtUtils.generateToken(authentication)).thenReturn(token);
-        AuthResponse result = authServiceImpl.loginUser(authRequest);
+
+        //when
+       AuthResponse result = authServiceImpl.loginUser(authRequest);
 
         //then
         Assertions.assertThat(result).isNotNull();
@@ -102,10 +107,10 @@ class AuthServiceImplTest {
                 authRequest.getPassword());
         String token = "testToken";
 
-        //when
         Mockito.when(authenticationManager.authenticate(Mockito.any(Authentication.class)))
                 .thenThrow(new AuthenticationException("Credenciales incorrectas"){});
 
+        //when
         AuthResponse result = authServiceImpl.loginUser(authRequest);
 
         //then

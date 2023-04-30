@@ -50,7 +50,6 @@ class GameServiceImplTest {
     @Test
     void shouldCreateNewGame(){
         //given
-        //when
         Mockito.when(playerRepository.findById(player.getId())).thenReturn(Optional.of(player));
         Mockito.when(entityDtoMapper.toGameDto(Mockito.any(Game.class)))
                 .thenAnswer(invocation -> {
@@ -60,8 +59,11 @@ class GameServiceImplTest {
                             .diceB(invGame.getDiceB())
                             .win(invGame.isWin())
                             .build();
-        });
-        GameDto result = gameServiceImpl.newGame(player.getId());
+                });
+
+        //when
+       GameDto result = gameServiceImpl.newGame(player.getId());
+
         //then
         Assertions.assertThat(result).isNotNull();
         Mockito.verify(playerRepository, times(1)).save(Mockito.any(Player.class));
@@ -75,9 +77,11 @@ class GameServiceImplTest {
     @Test
     void shouldDeleteAllGamesByPlayerId(){
         //given
-        //when
         Mockito.when(playerRepository.findById(player.getId())).thenReturn(Optional.of(player));
+
+        //when
         boolean result = gameServiceImpl.deleteAllGamesByPlayerId(player.getId());
+
         //then
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(player.getGames().size()).isEqualTo(0);

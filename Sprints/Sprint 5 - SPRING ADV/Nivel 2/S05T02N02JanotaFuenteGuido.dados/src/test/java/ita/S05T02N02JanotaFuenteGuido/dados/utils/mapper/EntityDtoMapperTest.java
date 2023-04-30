@@ -44,6 +44,7 @@ class EntityDtoMapperTest {
 
 //        //when
         PlayerDto result = entityDtoMapper.toPlayerDto(player);
+
         //then
         Assertions.assertThat(result.getName()).isEqualTo(player.getName());
         Assertions.assertThat(result.getUserName()).isEqualTo(player.getUserName());

@@ -43,11 +43,11 @@ class PlayerServiceImplTest {
                 .password("testpswd")
                 .build();
 
-        //when
 //        Mockito.when(playerRepository.save(Mockito.any(Player.class))).thenReturn(player);
 //        Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class))).thenReturn(playerDto);
         Mockito.when(playerRepository.save(Mockito.any(Player.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
+
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class)))
                 .thenAnswer(invocation -> {
                     Player invPlayer = invocation.getArgument(0);
@@ -57,6 +57,8 @@ class PlayerServiceImplTest {
                             .build();
                 });
 
+
+        //when
         PlayerDto result = playerService.createPlayer(authRequest);
 
         //then
@@ -80,7 +82,6 @@ class PlayerServiceImplTest {
 //                .name(player.getName())
 //                .build();
 
-        //when
         Mockito.when(playerRepository.findById(player.getId())).thenReturn(Optional.of(player));
 //        Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class))).thenReturn(playerDto);
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class)))
@@ -91,7 +92,10 @@ class PlayerServiceImplTest {
                             .name(invPlayer.getName())
                             .build();
                 });
+
         Mockito.when(playerRepository.save(Mockito.any(Player.class))).thenReturn(player);
+
+        //when
         PlayerDto result = playerService.changePlayerName(player.getId(), newName);
 
         //then
@@ -106,9 +110,11 @@ class PlayerServiceImplTest {
         //given
         String id = "testID1";
         String name = "testName";
-        //when
         Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
+
+        //when
         PlayerDto result = playerService.changePlayerName(id, name);
+
         //then
         Mockito.verify(playerRepository, never()).save(Mockito.any(Player.class));
         Assertions.assertThat(result).isNull();
@@ -128,12 +134,13 @@ class PlayerServiceImplTest {
                 .roles(roles)
                 .build();
 
-        //when
         Mockito.when(playerRepository.findById(player1.getId())).thenReturn(Optional.of(player1));
         Mockito.when(roleRepository.findByType(ERole.ROLE_ADMIN)).thenReturn(Optional.of(roleAdmin));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class))).thenReturn(new PlayerDto());
         Mockito.when(playerRepository.save(Mockito.any(Player.class))).thenReturn(player1);
-        PlayerDto result = playerService.addAdminRole(player1.getId());
+
+        //when
+      PlayerDto result = playerService.addAdminRole(player1.getId());
 
         //then
         Mockito.verify(playerRepository, times(1)).save(Mockito.any(Player.class));
@@ -147,9 +154,9 @@ class PlayerServiceImplTest {
         //given
         String id = "testID1";
         Role role = new Role ( 1L, ERole.ROLE_ADMIN );
+        Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
 
         //when
-        Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
         PlayerDto result = playerService.addAdminRole(id);
 
         //then
@@ -173,12 +180,11 @@ class PlayerServiceImplTest {
                 .roles(Arrays.asList(new Role(2L, ERole.ROLE_USER)))
                 .build();
 
-
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(List.of(playerAdmin1, playerAdmin2, playerUser));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class))).thenReturn(new PlayerDto());
 
-        List<PlayerDto> result = playerService.getAllAdmins();
+        //when
+       List<PlayerDto> result = playerService.getAllAdmins();
 
         //then
         Assertions.assertThat(result.size()).isEqualTo(2);
@@ -196,11 +202,11 @@ class PlayerServiceImplTest {
                 .name("DEFAULT-ADMIN")
                 .build();
 
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(List.of(player2, playerDefaultAdmin));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class))).thenReturn(new PlayerDto());
 
-        List<PlayerDto> result = playerService.getAllPlayers();
+        //when
+       List<PlayerDto> result = playerService.getAllPlayers();
 
         //then
         Assertions.assertThat(result.size()).isEqualTo(1);
@@ -211,12 +217,11 @@ class PlayerServiceImplTest {
     void shouldFindPlayerById() {
         //given
         String id = "id";
-
-        //when
         Mockito.when(playerRepository.findById(id)).thenReturn(Optional.of(new Player()));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class))).thenReturn(new PlayerDto());
 
-        PlayerDto result = playerService.findPlayerById(id);
+        //when
+       PlayerDto result = playerService.findPlayerById(id);
 
         //then
         Assertions.assertThat(result).isNotNull();
@@ -226,9 +231,9 @@ class PlayerServiceImplTest {
     void shouldNotFindPlayerById_returnsNull() {
         //given
         String id = "id";
+        Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
 
         //when
-        Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
         PlayerDto result = playerService.findPlayerById(id);
 
         //then
@@ -242,9 +247,9 @@ class PlayerServiceImplTest {
                 .id("id")
                 .games(Arrays.asList(new Game(), new Game()))
                 .build();
+        Mockito.when(playerRepository.findById(player.getId())).thenReturn(Optional.of(player));
 
         //when
-        Mockito.when(playerRepository.findById(player.getId())).thenReturn(Optional.of(player));
         List<Game> result = playerService.getGamesByPlayerId(player.getId());
 
         //then
@@ -255,9 +260,9 @@ class PlayerServiceImplTest {
     void shouldNotGetGamesByPlayerId_returnsNull() {
         //given
         String id = "id";
+        Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
 
         //when
-        Mockito.when(playerRepository.findById(id)).thenReturn(Optional.empty());
         List<Game> result = playerService.getGamesByPlayerId(id);
 
         //then
@@ -297,8 +302,9 @@ class PlayerServiceImplTest {
                 .userName("admin")
                 .build();
 
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(List.of(player, player2, player3, player4, playerDefaultAdmin));
+
+        //when
         Map<String, Double> result = playerService.getAllPlayersRanking();
 
         //then
@@ -330,7 +336,6 @@ class PlayerServiceImplTest {
                 .winSuccess(70)
                 .build();
 
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(List.of(player2, player3, playerNoName, playerAdmin));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class)))
                 .thenAnswer(invocation -> {
@@ -340,7 +345,8 @@ class PlayerServiceImplTest {
                             .build();
                 });
 
-        PlayerDto result = playerService.getPlayerWinner();
+        //when
+       PlayerDto result = playerService.getPlayerWinner();
 
         //then
         Assertions.assertThat(result).isNotNull();
@@ -350,8 +356,9 @@ class PlayerServiceImplTest {
     @Test
     void shouldNotGetPlayerWinner_returnsNull() {
         //given
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(Collections.emptyList());
+
+        //when
         PlayerDto result = playerService.getPlayerWinner();
 
         //then
@@ -379,7 +386,6 @@ class PlayerServiceImplTest {
                 .winSuccess(70)
                 .build();
 
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(List.of(player2, player3, playerNoName, playerAdmin));
         Mockito.when(entityDtoMapper.toPlayerDto(Mockito.any(Player.class)))
                 .thenAnswer(invocation -> {
@@ -388,7 +394,9 @@ class PlayerServiceImplTest {
                             .name(player.getName())
                             .build();
                 });
-        PlayerDto result = playerService.getPlayerLoser();
+
+        //when
+      PlayerDto result = playerService.getPlayerLoser();
 
         //then
         Assertions.assertThat(result).isNotNull();
@@ -398,8 +406,9 @@ class PlayerServiceImplTest {
     @Test
     void shouldNotGetPlayerLoser_returnsNull() {
         //given
-        //when
         Mockito.when(playerRepository.findAll()).thenReturn(Collections.emptyList());
+
+        //when
         PlayerDto result = playerService.getPlayerLoser();
 
         //then
@@ -410,9 +419,9 @@ class PlayerServiceImplTest {
     void shouldReturnTrue_PlayerExist() {
         //given
         String userName = "testUserName";
+        Mockito.when(playerRepository.existsByUserName(userName)).thenReturn(true);
 
         //when
-        Mockito.when(playerRepository.existsByUserName(userName)).thenReturn(true);
         boolean result = playerService.playerExist(userName);
 
         //then
