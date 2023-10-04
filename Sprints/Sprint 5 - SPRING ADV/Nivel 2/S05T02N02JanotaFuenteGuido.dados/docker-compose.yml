@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  api:
+    build: .
+    image: dice-api-image:latest
+    container_name: diceApi-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DB_URL: mongodb://db/diceGame
+  db:
+    image: mongo:4.0-xenial
+    container_name: mongodb-container
+    ports:
+      - "27017:27017"
+    volumes:
+      - diceGame:/data/db
+
+volumes:
+  diceGame:
