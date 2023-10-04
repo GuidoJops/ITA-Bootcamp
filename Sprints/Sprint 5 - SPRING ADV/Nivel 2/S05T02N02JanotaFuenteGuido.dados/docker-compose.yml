@@ -2,10 +2,12 @@ version: "3.8"
 services:
   api:
     build: .
-    image: dice-api-image:latest
+    image: dice-api-image:v1
     container_name: diceApi-container
     ports:
       - "8080:8080"
+    networks:
+      - diceApi-net
     depends_on:
       - db
     environment:
@@ -17,6 +19,12 @@ services:
       - "27017:27017"
     volumes:
       - diceGame:/data/db
+    networks:
+      - diceApi-net
 
 volumes:
   diceGame:
+
+networks:
+  diceApi-net:
+    driver: bridge
