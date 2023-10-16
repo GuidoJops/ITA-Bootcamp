@@ -1,7 +1,7 @@
 # Barcelona Activa Backend Bootcamp
 Ejercicios realizados durante la especialización en desarrollo Backend con Java y Spring Boot.
 
-## Ejercicios del Bootcamp
+## Contenido
 
 **- Sprint 1:** Core de Java (excepciones, colecciones, anotaciones, genéricos, útiles, lambdas y testing).  
 **- Sprint 2:** Bases de datos (scripts y queries en MySQL y MongoDB).  
